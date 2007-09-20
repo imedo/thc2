@@ -25,7 +25,7 @@ var PopupWidget = Class.create(Widget, {
     Event.observe(this.element, "click", this.showPopup.bindAsEventListener(this));
   },
   
-  findLink: function(){
+  findLink: function() {
     return this.element.href ? this.element.href : this.element.down('a', 0).href;
   },
   

@@ -12,7 +12,7 @@ Object.extend(String.prototype, {
       return "";
     } else {
       var result = Globalize[Globalize.currentLanguage][this];
-      if (isString(result)) {
+      if (Object.isString(result)) {
         return result;
       } else {
         Logger.warning('String "' + this + '" is not translated');
