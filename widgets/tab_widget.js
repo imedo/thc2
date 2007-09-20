@@ -107,18 +107,3 @@ var TabButtonWidget = Class.create({
 });
 
 CurrentPage.registerBehaviour("thc2-tab-widget", TabWidget);
-
-var EditProviderTabWidget = Class.create(TabWidget, {
-  beforeFade: function() {
-    new Effect.BlindUp('flash')
-  },
-  
-  afterFade: function() {
-    var editors = $A(this.tabContent().getElementsByClassName('thc2-tiny-mce'));
-    editors.each(function(editor) {
-      tinyMCE.execCommand('mceRemoveControl', true, editor.id);
-    });
-  }
-});
-
-CurrentPage.registerBehaviour("thc2-edit-provider-tab-widget", EditProviderTabWidget);

@@ -63,18 +63,3 @@ var RemoteForm = Class.create(FormWidget, {
 });
 
 CurrentPage.registerBehaviour('thc2-remote-form', RemoteForm);
-
-var TinyMCERemoteForm = Class.create(RemoteForm, {
-  submit: function(event) {
-    tinyMCE.triggerSave(true, true);
-    RemoteForm.prototype.submit.apply(this, arguments);
-  },
-  
-  loaded: function() {
-    $A(this.element.getElementsByClassName("thc2-tiny-mce")).each(function(editor) {
-      tinyMCE.execCommand('mceRemoveControl', true, editor.id);
-    });
-  }
-});
-
-CurrentPage.registerBehaviour('thc2-tiny-mce-remote-form', TinyMCERemoteForm);
