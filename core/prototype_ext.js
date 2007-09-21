@@ -8,9 +8,9 @@
 
 
 String.prototype.format = function() {
-	return $A(arguments).inject(this, function(str, val, i) {
-		return str.replace(new RegExp('#\\{' + (i + 1) + '\\}', 'g'), val);
-	});
+  return $A(arguments).inject(this, function(str, val, i) {
+    return str.replace(new RegExp('#\\{' + (i + 1) + '\\}', 'g'), val);
+  });
 };
 
 if (typeof TinyMCE != "undefined") {

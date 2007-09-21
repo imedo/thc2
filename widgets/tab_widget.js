@@ -42,7 +42,6 @@ var TabWidget = Class.create(Widget, {
 });
 
 var TabButtonWidget = Class.create({
-  response: null,
   visible: false,
   
   initialize: function(element, tabwidget, id, link) {
@@ -63,7 +62,7 @@ var TabButtonWidget = Class.create({
         queue: { position: 'end', scope:'a' },
         afterFinish:this.fadeCallback.bind(this)
       });
-      if (!this.response) {
+      if (!AjaxCache.self().find(this.link)) {
         new Ajax.Request(this.link, { method:'get', onComplete:this.storeTab.bind(this) });
       }
     }
@@ -71,15 +70,16 @@ var TabButtonWidget = Class.create({
   },
   
   storeTab: function(req) {
-    this.response = req.responseText;
+    AjaxCache.self().store(this.link, req.responseText);
   },
   
   showTab: function() {
-    if (this.response) {
+    var html = AjaxCache.self().find(this.link);
+    if (html) {
       if (!this.contentBox) {
         this.contentBox = this.tabwidget.tabContent();
       }
-      this.contentBox.update(this.response);
+      this.contentBox.update(html);
       this.tabwidget.beforeAppear();
       this.appearEffect = new Effect.Appear($$("div.tab-container")[0], {
         queue: { position: 'end', scope:'b' },
