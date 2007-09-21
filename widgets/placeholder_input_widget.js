@@ -13,7 +13,7 @@ var PlaceholderInputWidget = Class.create(Widget, {
     Event.observe(this.element, "focus", this.focus.bindAsEventListener(this));
     Event.observe(this.element, "blur", this.blur.bindAsEventListener(this));
     
-    this.element.addClassName("placeholder-input")
+    this.element.addClassName("placeholder-input");
   },
   
   focus: function(event) {

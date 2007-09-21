@@ -33,5 +33,5 @@ var MnemonicForm = Class.create(FormWidget, {
     this.values.each(function(pair) {
       $(pair.key).value = pair.value;
     });
-  },
+  }
 });
