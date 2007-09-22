@@ -7,6 +7,9 @@
 */
 
 /**
+ * @static
+ * @class
+ *
  * Namespace that contains variables and methods that depend on the current
  * environment (e.g. "development" or "production").
  */
@@ -15,30 +18,31 @@ var Environment = {
    * The default level of debugging information logged to the console. 
    * The debug levels are (in order of severety):
    *
-   * @code
-   *   'info' < 'warning' < 'error'
-   * @endcode
+   * <pre>
+   *   'info' &lt; 'warning' &lt; 'error'
+   * </pre>
    */
   DebugLevel: 'info',
   
   /**
    * Returns whether or not the current environment prints out debugging
-   * information with debug level @p level.
+   * information with debug level <code>level</code>.
    *
    * The following table shows the return values for each combination of
-   * current debug level (columns) and @p level parameter (rows):
+   * current debug level (columns) and <code>level</code> parameter (rows):
    *
-   * @code
+   * <pre>
    *              |  Debug level
    *    Parameter |  info   warning  error
    *    ----------+-----------------------
    *    info      |  true   false    false
    *    warning   |  true   true     false
    *    error     |  true   true     true
-   * @endcode
+   * </pre>
    *
-   * @param level The debug level to test agains the current environment.
-   * @return @c true if the current environment contains the debug level.
+   * @param {string} level The debug level to test agains the current environment.
+   * @return {boolean} <code>true</code> if the current environment contains the debug level,
+   *                   <code>false</code> otherwise.
    */
   debugLevelIncludes: function(level) {
     return (Environment.DebugLevel == 'info') ||

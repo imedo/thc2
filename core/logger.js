@@ -15,7 +15,7 @@ var Logger = {
    * Logs a message in the javascript console. If no javascript console is
    * available, nothing happens.
    *
-   * @param text The message.
+   * @param {string} text The message.
    */
   log: function(text) {
     try {
@@ -25,9 +25,9 @@ var Logger = {
   
   /**
    * Logs a message in the javascript console, if the current debug level is
-   * at least 'info'.
+   * at least <code>"info"</code>.
    *
-   * @param text The message.
+   * @param {string} text The message.
    */
   info: function(text) {
     if (Environment.debugLevelIncludes('info')) {
@@ -37,9 +37,9 @@ var Logger = {
   
   /**
    * Logs a message in the javascript console, if the current debug level is
-   * at least 'warning'.
+   * at least <code>"warning"</code>.
    *
-   * @param text The message.
+   * @param {string} text The message.
    */
   warning: function(text) {
     if (Environment.debugLevelIncludes('warning')) {
@@ -49,9 +49,9 @@ var Logger = {
   
   /**
    * Logs a message in the javascript console, if the current debug level is
-   * at least 'error'.
+   * at least <code>"error"</code>.
    *
-   * @param text The message.
+   * @param {string} text The message.
    */
   error: function(text) {
     if (Environment.debugLevelIncludes('error')) {

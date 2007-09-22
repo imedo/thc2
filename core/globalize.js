@@ -19,14 +19,16 @@ var Globalize = {
   German: {}
 };
 
-Object.extend(String.prototype, {
+Object.extend(String.prototype,
+/** @scope String.prototype */
+{
   /**
-   * Translates @c this string into the currently active language. The method logs an
+   * Translates <code>this</code> string into the currently active language. The method logs an
    * error message if no language is active. If the string is not available in the
    * current language, a warning is logged. In both cases, the original string is
    * returned.
    *
-   * @return The translated string on success, or the original string on error.
+   * @return {string} The translated string on success, or the original string on error.
    */
   t: function() {
     if (Globalize.currentLanguage == "") {
