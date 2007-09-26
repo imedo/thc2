@@ -9,13 +9,35 @@
 var AccordionWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    this.accordion = new accordion("accordion", { resizeSpeed: 20, classNames : {
+    this.accordion = new accordion("accordion", { duration: 0.4, classNames : {
       toggle : 'accordion-toggle',
       toggleActive : 'accordion-toggle-active',
       content : 'accordion-collapsable'
     }});
-    this.accordion.activate($$('.accordion-toggle')[0]);
+    this.accordion.toggle($$('.accordion-toggle')[0]);
   }
 });
 
 CurrentPage.registerBehaviour("thc2-accordion", AccordionWidget);
+
+CurrentPage.connectAll({
+  '.accordion-next': {
+    click: function(event) {
+      elem = Event.element(event);
+      next = elem.up(2).next('.accordion-toggle');
+      if(next){
+        $O('accordion').accordion.toggle(next);
+      }
+    }
+  },
+
+  '.accordion-prev': {
+    click: function(event) {
+      elem = Event.element(event);
+      prev = elem.up(2).previous('.accordion-toggle', 1);
+      if(prev){
+        $O('accordion').accordion.toggle(prev);
+      }
+    }
+  }
+});
