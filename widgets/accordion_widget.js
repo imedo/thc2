@@ -24,7 +24,7 @@ CurrentPage.connectAll({
   '.accordion-next': {
     click: function(event) {
       elem = Event.element(event);
-      next = elem.up(2).next('.accordion-toggle');
+      next = elem.up(3).next('.accordion-toggle');
       if(next){
         $O('accordion').accordion.toggle(next);
       }
@@ -34,7 +34,7 @@ CurrentPage.connectAll({
   '.accordion-prev': {
     click: function(event) {
       elem = Event.element(event);
-      prev = elem.up(2).previous('.accordion-toggle', 1);
+      prev = elem.up(3).previous('.accordion-toggle', 1);
       if(prev){
         $O('accordion').accordion.toggle(prev);
       }
