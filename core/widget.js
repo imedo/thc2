@@ -23,20 +23,19 @@ Object.extend(Widget, {
               var matching_classes = names.split(' ').select(function(c) { return new String(c).startsWith("thc2-"); });
               for (var i = 0; i <= matching_classes.length; i++)
               {
-                matching_classes.each(function(className) {
-                  var mapping = behaviours[className];
-                  if (mapping && CurrentPage.find(element, className).length == 0) {
-                    try {
-                       var obj = new mapping.klass(element);
-                       obj.behaviour = className;
-                    } catch(e) {
-                      debugger;
-                      Logger.error("Could not create class " + className + ", error: " + e.message);
-                      return;
-                    }
-                    objects.push(obj);
+                var className = matching_classes[i];
+                var mapping = behaviours[className];
+                if (mapping && CurrentPage.find(element, className).length == 0) {
+                  try {
+                     var obj = new mapping.klass(element);
+                     obj.behaviour = className;
+                  } catch(e) {
+                    debugger;
+                    Logger.error("Could not create class " + className + ", error: " + e.message);
+                    return;
                   }
-                });
+                  objects.push(obj);
+                }
               }
             }
         } catch(e) {}
