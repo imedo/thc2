@@ -23,6 +23,7 @@ CurrentPage.registerBehaviour("thc2-accordion", AccordionWidget);
 CurrentPage.connectAll({
   '.accordion-next': {
     click: function(event) {
+      Event.stop(event);
       elem = Event.element(event);
       next = elem.up(3).next('.accordion-toggle');
       if(next){
@@ -33,6 +34,7 @@ CurrentPage.connectAll({
 
   '.accordion-prev': {
     click: function(event) {
+      Event.stop(event);
       elem = Event.element(event);
       prev = elem.up(3).previous('.accordion-toggle', 1);
       if(prev){
