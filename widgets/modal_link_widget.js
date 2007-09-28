@@ -8,23 +8,27 @@
 
 var ModalLinkWidget = Class.create(Widget, {
   SizeRegexp: /^box_size_(\d+)x(\d+)$/,
+  init: false,
   
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var size = this.element.classNames().grep(this.SizeRegexp)[0];
-    this.url = this.element.href;
-    if (size) {
-      var match = size.match(this.SizeRegexp);
-      this.width = parseInt(match[1]);
-      this.height = parseInt(match[2]);
-    } else {
-      this.width = 600;
-      this.height = 275;
-    }
     Event.observe(this.element, "click", this.showModalBox.bindAsEventListener(this));
   },
   
   showModalBox: function(event) {
+    if(!this.init) {
+      var size = this.element.classNames().grep(this.SizeRegexp)[0];
+       this.url = this.element.href;
+       if (size) {
+         var match = size.match(this.SizeRegexp);
+         this.width = parseInt(match[1]);
+         this.height = parseInt(match[2]);
+       } else {
+         this.width = 600;
+         this.height = 275;
+       }
+       this.init = true;
+    }
     this.element.blur();
     Modalbox.show('', this.extendUrl(this.url), {width: this.width, height: this.height});
     event.stop();

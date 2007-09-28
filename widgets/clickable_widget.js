@@ -7,13 +7,17 @@
 */
 
 var ClickableWidget = Class.create(Widget, {
+  init: false,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    this.href = element.down("a", 0).href;
     Event.observe(this.element, "click", this.click.bindAsEventListener(this));
   },
   
   click: function(event) {
+    if (!this.init) {
+      this.href = element.down("a", 0).href;
+      this.init = true;
+    }
     window.location.href = this.href;
   }
 });
