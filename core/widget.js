@@ -30,7 +30,6 @@ Object.extend(Widget, {
                      var obj = new mapping.klass(element);
                      obj.behaviour = className;
                   } catch(e) {
-                    debugger;
                     Logger.error("Could not create class " + className + ", error: " + e.message);
                     return;
                   }
