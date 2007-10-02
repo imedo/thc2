@@ -15,7 +15,7 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
     this.attribute = this.element.id.split('_').without(this.model).join('-');
     this.url = "http://"+location.host+"/"+this.model+'s/validate';
     this.createUi();
-    this.infoArea = $('ajax-validation-info');
+    this.infoArea = element.up(0).next('td').down('p');
     if(this.infoArea) this.oldText = this.infoArea.innerHTML;
     var infoTextNode = $('ajax-validation-'+this.attribute);
     if(infoTextNode){
@@ -31,7 +31,6 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
   showInfoText: function(){
     if(this.infoText.length > 0){
       this.infoArea.update(this.infoText);
-      new Effect.Highlight(this.infoArea);
     }
   },
   
@@ -42,7 +41,7 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
   },
   
   createUi: function(){
-    new Insertion.Bottom(this.element.parentNode, "<span id='"+this.element.id+"_validation' class='ajax-validation-message comment s' style='display:none'></span>");
+    new Insertion.Bottom(this.element.parentNode, "<p id='"+this.element.id+"_validation' class='ajax-validation-message comment s' style='display:none'></p>");
   },
   
   checkChanged: function(){
