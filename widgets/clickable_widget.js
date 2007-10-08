@@ -15,7 +15,7 @@ var ClickableWidget = Class.create(Widget, {
   
   click: function(event) {
     if (!this.init) {
-      this.href = element.down("a", 0).href;
+      this.href = this.element.down("a", 0).href;
       this.init = true;
     }
     window.location.href = this.href;
