@@ -25,8 +25,20 @@ var BookmarkWidget = Class.create(Widget, {
       } else {
         alert("Drücken Sie CTRL-D (Netscape) oder CTRL-T (Opera) um die Seite zu ihren Favoriten hinzuzufügen.");
       }
-    
   } 
 });
 
 CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
+
+function bookmark(){
+  var url = location.href; 
+  var title = document.title;
+  
+  if ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4)) {
+    window.external.AddFavorite(url,title);
+  } else if (navigator.appName == "Netscape") {
+      window.sidebar.addPanel(title,url,"");
+  } else {
+      alert("Drücken Sie CTRL-D (Netscape) oder CTRL-T (Opera) um die Seite zu ihren Favoriten hinzuzufügen.");
+  }
+}
