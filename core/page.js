@@ -192,7 +192,7 @@ THC2.Page = Class.create(
    *                This parameter is optional and defaults to <code>document.body</code>.
    */
   applyBehaviours: function(element) {
-    this.objects.push(Widget.ApplyBehaviours(element, this.behaviours));
+    this.objects.push(Widget.ApplyBehaviours((element || document.body), this.behaviours));
     this.objects = this.objects.flatten();
   },
   

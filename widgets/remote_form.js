@@ -11,10 +11,10 @@ var RemoteForm = Class.create(FormWidget, {
     FormWidget.prototype.initialize.apply(this, arguments);
     this.action = this.element.action;
     this.spinner = $(this.element.getElementsByClassName('thc2-spinner')[0]);
-    Event.observe(this.element, "submit", this.submit.bindAsEventListener(this));
   },
   
   submit: function(event) {
+    FormWidget.prototype.submit.apply(this, arguments);
     new Ajax.Request(this.action, {
       asynchronous:true,
       evalScripts:true,
