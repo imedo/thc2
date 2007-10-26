@@ -24,12 +24,12 @@ var BubbleManager = Singleton.create({
 
   startShowTimeout: function() {
     this.endTimeout();
-    this.timeout = setTimeout(this.appearBubble.bind(this), 900);
+    this.timeout = setTimeout(this.appearBubble.bind(this), 400);
   },
   
   startHideTimeout: function(){
     this.endTimeout();
-    this.timeout = setTimeout(this.disappearBubble.bind(this), 900);
+    this.timeout = setTimeout(this.disappearBubble.bind(this), 400);
   },
   
   endTimeout: function(){
