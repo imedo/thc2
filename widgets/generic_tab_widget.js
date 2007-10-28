@@ -33,4 +33,5 @@ function toggleTab(elem){
       element.hide();
     }
   });
+  Modalbox._putContent();
 };

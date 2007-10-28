@@ -30,10 +30,10 @@ var ModalLinkWidget = Class.create(Widget, {
        this.init = true;
     }
     this.element.blur();
-    Modalbox.show('', this.extendUrl(this.url), {width: this.width, height: this.height});
+    Modalbox.show(this.extendUrl(this.url), { width: this.width, title: this.element.innerHTML });
     event.stop();
   },
-  
+
   extendUrl: function(url) {
     if (url.include("?")) {
       return url + '&modal=1'
