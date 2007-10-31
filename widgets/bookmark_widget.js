@@ -34,11 +34,15 @@ function bookmark(){
   var url = location.href; 
   var title = document.title;
   
-  if ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4)) {
-    window.external.AddFavorite(url,title);
-  } else if (navigator.appName == "Netscape") {
-      window.sidebar.addPanel(title,url,"");
-  } else {
-      alert("Drücken Sie CTRL-D (Netscape) oder CTRL-T (Opera) um die Seite zu ihren Favoriten hinzuzufügen.");
-  }
+  if (window.sidebar)
+    window.sidebar.addPanel(title, url, "");
+  else if(window.opera && window.print){
+    var elem = document.createElement('a');
+    elem.setAttribute('href',url);
+    elem.setAttribute('title',title);
+    elem.setAttribute('rel','sidebar');
+    elem.click();
+  } 
+  else if(document.all)
+    window.external.AddFavorite(url, title);
 }

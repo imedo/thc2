@@ -9,7 +9,6 @@
 var GenericTabWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    alert('generic tab widget');
     this.element.down('li').each(function(elem){
       Event.observe(elem, "click", function(event, elem){
         this.currentTab.hide();
