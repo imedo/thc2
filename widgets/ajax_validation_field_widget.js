@@ -41,7 +41,7 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
   },
   
   createUi: function(){
-    new Insertion.Bottom(this.element.parentNode, "<p id='"+this.element.id+"_validation' class='ajax-validation-message comment s' style='display:none'></p>");
+    this.element.up().insert("<div id='#{element_id}_validation' class='ajax-validation-message comment s'></div>".interpolate({element_id: this.element.id}));
   },
   
   checkChanged: function(){
