@@ -15,7 +15,7 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
     this.attribute = this.element.id.split('_').without(this.model).join('-');
     this.url = location.protocol + "//"+location.host+"/"+this.model+'s/validate';
     this.createUi();
-    this.infoArea = element.up(0).next('td').down('p');
+    this.infoArea = element.up(1).next('td').down('p');
     if(this.infoArea) this.oldText = this.infoArea.innerHTML;
     var infoTextNode = $('ajax-validation-'+this.attribute);
     if(infoTextNode){
