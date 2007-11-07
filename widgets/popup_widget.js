@@ -42,4 +42,11 @@ var PopupWidget = Class.create(Widget, {
   } 
 });
 
+function showPopup(url, width, height){
+  var format = "width=#{w},height=#{h},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes".interpolate({w:width, h:height});
+  var win = window.open(url, 'popup', format);
+  win.resizeTo(width, height);
+  win.focus();
+}
+
 CurrentPage.registerBehaviour("thc2-popup", PopupWidget);
