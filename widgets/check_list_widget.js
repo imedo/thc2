@@ -10,8 +10,9 @@ var CheckListWidget = Class.create(Widget, {
   init: false,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var selectAllElements = $A(this.element.getElementsByClassName('select_all'));
-    var deselectAllElements = $A(this.element.getElementsByClassName('deselect_all'));
+    var selectAllElements = this.element.select('.select_all');
+    var deselectAllElements = this.element.select('.deselect_all');
+    var invertAllElements = this.element.select('.invert_all');
     
     selectAllElements.each(function(element) {
       element.observe('click', this.selectAll.bindAsEventListener(this));
@@ -20,12 +21,14 @@ var CheckListWidget = Class.create(Widget, {
     deselectAllElements.each(function(element) {
       element.observe('click', this.deselectAll.bindAsEventListener(this));
     }.bind(this));
+    
+    invertAllElements.each(function(element) {
+      element.observe('click', this.invertAll.bindAsEventListener(this));
+    }.bind(this));
   },
   
   findCheckBoxes: function() {
-    this.checkboxes = $A(this.element.getElementsByTagName('input')).select(function(element) {
-      return element.type == 'checkbox';
-    });
+    this.checkboxes = this.element.getInputs('checkbox');
   },
   
   selectAll: function(event) {
@@ -46,6 +49,17 @@ var CheckListWidget = Class.create(Widget, {
 
     this.checkboxes.each(function(checkbox) {
       checkbox.checked = false;
+    });
+    event.stop();
+  },
+  
+  invertAll: function(event) {
+    if (!this.checkboxes) {
+      this.findCheckBoxes();
+    }
+
+    this.checkboxes.each(function(checkbox) {
+      checkbox.checked = !checkbox.checked;
     });
     event.stop();
   }
