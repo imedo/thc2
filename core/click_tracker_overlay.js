@@ -1,6 +1,7 @@
 var ClickTrackerOverlay = Singleton.create({
   initialize: function() {
     this.url = '/click_tracker/data';
+    this.overlays = [];
   },
   
   show: function() {
@@ -30,7 +31,20 @@ var ClickTrackerOverlay = Singleton.create({
       overlay.setStyle({ backgroundColor: '#fff', border: '1px solid #000', position: 'absolute', left:pos.left + 'px', top: pos.top + 'px'});
       overlay.insert((new Element('span')).setStyle({color:'#f00'}).update(clicks));
       $(document.body).insert(overlay);
+      this.overlays.push(overlay);
     }
+  },
+  
+  hide: function() {
+    $A(this.overlays).each(function(overlay) {
+      overlay.remove();
+    });
+    this.overlays = [];
+  },
+  
+  reload: function() {
+    this.hide();
+    this.show();
   }
 });
 
