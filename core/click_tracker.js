@@ -5,7 +5,7 @@ var ClickTracker = Singleton.create({
   
   attach: function() {
     $A(document.getElementsByTagName('a')).each(function(element) {
-      element.observe('click', function() { this.track(element) }.bind(this));
+      $(element).observe('click', function() { this.track(element) }.bind(this));
     }.bind(this));
   },
   
