@@ -15,9 +15,11 @@ var ClickableWidget = Class.create(Widget, {
   
   click: function(event) {
     if (!this.init) {
-      this.href = this.element.down("a", 0).href;
+      this.a = this.element.down("a", 0);
+      this.href = this.a.href;
       this.init = true;
     }
+    this.a.fire('clicky');
     window.location.href = this.href;
   }
 });
