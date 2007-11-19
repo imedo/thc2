@@ -13,7 +13,7 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
     this.value = this.element.value;
     this.model = this.element.id.split('_')[0];
     this.attribute = this.element.id.split('_').without(this.model).join('-');
-    this.url = location.protocol + "//"+location.host+"/"+this.model+'s/validate';
+    this.url = location.protocol + "//"+location.host+"/"+this.model+'s/validate_'+this.element.id;
     this.createUi();
     this.infoArea = element.up(1).next('td').down('p');
     if(this.infoArea) this.oldText = this.infoArea.innerHTML;
