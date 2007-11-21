@@ -14,7 +14,7 @@ String.prototype.format = function() {
 };
 
 if (typeof TinyMCE != "undefined") {
-  TinyMCE.Observer = Class.create(new Abstract.TimedObserver(), {
+  TinyMCE.Observer = Class.create(Abstract.TimedObserver, {
     getValue: function() {
       if (tinyMCE.selectedInstance)
         return tinyMCE.selectedInstance.getHTML();
@@ -22,4 +22,36 @@ if (typeof TinyMCE != "undefined") {
         return "";
     }
   });
+}
+
+if (Prototype.Browser.IE) {
+  // this actually improves performance in IE 6
+  Event.allEvents = [];
+
+  Event.oldObserve = Event.observe;
+  Event.observe = function(element, eventName, handler) {
+    var event = {
+            element: element,
+            name: eventName,
+            handler: handler
+        };
+
+    Event.allEvents.push(event);
+    Event.oldObserve.apply(Event, arguments);
+  }
+  
+  Element.Methods.observe = Event.observe.methodize();
+  Element.prototype.observe = Event.observe.methodize();
+
+  Event.stopObservingEverything = function() {
+    $A(Event.allEvents).each(function(event) {
+      Event.stopObserving(event.element, event.name, event.handler);
+      event.element = null;
+      event.handler = null;
+    });
+    Event.allEvents = [];
+    CurrentPage.initialize();
+  }
+
+  Event.oldObserve(window, "unload", Event.stopObservingEverything.bind(Event));
 }

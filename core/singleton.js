@@ -1,5 +1,7 @@
 var Singleton = {
-  create: function(parent, methods) {
+  create: function() {
+    try {
+      
     var klass = Class.create.apply(Class, arguments);
     Object.extend(klass, {
       self: function() {
@@ -11,5 +13,9 @@ var Singleton = {
     });
     
     return klass;
+    } catch(e) {
+      alert(e.message);
+    }
+    
   }
 };

@@ -104,3 +104,6 @@ var Core = {
 function require(file, blocking) {
   Core.require(file, blocking);
 }
+
+RegExp.prototype.argumentNames = function() { return []; }
+

@@ -14,7 +14,7 @@ var Bubble = Class.create({
     var bubble_size = Element.getDimensions(this.element);
     var element_size = Element.getDimensions(this.parent.element);
     var body_size = Element.getDimensions(document.body);
-    this.calculated_style = $H({horizontal:this.horizontalStyle(offset, body_size)});
+    this.calculated_style = { horizontal:this.horizontalStyle(offset, body_size) };
     this.verticalPosition(offset, bubble_size);
     this.horizontalPosition(offset, element_size, bubble_size);
   },
