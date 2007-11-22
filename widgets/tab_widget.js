@@ -10,7 +10,7 @@ var TabWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     var i = 0;
-    this.list = $A($('side-tab-blank').getElementsByTagName("li"));
+    this.list = $A(this.element.getElementsByClassName('side-tab')[0].getElementsByTagName("li"));
     var tabwidget = this;
     this.tabs = this.list.collect(function(item) {
       return new TabButtonWidget($(item), tabwidget, i++, $(item).firstChild);
