@@ -8,6 +8,7 @@
 
 var PopupWidget = Class.create(Widget, {
   SizeRegexp: /^box_size_(\d+)x(\d+)$/,
+  IdRegexp: /^popup_id_(\d+)$/,
   Format: 'width=#{1},height=#{2},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes',
   init: false,
   
@@ -22,21 +23,30 @@ var PopupWidget = Class.create(Widget, {
   
   showPopup: function(event) {
     if(!this.init) {
-        var size = this.element.classNames().grep(this.SizeRegexp)[0];
-        this.url = this.findLink();
-        if (size) {
-          var match = size.match(this.SizeRegexp);
-          this.width = parseInt(match[1]);
-          this.height = parseInt(match[2]);
-        } else {
-          this.width = 690;
-          this.height = 480;
-        }
+      var size = this.element.classNames().grep(this.SizeRegexp)[0];
+      this.url = this.findLink();
+      if (size) {
+        var match = size.match(this.SizeRegexp);
+        this.width = parseInt(match[1]);
+        this.height = parseInt(match[2]);
+      } else {
+        this.width = 690;
+        this.height = 480;
+      }
+      
+      var id = this.element.classNames().grep(this.IdRegexp)[0];
+      if (id) {
+        var match = id.match(this.IdRegexp);
+        this.id = 'popup_' + match[1];
+      } else {
+        this.id = 'popup'
+      }
+      
       this.init = true;
     }
     
     event.stop();
-    var win = window.open(this.url, 'popup', this.Format.format(this.width, this.height));
+    var win = window.open(this.url, this.id, this.Format.format(this.width, this.height));
     win.resizeTo(this.width, this.height);
     win.focus();
   } 
