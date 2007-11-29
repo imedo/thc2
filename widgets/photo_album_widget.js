@@ -85,7 +85,7 @@ var PhotoAlbumWidget = Class.create(Widget, {
   
   photoVisible: function(photo) {
     var beforeMiddle = Math.floor(this.numPhotos / 2);
-    return photo.index >= this.currentIndex - beforeMiddle - 1 && photo.index < this.currentIndex + beforeMiddle + 2
+    return photo.index >= this.currentIndex - beforeMiddle - 1 && photo.index < this.currentIndex + beforeMiddle + 2;
   },
   
   animate: function() {
