@@ -6,7 +6,7 @@ var ClickTrackerOverlay = Singleton.create({
   
   show: function() {
     this.links = $A(document.getElementsByTagName('a'));
-    var ids = this.links.inject({}, function(hash, link) { hash[link.id] = "1"; return hash; });
+    var ids = this.links.inject({}, function(hash, link) { hash[$(link).classNames().grep(/link/)[0]] = "1"; return hash; });
     new Ajax.Request(this.url, {
       method: 'post',
       asynchronous:true,
@@ -19,7 +19,7 @@ var ClickTrackerOverlay = Singleton.create({
   processData: function(transport) {
     var hash = transport.responseText.evalJSON();
     $H(hash).each(function(pair) {
-      this.showOverlay($(pair.key), pair.value);
+      this.showOverlay($(document.body.getElementsByClassName(pair.key)[0]), pair.value);
     }.bind(this));
   },
   

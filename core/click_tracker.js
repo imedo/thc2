@@ -14,7 +14,7 @@ var ClickTracker = Singleton.create({
 });
 
 ClickTracker.track = function() {
-  new Ajax.Request(ClickTracker.self().url + this.id, {
+  new Ajax.Request(ClickTracker.self().url + $(this).classNames().grep(/link/)[0], {
     asynchronous:false,
     evalScripts:false
   });
