@@ -17,37 +17,27 @@ var BookmarkWidget = Class.create(Widget, {
     var url = location.href; 
     var title = document.title;
 
-    if (window.sidebar)
+    if (window.sidebar){
       window.sidebar.addPanel(title, url, "");
-    else if(window.opera && window.print){
-      var elem = document.createElement('a');
-      elem.setAttribute('href',url);
-      elem.setAttribute('title',title);
-      elem.setAttribute('rel','sidebar');
-      elem.click();
-
-    } 
-    else if(document.all)
+    } else if(window.opera && window.print){
+      return true;
+    } else if(document.all){
       window.external.AddFavorite(url, title);
+    }
   } 
 });
 
 CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
 
-function bookmark(){
+function bookmark(event){
   var url = location.href; 
   var title = document.title;
   
-  if (window.sidebar)
+  if (window.sidebar){
     window.sidebar.addPanel(title, url, "");
-  else if(window.opera && window.print){
-    var elem = document.createElement('a');
-    elem.setAttribute('href',url);
-    elem.setAttribute('title',title);
-    elem.setAttribute('rel','sidebar');
-    elem.click();
-
-  } 
-  else if(document.all)
+  } else if(window.opera && window.print){
+    return true;
+  } else if(document.all){
     window.external.AddFavorite(url, title);
+  }
 }
