@@ -10,7 +10,7 @@ var TabWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     var i = 0;
-    this.list = $A(this.element.getElementsByClassName('side-tab')[0].getElementsByTagName("li"));
+    this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
     var tabwidget = this;
     this.tabs = this.list.collect(function(item) {
       return new TabButtonWidget($(item), tabwidget, i++, $(item).firstChild);
@@ -55,12 +55,13 @@ var TabButtonWidget = Class.create({
   changeTab: function(e) {
     if (!this.changing) {
       this.changing = true;
-      
+
       this.tabwidget.beforeFade();
 
       this.fadeEffect = new Effect.Fade($$("div.tab-container")[0], {
         queue: { position: 'end', scope:'a' },
-        afterFinish:this.fadeCallback.bind(this)
+        afterFinish:this.fadeCallback.bind(this),
+        duration: 0.5
       });
       if (!AjaxCache.self().find(this.link)) {
         new Ajax.Request(this.link, { method:'get', onComplete:this.storeTab.bind(this) });
@@ -83,7 +84,8 @@ var TabButtonWidget = Class.create({
       this.tabwidget.beforeAppear();
       this.appearEffect = new Effect.Appear($$("div.tab-container")[0], {
         queue: { position: 'end', scope:'b' },
-        afterFinish:this.appearCallback.bind(this)
+        afterFinish:this.appearCallback.bind(this),
+        duration: 0.5
       });
       this.changing = false;
     } else {
