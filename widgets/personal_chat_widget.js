@@ -22,6 +22,9 @@ var PersonalChatWidget = Class.create(Widget, {
     this.waitNotice = $(this.element.getElementsByClassName('wait-notice')[0]);
     this.soundOnLink = $(this.element.getElementsByClassName('sound_on')[0]);
     this.soundOffLink = $(this.element.getElementsByClassName('sound_off')[0]);
+    if (this.soundOffLink.hasClassName('by_default')) {
+      Sound.disable();
+    }
     this.closeLink = $(this.element.getElementsByClassName('close')[0]);
     
     this.textForm = $(this.element.getElementsByTagName('form')[0]);
