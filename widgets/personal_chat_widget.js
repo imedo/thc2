@@ -29,6 +29,7 @@ var PersonalChatWidget = Class.create(Widget, {
     this.spinner = $(this.element.getElementsByClassName('thc2-spinner')[0]);
     
     this.chatContainer = $(this.element.getElementsByClassName('chat_container')[0]);
+    this.scrollContainer = $(this.element.getElementsByClassName('scroll_container')[0]);
     this.scrollArea = $(this.element.getElementsByClassName('scroll_area')[0]);
     
     Event.observe(this.soundOnLink, 'click', this.soundOn.bindAsEventListener(this));
@@ -125,11 +126,11 @@ var PersonalChatWidget = Class.create(Widget, {
   },
   
   highlight: function() {
-    this.scrollArea.style.border = "1px solid #f90";
+    this.scrollContainer.style.border = "1px solid #f90";
   },
   
   clearHighlight: function() {
-    this.scrollArea.style.border = "none";
+    this.scrollContainer.style.border = "none";
   },
   
   pling: function() {
