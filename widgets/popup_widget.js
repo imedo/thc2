@@ -8,7 +8,7 @@
 
 var PopupWidget = Class.create(Widget, {
   SizeRegexp: /^box_size_(\d+)x(\d+)$/,
-  IdRegexp: /^popup_id_(\d+)$/,
+  IdRegexp: /^popup_id_(\w+)$/,
   Format: 'width=#{1},height=#{2},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes',
   init: false,
   
