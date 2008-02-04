@@ -197,7 +197,7 @@ THC2.Page = Class.create(
   },
   
   /**
-   * Returns the instance of the Widget subclass that was applied to the given
+   * Returns the instance(s) of the Widget subclass that was applied to the given
    * element.
    */
   find: function(element, behaviour) {
@@ -206,24 +206,39 @@ THC2.Page = Class.create(
     });
   },
   
+  /**
+   * Returns all Widget instances associated with the given element.
+   */
   findObjects: function(element) {
     return this.objects.select(function (obj) {
       return (obj.element == element);
     });
   },
   
+  /**
+   * Returns the connection that is associated with the given element,
+   * selector, event and function.
+   */
   findElementConnection: function(element, selector, event, func) {
     return this.elementConnections.find(function(item) {
       return (item.element == element && item.selector == selector && item.event == event && item.func == func);
     });
   },
-
+  
+  /**
+   * Returns the connection that is associated with the given selector,
+   * event and function.
+   */
   findConnection: function(selector, event, func) {
     return this.connections.find(function(item) {
       return (item.selector == selector && item.event == event && item.func == func);
     });
   },
   
+  /**
+   * Connects all elements' <code>event</code> handler matching the given
+   * selector with the function <code>func</code>
+   */
   connect: function(selector, event, func) {
     if (!this.findConnection(selector, event, func)) {
       this.connections.push({selector:selector, event:event, func:func});
@@ -237,6 +252,35 @@ THC2.Page = Class.create(
   //   }
   // },
 
+  /**
+   * Establishes multiple connections at once. The <code>hash</code> data structure
+   * must look like this:
+   *
+   * <pre>
+   * {
+   *   'selector': {
+   *     event: function
+   *   },
+   *   'selector': {
+   *     event: function
+   *   }
+   * }
+   * </pre>
+   *
+   * for example:
+   *
+   * <pre>
+   * CurrentPage.connectAll({
+   *   '#group_local': {
+   *     click: function(event) { Effect.toggle('group_options', 'blind'); }
+   *   },
+   * 
+   *   '#close-flash a': {
+   *     click: function(event) { Effect.Fade('flash'); event.stop(); }
+   *   }
+   * }
+   * </pre>
+   */
   connectAll: function(hash) {
     for (var selector in hash) {
       for (var event in hash[selector]) {
@@ -245,6 +289,10 @@ THC2.Page = Class.create(
     }
   },
   
+  /**
+   * Applies the connection for a single element that must match <code>selector</code>
+   * with handler <code>event</code> and function <code>func</code>.
+   */
   connectElement: function(element, selector, event, func) {
     if (!this.findElementConnection(element, selector, event, func)) {
       Event.observe(element, event, func);
@@ -252,6 +300,11 @@ THC2.Page = Class.create(
     }
   },
   
+  /**
+   * Applies the connections for all elements under <code>parent</code>
+   * matching <code>selector</code> with handler <code>event</code> and
+   * function <code>func</code>.
+   */
   doConnect: function(parent, selector, event, func) {
     var page = this;
     $A($(parent).getElementsBySelector(selector)).each(function(element) {
@@ -260,6 +313,9 @@ THC2.Page = Class.create(
     });
   },
   
+  /**
+   * (Re)applies all connections for all elements under <code>parent</code>.
+   */
   reconnect: function(parent) {
     var page = this;
     this.connections.each(function(item) {
@@ -268,8 +324,20 @@ THC2.Page = Class.create(
   }
 });
 
+/**
+ * Global variable representing the currently loaded page. Do not instantiate
+ * the THC2.Page class; use this variable instead.
+ */
 var CurrentPage = new THC2.Page();
 
+/**
+ * Returns a function that, when called, calls the method <code>funcname</code>
+ * of the Widget instance associated with element <code>obj</code>. This is
+ * especially useful for event handlers.
+ *
+ * @param obj Element or Element ID.
+ * @param funcname The name of the function to call.
+ */
 function $S(obj, funcname) {
   return function(event) {
     var o = $O(obj);
@@ -277,6 +345,11 @@ function $S(obj, funcname) {
   }
 }
 
+/**
+ * Returns the first widget instance associated with the given element.
+ *
+ * @param obj Element or Element ID.
+ */
 function $O(obj) {
   if (Object.isString(obj)) {
     obj = CurrentPage.findObjects($(obj))[0];

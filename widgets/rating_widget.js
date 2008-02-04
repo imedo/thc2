@@ -13,8 +13,8 @@ var RatingWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.list = $A(this.element.getElementsByTagName('li'));
-    this.rating_field = $(this.list.first());
-    this.rating_text = this.rating_field.innerHTML;
+    this.ratingField = $(this.list.first());
+    this.ratingText = this.ratingField.innerHTML;
     this.list.shift();
     var widget = this;
     var i = 0;
@@ -25,8 +25,8 @@ var RatingWidget = Class.create(Widget, {
     Event.observe(this.element, "mouseout", this.starMouseOut.bindAsEventListener(this));
   },
   
-  starClick: function(current_star) {
-    var rating = current_star.number;
+  starClick: function(currentStar) {
+    var rating = currentStar.number;
     this.setRating(rating);
   },
   
@@ -42,8 +42,8 @@ var RatingWidget = Class.create(Widget, {
     });
   },
   
-  starMouseOver: function(current_star) {
-    var number = current_star.number;
+  starMouseOver: function(currentStar) {
+    var number = currentStar.number;
     this.stars.each(function(star) {
       if (star.selected) {
         if (number >= star.number) {
@@ -60,7 +60,7 @@ var RatingWidget = Class.create(Widget, {
       }
     });
     
-    this.rating_field.innerHTML = current_star.rating_text;
+    this.ratingField.innerHTML = currentStar.ratingText;
   },
   
   starMouseOut: function(event) {
@@ -72,7 +72,7 @@ var RatingWidget = Class.create(Widget, {
       }
     });
     
-    this.rating_field.innerHTML = this.rating_text;
+    this.ratingField.innerHTML = this.ratingText;
   }
 });
 
@@ -87,7 +87,7 @@ var RatingStar = Class.create({
     this.div().className = '';
     this.state = this.selected ? 4 : 0;
     this.image = this.link().getElementsByTagName("img")[0];
-    this.rating_text = this.image.title
+    this.ratingText = this.image.title
     this.update(this.state);
     
     Event.observe(this.link(), "click", this.starClick.bindAsEventListener(this));

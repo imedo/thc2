@@ -6,6 +6,29 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
+/**
+ * Javascript profiler written in javascript.
+ *
+ * The profiler works by rewriting every javascript function and event handler
+ * such that before and after execution the current time is measured. Before the
+ * profiler can start, it needs to be attached to the objects that should be
+ * profiled.
+ *
+ * In most browsers, the profiler can discover all javascript objects by itself.
+ * In IE, though, it needs some hints. The easiest way is to add all objects
+ * as properties to <code>window</code> (this is the global namespace), e.g.:
+ *
+ * <pre>
+ * this.__CurrentPage = CurrentPage;
+ * </pre>
+ *
+ * The profiler comes with a control and report window. In the control window,
+ * you can enable or disable profiling. This setting is persistent, i.e. you
+ * can reload the page and the setting is remembered.
+ *
+ * This profiler has no javascript dependencies and therefore reimplements a few
+ * methods from other javascript libraries.
+ */
 var Profiler = {
   objects: [],
   messages: [],
@@ -13,6 +36,9 @@ var Profiler = {
   reportWindow: null,
   controlWindow: null,
   
+  /**
+   * Logs <code>text</code> in the control window and the report window.
+   */
   log: function(text) {
     var message = (new Date()) + ': ' + text;
     Profiler.messages.push(message);
@@ -22,6 +48,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Attaches the profiler to all methods of <code>object</code> with name <code>name</code>.
+   */
   attachTo: function(object, name) {
     for (var attr in object) {
       if (typeof(object[attr]) == 'function' && attr != 'apply' && attr != 'profiledFunction') {
@@ -34,6 +63,13 @@ var Profiler = {
     }
   },
   
+  /**
+   * Recursively discovers all objects that are reachable from <code>object</code>
+   * and attaches the profiler to them.
+   *
+   * @param object The root object.
+   * @param name The name of the root object.
+   */
   attach: function(object, name) {
     Profiler.log('attaching to ' + name);
     try {
@@ -53,6 +89,9 @@ var Profiler = {
     Profiler.log('finished attaching to ' + name);
   },
   
+  /**
+   * Discovers all objects reachable from <code>object</code>.
+   */
   discover: function(object, name) {
     if (!object.__profiler_name || object.__profiler_name.length > name.length) {
       object.__profiler_name = name;
@@ -89,6 +128,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Discovers all prototype objects reachable from <code>object</code>.
+   */
   discoverPrototypes: function(object, name) {
     for (var i = 0, l = Profiler.objects.length; i != l; ++i) {
       try {
@@ -110,6 +152,9 @@ var Profiler = {
     }
   },
 
+  /**
+   * Starts the profiler for function <code>name</code>.
+   */
   start: function(name) {
     var d = Profiler.data;
     if (!d[name]) d[name] = {};
@@ -122,6 +167,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Stops the profiler for function <code>name</code>.
+   */
   stop: function(name) {
     var e = Profiler.data[name];
     e.depth -= 1;
@@ -130,6 +178,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Initializes the profiler, honouring the enabled settings.
+   */
   init: function() {
     window.profiler = Profiler;
     Profiler.showControlWindow();
@@ -138,6 +189,10 @@ var Profiler = {
     }
   },
   
+  /**
+   * @internal
+   * Creates a cookie with value <code>value</code>.
+   */
   createCookie: function(value) {
     var date = new Date();
     date.setTime(date.getTime()+(356*24*60*60*1000));
@@ -145,6 +200,10 @@ var Profiler = {
     document.cookie = "profiler="+value+expires+"; path=/";
   },
 
+  /**
+   * @internal
+   * Reads data from the cookie.
+   */
   readCookie: function() {
     var nameEQ = "profiler=";
     var ca = document.cookie.split(';');
@@ -156,22 +215,37 @@ var Profiler = {
     return null;
   },
   
+  /**
+   * Enables the profiler, and stores the enabled setting.
+   */
   enable: function() {
     Profiler.createCookie('on');
   },
   
+  /**
+   * Attaches the profiler to the global window object.
+   */
   doEnable: function() {
     Profiler.attach(Global, 'Global');
   },
   
+  /**
+   * Disables the profiler, and stores the enabled setting.
+   */
   disable: function() {
     Profiler.createCookie('off');
   },
   
+  /**
+   * Returns <code>true</code> if the profiler is enabled, <code>false</code> otherwise.
+   */
   isEnabled: function() {
     return Profiler.readCookie() == 'on';
   },
   
+  /**
+   * Resets the profiler and profiler report.
+   */
   reset: function() {
     Profiler.objects = [];
     Profiler.messages = [];
@@ -179,6 +253,10 @@ var Profiler = {
     Profiler.clearReport();
   },
   
+  /**
+   * @internal
+   * Stable sort method.
+   */
   sortArray: function(list, comp_func) {
     // A stable sort function to allow multi-level sorting of data
     // see: http://en.wikipedia.org/wiki/Cocktail_sort
@@ -208,11 +286,19 @@ var Profiler = {
       b++;
     }
   },
-
+  
+  /**
+   * @internal
+   * Standard comparison function for the sort method.
+   */
   compare: function(a, b) {
     return (a < b ? -1 : (a > b ? 1 : 0));
   },
   
+  /**
+   * @internal
+   * Reverses the given array.
+   */
   reverse: function(array) {
     var result = [];
     for (var i = array.length; i != 0; --i) {
@@ -220,7 +306,12 @@ var Profiler = {
     }
     return result;
   },
-
+  
+  /**
+   * Generates the profiler report in a separate report window.
+   * Normally, you wouldn't need to call this function directly, as
+   * the control window offers this functionality.
+   */
   report: function(column, reverse) {
     var win = Profiler.getReportWindow();
     if (win) {
@@ -288,6 +379,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Clears the report window.
+   */
   clearReport: function() {
     var win = Profiler.getReportWindow();
     if (win) {
@@ -295,6 +389,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Opens and initializes the report window, or returns it, if it is already open.
+   */
   getReportWindow: function() {
     if (!Profiler.reportWindow || Profiler.reportWindow.closed) {
       var win = window.open('', 'report', 'width=640,height=480,scrollbars=yes,resizable=yes');
@@ -308,6 +405,9 @@ var Profiler = {
     return Profiler.reportWindow;
   },
   
+  /**
+   * Shows the control window.
+   */
   showControlWindow: function() {
     var win = Profiler.getControlWindow();
     if (win) {
@@ -323,6 +423,9 @@ var Profiler = {
     }
   },
   
+  /**
+   * Opens and initializes the control window, or returns it, if it is already open.
+   */
   getControlWindow: function() {
     if (!Profiler.controlWindow || Profiler.controlWindow.closed) {
       var win = window.open('', 'control', 'width=300,height=120,scrollbars=yes,resizable=yes');
@@ -337,6 +440,10 @@ var Profiler = {
   }
 };
 
+/**
+ * The heart of the profiler. For any function f, this function returns a
+ * rewritten version of f that measures execution times.
+ */
 Function.prototype.profiledFunction = function(name) {
   var func = this;
   var f = function() {

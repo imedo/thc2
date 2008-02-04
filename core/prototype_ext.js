@@ -6,7 +6,6 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-
 String.prototype.format = function() {
   return $A(arguments).inject(this, function(str, val, i) {
     return str.replace(new RegExp('#\\{' + (i + 1) + '\\}', 'g'), val);
