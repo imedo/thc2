@@ -56,7 +56,7 @@ var AjaxBubble = Class.create(Bubble, {
     if (this.contents) {
       this.requestCompleted(this.contents);
     } else {
-      new Ajax.Request(this.url(), { method:'get', parameters:this.calculated_style, onSuccess: function(transport) { this.requestCompleted(transport.responseText).bind(this); }.bind(this) });
+      new Ajax.Request(this.url(), { method:'get', parameters:this.calculatedStyle, onSuccess: function(transport) { this.requestCompleted(transport.responseText).bind(this); }.bind(this) });
       this.switchLoadText();
     }
   },
