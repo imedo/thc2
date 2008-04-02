@@ -13,16 +13,19 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
     this.value = this.element.value;
     this.model = this.element.id.split('_')[0];
     this.attribute = this.element.id.split('_').without(this.model).join('-');
-    this.url = location.protocol + "//"+location.host+"/"+this.model+'s/validate_'+this.element.id;
+    this.isConfirmation = (this.element.id.split('_').without(this.model).last() == 'confirmation' ? true : false);
+    var attribute_name = this.model + '_' + this.attribute.split('-').without('confirmation').join('_');
+    var confirmation_name = attribute_name + "_confirmation";
+    this.needsConfirmation = ($(attribute_name) && $(confirmation_name) ? true : false);
+    this.url = location.protocol + "//"+location.host+"/"+this.model+'s/validate_'+attribute_name;
     this.createUi();
+
     this.infoArea = element.up(1).next('td').down('p');
     if(this.infoArea) this.oldText = this.infoArea.innerHTML;
+
     var infoTextNode = $('ajax-validation-'+this.attribute);
-    if(infoTextNode){
-      this.infoText = infoTextNode.innerHTML;
-    } else {
-      this.infoText = '';
-    }
+    this.infoText = infoTextNode ? infoTextNode.innerHTML : '';
+
     var listener = this.element.type == "checkbox" ? "click" : 'blur';
     Event.observe(this.element, listener, this.validate.bindAsEventListener(this));
     Event.observe(this.element, 'focus', this.showInfoText.bindAsEventListener(this));
@@ -65,13 +68,15 @@ var AjaxValidationFieldWidget = Class.create(Widget, {
   
   validate: function(event) {
     this.undoInfoText();
+    if(this.needsConfirmation && !this.isConfirmation)
+      return;
     if(this.checkChanged()){
       // Do validation call here
       new Ajax.Request(this.url, {parameters:this.element.form.serialize()});
       if(this.do_effects){
         this.element.removeClassName('ajax-validation-correct');
         this.element.removeClassName('ajax-validation-error');
-        this.element.addClassName('ajax-validation-busy');
+        //this.element.addClassName('ajax-validation-busy');
       }
     }
     this.value = this.element.value;
