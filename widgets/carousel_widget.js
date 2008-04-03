@@ -12,7 +12,7 @@ var CarouselWidget = Class.create(Widget, {
     this.carousel = new UI.Carousel($(this.element));
     this.preview_buttons = $(this.element.down(".preview-buttons"));
     this.buildPreviewButtons();
-    this.carousel.observe('scroll:ended', this.updatePreviewButtons.bindAsEventListener(this));
+    Event.observe(this.carousel, 'scroll:ended', this.updatePreviewButtons.bindAsEventListener(this));
     this.active_preview = $(this.preview_buttons.down(0));
     this.toggleCurrentActive();
   },
@@ -21,7 +21,7 @@ var CarouselWidget = Class.create(Widget, {
     this.preview_buttons.update('');
     for(i = 0; i < this.slideCount(); ++i){
       inserted = this.preview_buttons.insert("<div class='preview-button'>&nbsp;</div>");
-      Event.observe(inserted, 'click', function(){ alert(this.carousel); this.carousel.scrollTo(i*this.perSlide()) }.bind(this));
+      //Event.observe(inserted, 'click', function(){ this.carousel.scrollTo(i*this.perSlide()) }.bind(this));
     }
   },
   
