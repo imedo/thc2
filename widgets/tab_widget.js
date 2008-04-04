@@ -12,16 +12,47 @@ var TabWidget = Class.create(Widget, {
     var i = 0;
     this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
     var tabwidget = this;
+    
     this.tabs = this.list.collect(function(item) {
-      return new TabButtonWidget($(item), tabwidget, i++, $(item).firstChild);
-    });
+      var tab = new Tab(this, $(item));
+      if (item.hasClassName('on'))
+        this.currentTab = tab;
+      return tab;
+    }.bind(this));
+  },
+  
+  tabContainer: function() {
+    return $(this.element.getElementsByClassName('tab-container')[0]);
   },
   
   switchTab: function(newTab) {
-    $($(this.list[0].parentNode).getElementsBySelector(".on")[0]).removeClassName("on");
-    this.list[newTab].addClassName("on");
+    this.beforeSwitch(this.currentTab, newTab);
+    
+    this.doSwitch(this.currentTab, newTab);
+
+    var oldTab = this.currentTab;
+    this.switchCurrent(this.currentTab, newTab);
+    
+    this.afterSwitch(oldTab, this.currentTab);
   },
   
+  switchCurrent: function(oldTab, newTab) {
+    oldTab.turnOff();
+    newTab.turnOn();
+    this.currentTab = newTab;
+  },
+  
+  beforeSwitch: function(oldTab, newTab) {
+  },
+  
+  doSwitch: function(oldTab, newTab) {
+  },
+  
+  afterSwitch: function(oldTab, newTab) {
+  }
+});
+
+var AjaxTabWidget = Class.create(TabWidget, {
   beforeFade: function() {
   },
   
@@ -38,51 +69,46 @@ var TabWidget = Class.create(Widget, {
   
   tabContent: function() {
     return $(this.element.getElementsBySelector("div.tab-content")[0]);
-  }
-});
-
-var TabButtonWidget = Class.create({
-  visible: false,
-  
-  initialize: function(element, tabwidget, id, link) {
-    this.tabwidget = tabwidget;
-    this.tabid = id;
-    this.link = link.href;
-    this.element = element;
-    Event.observe(link, "click", this.changeTab.bindAsEventListener(this));
   },
-  
-  changeTab: function(e) {
+
+  switchTab: function(newTab) {
     if (!this.changing) {
+      this.beforeSwitch(this.currentTab, newTab);
+
+      this.nextTab = newTab;
       this.changing = true;
 
-      this.tabwidget.beforeFade();
+      this.beforeFade();
 
-      this.fadeEffect = new Effect.Fade($$("div.tab-container")[0], {
+      this.fadeEffect = new Effect.Fade(this.tabContainer(), {
         queue: { position: 'end', scope:'a' },
         afterFinish:this.fadeCallback.bind(this),
         duration: 0.5
       });
-      if (!AjaxCache.self().find(this.link)) {
-        new Ajax.Request(this.link, { method:'get', onComplete:this.storeTab.bind(this) });
+      if (!AjaxCache.self().find(this.nextTab.link)) {
+        new Ajax.Request(this.nextTab.link, { method:'get', onComplete:this.storeTab.bind(this) });
       }
     }
-    e.stop();
   },
-  
+
   storeTab: function(req) {
-    AjaxCache.self().store(this.link, req.responseText);
+    AjaxCache.self().store(this.nextTab.link, req.responseText);
   },
-  
+
   showTab: function() {
-    var html = AjaxCache.self().find(this.link);
+    this.doSwitch(this.currentTab, this.nextTab);
+    
+    clearTimeout(this.waitTimeout);
+    var html = AjaxCache.self().find(this.nextTab.link);
+
     if (html) {
       if (!this.contentBox) {
-        this.contentBox = this.tabwidget.tabContent();
+        this.contentBox = this.tabContent();
       }
       this.contentBox.update(html);
-      this.tabwidget.beforeAppear();
-      this.appearEffect = new Effect.Appear($$("div.tab-container")[0], {
+      this.beforeAppear();
+      this.switchCurrent(this.currentTab, this.nextTab);
+      this.appearEffect = new Effect.Appear(this.tabContainer(), {
         queue: { position: 'end', scope:'b' },
         afterFinish:this.appearCallback.bind(this),
         duration: 0.5
@@ -92,20 +118,39 @@ var TabButtonWidget = Class.create({
       this.waitForResponse();
     }
   },
-  
+
   waitForResponse: function() {
-    setTimeout(this.showTab.bind(this), 100);
+    this.waitTimeout = setTimeout(this.showTab.bind(this), 100);
   },
-  
+
   fadeCallback: function() {
-    this.tabwidget.afterFade();
+    this.afterFade();
     this.showTab();
-    this.tabwidget.switchTab(this.tabid);
   },
-  
+
   appearCallback: function() {
-    this.tabwidget.afterAppear();
+    this.afterAppear();
   }
 });
 
-CurrentPage.registerBehaviour("thc2-tab-widget", TabWidget);
+CurrentPage.registerBehaviour("thc2-tab-widget", AjaxTabWidget);
+
+var Tab = Class.create({
+  initialize: function(tabWidget, button) {
+    this.tabWidget = tabWidget;
+    this.button = button;
+    
+    this.link = $(button).firstChild;
+    if (this.link) {
+      Event.observe(this.link, 'click', function(event) { this.tabWidget.switchTab(this); event.stop(); }.bind(this));
+    }
+  },
+  
+  turnOn: function() {
+    this.button.addClassName('on');
+  },
+  
+  turnOff: function() {
+    this.button.removeClassName('on');
+  }
+});

@@ -44,16 +44,18 @@ Object.extend(Widget, {
                    obj.behaviour = className;
                 } catch(e) {
                   Logger.error("Could not create class " + className + ", error: " + e.message);
+                  throw(e);
                   return;
                 }
                 objects.push(obj);
               }
             }
           }
-        } catch(e) {}
+        } catch(e) {throw(e)}
       });
       return objects;
     } catch(e) {
+//      throw(e)
       //alert(e);
     }
   }
