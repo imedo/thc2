@@ -25,5 +25,11 @@ Object.extend(Test.Unit.Testcase.prototype, {
       this.__mockUps[object.__mocking_key][name] = null;
       return object[name];
     }
+  },
+  
+  assertSelected: function(element, text) {
+    element = $(element);
+    var selectedText = element.value.substr(element.selectionStart, element.selectionEnd);
+    this.assertBlock('assertSelect failed: ' + text + ' != ' + selectedText, function() { return (selectedText == text) || selectedText === 'string' });
   }
 });
