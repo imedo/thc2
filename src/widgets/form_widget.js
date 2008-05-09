@@ -11,6 +11,7 @@ var FormWidget = Class.create(Widget, {
     Widget.prototype.initialize.apply(this, arguments);
     
     this.validators = new Array();
+    this.form = this.element;
     this.element.observe('submit', this.submit.bindAsEventListener(this));
   },
   
@@ -30,10 +31,10 @@ var FormWidget = Class.create(Widget, {
     return valid;
   },
   
-  validatesPresenceOf: function(field, message) {
-    field = $(field);
+  validatesPresenceOf: function(id, message) {
+    var field = $(id);
     this.validators.push(function() {
-      if (field && field.value == "") {
+      if (field && (field.value == "" || $F(id) == null)) {
         FormWidget.handleError(field, message);
         return false;
       }
@@ -41,10 +42,10 @@ var FormWidget = Class.create(Widget, {
     });
   },
   
-  validatesFormatOf: function(field, format, message) {
-    field = $(field);
+  validatesFormatOf: function(id, format, message) {
+    var field = $(id);
     this.validators.push(function() {
-      if (field && !format.match(field.value)) {
+      if (field && (field.type != 'text' || !format.match(field.value))) {
         FormWidget.handleError(field, message);
         return false;
       }
@@ -52,17 +53,27 @@ var FormWidget = Class.create(Widget, {
     });
   },
   
-  validatesLengthOf: function(field, minlength, maxlength, message) {
-    field = $(field);
+  validatesConfirmationOf: function(id_first, id_second, message){
+    var field_first = $(id_first);
+    var field_second = $(id_second);
     this.validators.push(function() {
-      if (field) {
-        if ((minlength != null && field.value.length < minlength) || (maxlength != null && field.value.length > maxlength)) {
-          FormWidget.handleError(field, message);
-          return false;
-        }
-        return true;
+      if (field_first && field_second && $F(id_first) != $F(id_second) ) {
+        FormWidget.handleError(field, message);
+        return false;
       }
-    })
+      return true;
+    });
+  },
+  
+  validatesLengthOf: function(id, minlength, maxlength, message) {
+    var field = $(id);
+    this.validators.push(function() {
+      if (field && ((field.type != 'text') || (minlength != null && field.value.length < minlength) || (maxlength != null && field.value.length > maxlength))) {
+        FormWidget.handleError(field, message);
+        return false;
+      }
+      return true;
+    });
   }
 });
 
