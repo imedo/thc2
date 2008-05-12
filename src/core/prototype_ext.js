@@ -44,9 +44,12 @@ if (Prototype.Browser.IE) {
 
   Event.stopObservingEverything = function() {
     $A(Event.allEvents).each(function(event) {
-      Event.stopObserving(event.element, event.name, event.handler);
-      event.element = null;
-      event.handler = null;
+      try {
+        Event.stopObserving(event.element, event.name, event.handler);
+      } finally {
+        event.element = null;
+        event.handler = null;
+      }
     });
     Event.allEvents = [];
     CurrentPage.initialize();

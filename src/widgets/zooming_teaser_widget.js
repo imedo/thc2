@@ -11,7 +11,7 @@ var ZoomingTeaserWidget = Class.create(Widget, {
     Widget.prototype.initialize.apply(this, arguments);
     this.items = $A(this.element.getElementsByTagName('li'));
     this.items.each(function(item) {
-      $(item).observe('mouseover', function(event) { this.mouseOver(item); }.bind(this));
+      Event.observe($(item), 'mouseover', function(event) { this.mouseOver(item); }.bind(this));
     }.bind(this));
   },
   

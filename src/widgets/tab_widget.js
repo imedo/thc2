@@ -140,7 +140,7 @@ var Tab = Class.create({
     this.tabWidget = tabWidget;
     this.button = button;
     
-    this.link = $(button).firstChild;
+    this.link = $(button).getElementsByTagName('a')[0];
     if (this.link) {
       Event.observe(this.link, 'click', function(event) { this.tabWidget.switchTab(this); event.stop(); }.bind(this));
     }
