@@ -31,7 +31,9 @@ var LimitedTextareaWidget = Class.create(Widget, {
   keypress: function(event) {
     if (this.element.value.length >= this.maximum) {
       this.element.value = this.element.value.substring(0, this.maximum);
-      event.stop();
+      if (event.keyCode == 0) {
+        event.stop();
+      }
     }
   },
   
