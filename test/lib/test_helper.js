@@ -30,6 +30,26 @@ Object.extend(Test.Unit.Testcase.prototype, {
   assertSelected: function(element, text) {
     element = $(element);
     var selectedText = element.value.substr(element.selectionStart, element.selectionEnd);
-    this.assertBlock('assertSelect failed: ' + text + ' != ' + selectedText, function() { return (selectedText == text) || selectedText === 'string' });
+    this.assertBlock('assertSelected failed: ' + text + ' != ' + selectedText, function() { return (selectedText == text) || selectedText === 'string' });
+  },
+  
+  assertObserved: function(events, block) {
+    var eventsObserved = [];
+    this.mockup(Event, 'observe', function(element, event, handler) {
+      eventsObserved.push(event);
+    }.bind(this));
+    
+    block();
+    
+    this.assertHashEqual(eventsObserved, events);
+    this.undoMockup(Event, 'observe');
+  },
+  
+  assertNotEmpty: function(array, message) {
+    this.assertBlock(message, function() { return array.length > 0 });
   }
+});
+
+var MockEvent = Class.create({
+  stop: function() {}
 });

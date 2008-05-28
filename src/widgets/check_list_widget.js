@@ -7,7 +7,6 @@
 */
 
 var CheckListWidget = Class.create(Widget, {
-  init: false,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     var selectAllElements = this.element.select('.select_all');
@@ -15,15 +14,15 @@ var CheckListWidget = Class.create(Widget, {
     var invertAllElements = this.element.select('.invert_all');
     
     selectAllElements.each(function(element) {
-      element.observe('click', this.selectAll.bindAsEventListener(this));
+      Event.observe(element, 'click', this.selectAll.bindAsEventListener(this));
     }.bind(this));
 
     deselectAllElements.each(function(element) {
-      element.observe('click', this.deselectAll.bindAsEventListener(this));
+      Event.observe(element, 'click', this.deselectAll.bindAsEventListener(this));
     }.bind(this));
     
     invertAllElements.each(function(element) {
-      element.observe('click', this.invertAll.bindAsEventListener(this));
+      Event.observe(element, 'click', this.invertAll.bindAsEventListener(this));
     }.bind(this));
   },
   

@@ -7,11 +7,23 @@
 */
 
 var ToggleWidget = Class.create(Widget, {
+  init: false,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    
-    var target = $w($(element).className).find(function(klass){ return klass.startsWith("toggle_"); });
-    if(target){
+    Event.observe(this.link, "click", this.click.bindAsEventListener(this));
+  },
+  
+  click: function(event) {
+    if (!this.init) {
+      this.extractParameters();
+    }
+    Effect.toggle(this.child, this.effect, {duration: this.duration});
+    event.stop();
+  },
+  
+  extractParameters: function() {
+    var target = $w($(element).className).find(function(klass) { return klass.startsWith("toggle_"); });
+    if (target) {
       this.link = $(element);
       this.child = $(target.gsub("toggle_", ''));
       this.duration = 0.5;
@@ -22,13 +34,7 @@ var ToggleWidget = Class.create(Widget, {
       this.duration = 2.0;
       this.effect = "blind";
     }
-    
-    Event.observe(this.link, "click", this.click.bindAsEventListener(this));
-  },
-  
-  click: function(event) {
-    Effect.toggle(this.child, this.effect, {duration: this.duration});
-    event.stop();
+    this.init = true;
   }
 });
 

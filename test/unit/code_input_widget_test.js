@@ -3,27 +3,23 @@ new Test.Unit.Runner({
   },
   
   teardown: function() {
-    c = $('code-input');
+    var c = $('code-input');
     c.setSelectionRange(0, 0);
     c.blur();
+    
+    Event.stopObserving($('code-input'), 'click');
+    Event.stopObserving($('code-input'), 'focus');
   },
   
   testEventHandlers: function() { with(this) {
-    var eventsObserved = [];
-    mockup(Event, 'observe', function(element, event, handler) {
-      eventsObserved.push(event);
+    assertObserved(['focus', 'click'], function() {
+      var c = new CodeInputWidget($('code-input'));
+      assertNotNull(c.element);
     }.bind(this));
-    
-    c = new CodeInputWidget($('code-input'));
-    
-    assertNotNull(c.element);
-    assertHashEqual(eventsObserved, ['focus', 'click']);
-    
-    undoMockup(Event, 'observe');
   }},
   
   testSelect: function() { with(this) {
-    c = new CodeInputWidget($('code-input'));
+    var c = new CodeInputWidget($('code-input'));
     c.element.value = "foo";
     $('code-input').setSelectionRange(0, 0);
     assertSelected(c.element, "");
@@ -32,7 +28,7 @@ new Test.Unit.Runner({
   }},
   
   testClick: function() { with(this) {
-    c = new CodeInputWidget($('code-input'));
+    var c = new CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
     Event.simulateMouse(c.element, 'click');
@@ -40,7 +36,7 @@ new Test.Unit.Runner({
   }},
 
   testFocus: function() { with(this) {
-    c = new CodeInputWidget($('code-input'));
+    var c = new CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
     c.element.focus();
