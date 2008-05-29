@@ -6,7 +6,7 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var RemoteLink = Class.create(Widget, {
+var RemoteLinkWidget = Class.create(Widget, {
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.url = this.element.href;
@@ -46,4 +46,4 @@ var RemoteLink = Class.create(Widget, {
   }
 });
 
-CurrentPage.registerBehaviour('thc2-remote-link', RemoteLink);
+CurrentPage.registerBehaviour('thc2-remote-link', RemoteLinkWidget);
