@@ -3,9 +3,11 @@ new Test.Unit.Runner({
   },
   
   teardown: function() {
-    var c = $('code-input');
-    c.setSelectionRange(0, 0);
-    c.blur();
+    ['code-input', 'code-area'].each(function(w) {
+      var c = $(w);
+      c.setSelectionRange(0, 0);
+      c.blur();
+    });
     
     Event.stopObserving($('code-input'), 'click');
     Event.stopObserving($('code-input'), 'focus');
@@ -16,9 +18,14 @@ new Test.Unit.Runner({
       var c = new CodeInputWidget($('code-input'));
       assertNotNull(c.element);
     }.bind(this));
+    
+    assertObserved(['focus', 'click'], function() {
+      var c = new CodeInputWidget($('code-area'));
+      assertNotNull(c.element);
+    }.bind(this));
   }},
   
-  testSelect: function() { with(this) {
+  testSelectOnInput: function() { with(this) {
     var c = new CodeInputWidget($('code-input'));
     c.element.value = "foo";
     $('code-input').setSelectionRange(0, 0);
@@ -27,7 +34,7 @@ new Test.Unit.Runner({
     assertSelected(c.element, "foo");
   }},
   
-  testClick: function() { with(this) {
+  testClickOnInput: function() { with(this) {
     var c = new CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
@@ -35,11 +42,36 @@ new Test.Unit.Runner({
     assertSelected(c.element, "foo");
   }},
 
-  testFocus: function() { with(this) {
+  testFocusOnInput: function() { with(this) {
     var c = new CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
     c.element.focus();
     assertSelected(c.element, "foo");
+  }},
+
+  testSelectOnArea: function() { with(this) {
+    var c = new CodeInputWidget($('code-area'));
+    c.element.value = "foo\nbar";
+    $('code-input').setSelectionRange(0, 0);
+    assertSelected(c.element, "");
+    c.select();
+    assertSelected(c.element, "foo\nbar");
+  }},
+  
+  testClickOnArea: function() { with(this) {
+    var c = new CodeInputWidget($('code-area'));
+    c.element.value = "foo\nbar";
+    assertSelected(c.element, "");
+    Event.simulateMouse(c.element, 'click');
+    assertSelected(c.element, "foo\nbar");
+  }},
+
+  testFocusOnArea: function() { with(this) {
+    var c = new CodeInputWidget($('code-area'));
+    c.element.value = "foo\nbar";
+    assertSelected(c.element, "");
+    c.element.focus();
+    assertSelected(c.element, "foo\nbar");
   }}
 });

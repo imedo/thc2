@@ -8,7 +8,10 @@
     var eventResults = {};
     var originalElement = window.Element;
   </script>
-  <script src="../../../lib/prototype.js" type="text/javascript"></script>
+  <script src="../../../vendor/prototype/prototype.js" type="text/javascript"></script>
+  <% ['builder','effects','dragdrop','controls','slider','sound'].each do |lib| %>
+  <script src="../../../vendor/scriptaculous/<%= lib %>.js" type="text/javascript"></script>
+  <% end %>
   <script src="../../../dist/thc2.js" type="text/javascript"></script>
   <script src="../../../test/lib/unittest.js" type="text/javascript"></script>
   <script src="../../../test/lib/test_helper.js" type="text/javascript"></script>

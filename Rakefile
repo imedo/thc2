@@ -24,7 +24,7 @@ task :dist do
 end
 
 desc "Create documentation."
-task :document do
+task :document => :dist do
   Dir.chdir(JSDOC_DIR) do
     %x{java -jar jsrun.jar app/run.js -t=templates/jsdoc -d=#{THC2_DOC_DIR} #{THC2_DIST_DIR}/thc2.js}
   end
@@ -54,9 +54,9 @@ JavaScriptTestTask.new(:test_units) do |t|
   browsers_to_test = ENV['BROWSERS'] && ENV['BROWSERS'].split(',')
   tmp_dir          = "test/unit/tmp"
   
-  t.mount("/lib")
   t.mount("/dist")
   t.mount("/test")
+  t.mount("/vendor")
   
   Dir.mkdir(tmp_dir) unless File.exist?(tmp_dir)
   

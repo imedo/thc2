@@ -10,6 +10,7 @@ var ToggleWidget = Class.create(Widget, {
   init: false,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
+    this.extractParameters();
     Event.observe(this.link, "click", this.click.bindAsEventListener(this));
   },
   
@@ -22,15 +23,15 @@ var ToggleWidget = Class.create(Widget, {
   },
   
   extractParameters: function() {
-    var target = $w($(element).className).find(function(klass) { return klass.startsWith("toggle_"); });
+    var target = $w($(this.element).className).find(function(klass) { return klass.startsWith("toggle_"); });
     if (target) {
-      this.link = $(element);
+      this.link = $(this.element);
       this.child = $(target.gsub("toggle_", ''));
       this.duration = 0.5;
       this.effect = null;
-    } else{
-      this.link = element.getElementsByTagName("a")[0];
-      this.child = element.getElementsBySelector("div")[0];
+    } else {
+      this.link = this.element.getElementsByTagName("a")[0];
+      this.child = this.element.getElementsBySelector("div")[0];
       this.duration = 2.0;
       this.effect = "blind";
     }
