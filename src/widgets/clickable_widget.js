@@ -17,7 +17,9 @@
  * @class
  * @extends Widget
  */
-var ClickableWidget = Class.create(Widget, {
+var ClickableWidget = Class.create(Widget,
+/** @scope ClickableWidget.prototype */
+{
   init: false,
   
   /**

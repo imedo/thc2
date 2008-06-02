@@ -6,12 +6,26 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var BookmarkWidget = Class.create(Widget, {
+/**
+ * This widget adds the current page to the browser's bookmarks on click.
+ * @class
+ * @extends Widget
+ */
+var BookmarkWidget = Class.create(Widget,
+/** @scope BookmarkWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.bookmark.bindAsEventListener(this));
   },
   
+  /**
+   * Bookmarks the current page. The bookmark name used is the current page's
+   * title. This method is called on click.
+   */
   bookmark: function(event) {
     var url = location.href; 
     var title = document.title;
@@ -22,6 +36,14 @@ var BookmarkWidget = Class.create(Widget, {
 
 CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
 
+/**
+ * Creates a new bookmark, if supported by the browser. If not, it shows an
+ * alert with instructions on how to bookmark the current page, depending
+ * on the browser.
+ *
+ * @param {String} url The bookmark's URL.
+ * @param {String} title The bookmark's title.
+ */
 function bookmark(url, title) {
   var ua = navigator.userAgent.toLowerCase();
   

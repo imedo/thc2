@@ -35,7 +35,7 @@ var AjaxBubble = Class.create(Bubble,
   },
   
   /**
-   * @internal
+   * @inner
    * Gets called when the Ajax request response is ready. Stores the results in
    * the AjaxCache and updates the bubble's content and position.
    */

@@ -4,11 +4,30 @@
  
   This file is freely distributable under the terms of an MIT-style license.
   For details, see the imedo.de web site: http://www.imedo.de
+  
+  TODO:
+  -----
+  
+  - remove the display from this class
+  - create another class that wraps a limited text area with a display
 */
 
-var LimitedTextareaWidget = Class.create(Widget, {
+/**
+ * This widget limits the maximum characters allowed in a textarea. The maximum
+ * number of characters is determined by a class parameter of the form
+ * <code>maxlength_</code><em>length</em>, where length must be a parseable
+ * integer number.
+ * @class
+ * @extends Widget
+ */
+var LimitedTextareaWidget = Class.create(Widget,
+/** @scope LimitedTextareaWidget.prototype */
+{
   LengthRegexp: /^maxlength_(\d+)$/,
-
+  
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "keypress", this.keypress.bindAsEventListener(this));
@@ -28,6 +47,11 @@ var LimitedTextareaWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * @inner
+   * This method is called on keypress; when the maximum length is exceeded,
+   * any more characters are discarded.
+   */
   keypress: function(event) {
     if (this.element.value.length >= this.maximum) {
       this.element.value = this.element.value.substring(0, this.maximum);
@@ -37,12 +61,20 @@ var LimitedTextareaWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * @inner
+   * TODO: remove this method from this class
+   */
   keyup: function(event) {
     if (this.span) {
       this.updateDisplay();
     }
   },
   
+  /**
+   * @inner
+   * TODO: remove this method from this class
+   */
   updateDisplay: function() {
     chars = this.maximum - this.element.value.length;
     this.span.innerHTML = chars;

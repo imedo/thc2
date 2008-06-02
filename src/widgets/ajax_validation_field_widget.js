@@ -4,6 +4,12 @@
  
   This file is freely distributable under the terms of an MIT-style license.
   For details, see the imedo.de web site: http://www.imedo.de
+  
+  TODO:
+  -----
+  
+  - remove info text and create class that wraps this class with additional info
+    text support
 */
 
 var AjaxValidationFieldWidget = Class.create(Widget, {

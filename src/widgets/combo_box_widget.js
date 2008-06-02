@@ -6,8 +6,18 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var ComboBoxWidget = Class.create(Widget, {
-  init: false,
+/**
+ * This widget connects an input field and a select field together such that
+ * on change of the select field, it's value is written into the text field.
+ * @class
+ * @extends Widget
+ */
+var ComboBoxWidget = Class.create(Widget,
+/** @scope ComboBoxWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.textField = this.element.getElementsByTagName('input')[0];
@@ -15,6 +25,10 @@ var ComboBoxWidget = Class.create(Widget, {
     Event.observe(this.select, "change", this.change.bindAsEventListener(this));
   },
   
+  /**
+   * @inner
+   * Called on change of the select field. Changes the value of the text field.
+   */
   change: function(event) {
     this.textField.value = this.select.options[this.select.selectedIndex].value;
   }

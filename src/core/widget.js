@@ -36,10 +36,9 @@ Object.extend(Widget,
     try {
       $A($(parent || document.body).getElementsByTagName("*")).each(function(element) {
         var names = element.className;
-        if( /thc2-/.match(names) > 0 ) {            
+        if (/thc2-/.match(names) > 0) {
           var matching_classes = names.split(' ').select(function(c) { return new String(c).startsWith("thc2-"); });
-          for (var i = 0; i <= matching_classes.length; i++)
-          {
+          for (var i = 0; i <= matching_classes.length; i++) {
             var className = matching_classes[i];
             var mapping = behaviours[className];
             if (mapping && CurrentPage.find(element, className).length == 0) {

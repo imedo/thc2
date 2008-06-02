@@ -1,4 +1,24 @@
-var MnemonicForm = Class.create(FormWidget, {
+/*
+  Base class for forms that remember their contents
+   (c) 2007 imedo GmbH
+ 
+  This file is freely distributable under the terms of an MIT-style license.
+  For details, see the imedo.de web site: http://www.imedo.de
+*/
+
+/**
+ * This class adds mnemonic support to a form element, i.e. it remembers the
+ * contents of the form's input elements. These contents can be restored at
+ * any time. This class must be applied to <code>form</code> elements.
+ * @class
+ * @extends FormWidget
+ */
+var MnemonicForm = Class.create(FormWidget,
+/** @scope MnemonicForm.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     FormWidget.prototype.initialize.apply(this, arguments);
     
@@ -14,6 +34,9 @@ var MnemonicForm = Class.create(FormWidget, {
     this.storeValues();
   },
   
+  /**
+   * Stores the values of all of the form's fields.
+   */
   storeValues: function() {
     this.values.merge(this.inputs.inject(new Hash(), function(hash, element) {
       if (element.value && element.value != "") {
@@ -25,18 +48,28 @@ var MnemonicForm = Class.create(FormWidget, {
     this.values.merge(this.radios());
   },
   
+  /**
+   * Clears all the form's fields.
+   */
   clear: function() {
     this.values.keys().each(function(key) {
       $(key).value = "";
     });
   },
   
+  /**
+   * Restores all the form's fields to the values they had, before the
+   * <code>storeValues</code> method was called last.
+   */
   restore: function() {
     this.values.each(function(pair) {
       $(pair.key).value = pair.value;
     });
   },
   
+  /**
+   * @inner
+   */
   radios: function(){
     var hash = new Hash();
     this.element.getInputs('radio').each(function(element){

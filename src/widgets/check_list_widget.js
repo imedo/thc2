@@ -6,7 +6,29 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var CheckListWidget = Class.create(Widget, {
+/**
+ * For a list with one check box per item, this widget adds support for buttons
+ * to select all, deselect all and to invert the selection.
+ *
+ * This widget must be applied to a <code>form</code> element. All elements with
+ * class
+ *
+ * <ul>
+ * <li><code>select_all</code> select all check boxes,</li>
+ * <li><code>deselect_all</code> deselect all check boxes,</li>
+ * <li><code>invert_all</code> invert the selection</li>
+ * </ul>
+ *
+ * on click.
+ * @class
+ * @extends Widget
+ */
+var CheckListWidget = Class.create(Widget,
+/** @scope CheckListWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     var selectAllElements = this.element.select('.select_all');
@@ -26,10 +48,17 @@ var CheckListWidget = Class.create(Widget, {
     }.bind(this));
   },
   
+  /**
+   * @inner
+   * Finds all check boxes in the form.
+   */
   findCheckBoxes: function() {
     this.checkboxes = this.element.getInputs('checkbox');
   },
   
+  /**
+   * Selects all check boxes.
+   */
   selectAll: function(event) {
     if (!this.checkboxes) {
       this.findCheckBoxes();
@@ -41,6 +70,9 @@ var CheckListWidget = Class.create(Widget, {
     event.stop();
   },
   
+  /**
+   * Deselects all check boxes.
+   */
   deselectAll: function(event) {
     if (!this.checkboxes) {
       this.findCheckBoxes();
@@ -52,6 +84,9 @@ var CheckListWidget = Class.create(Widget, {
     event.stop();
   },
   
+  /**
+   * Inverts the selection.
+   */
   invertAll: function(event) {
     if (!this.checkboxes) {
       this.findCheckBoxes();

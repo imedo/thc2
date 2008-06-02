@@ -4,11 +4,53 @@
  
   This file is freely distributable under the terms of an MIT-style license.
   For details, see the imedo.de web site: http://www.imedo.de
+  
+  TODO:
+  -----
+  
+  - Separate photo album from navigation controls
 */
 
-var PhotoAlbumWidget = Class.create(Widget, {
+/**
+ * This class provides a visual photo album browser, much like Apple's cover flow
+ * in their applications.
+ *
+ * To use this widget, simply apply it to a list of pictures, like in the markup
+ * below. Note that the pictures must be embedded in link tags.
+ * 
+ * <pre>
+ * &lt;div id=&quot;photo_album&quot; style=&quot;height:200px;&quot;&gt;
+ *   &lt;div style=&quot;float:left&quot;&gt;
+ *     &lt;a href=&quot;#&quot; class=&quot;control prev&quot;&gt;&amp;laquo; Previous&lt;/a&gt;
+ *   &lt;/div&gt;
+ *   &lt;div style=&quot;float:right&quot;&gt;
+ *     &lt;a href=&quot;#&quot; class=&quot;control next&quot;&gt;Next &amp;raquo;&lt;/a&gt;
+ *   &lt;/div&gt;
+ *   &lt;div style=&quot;clear:both&quot;&gt;&lt;/div&gt;
+ *   &lt;ul&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/1.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li class=&quot;selected&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/2.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/3.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/4.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/5.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/6.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;/pictures/sunset/7.jpg&quot;/&gt;&lt;/a&gt;&lt;/li&gt;
+ *   &lt;/ul&gt;
+ * &lt;/div&gt;
+ * </pre>
+ *
+ * @class
+ * @extends Widget
+ */
+var PhotoAlbumWidget = Class.create(Widget,
+/** @scope PhotoAlbumWidget.prototype */
+{
   numPhotos: 11,
   currentIndex: 0,
+  
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     PhotoAlbumWidget.self = this;
     Widget.prototype.initialize.apply(this, arguments);
@@ -52,12 +94,21 @@ var PhotoAlbumWidget = Class.create(Widget, {
     this.resize();
   },
   
+  /**
+   * @inner
+   * Measures the photo album's dimensions.
+   */
   getDimensions: function() {
     var size = this.ul.getDimensions();
     this.width = size.width;
     this.height = size.height;
   },
   
+  /**
+   * @inner
+   * This method is called as soon as a picture is finished loading.
+   * @param photo The loaded photo.
+   */
   photoLoaded: function(photo) {
     var beforeMiddle = Math.floor(this.numPhotos / 2);
     if (this.photoVisible(photo)) {
@@ -66,6 +117,10 @@ var PhotoAlbumWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * @inner
+   * Measures a photo's aspect ratio.
+   */
   getAspectRatio: function(photo) {
     if (photo.ratio === undefined) {
       var measurement = new Element('img', { src: photo.img.src, style: "visibility:hidden;position:absolute" });
@@ -78,16 +133,29 @@ var PhotoAlbumWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * This method is called whenever the widget is resized. It rearranges the
+   * pictures in the photo list.
+   */
   resize: function() {
     this.getDimensions();
     this.animate();
   },
   
+  /**
+   * @inner
+   * Returns <code>true</code> if the photo is currently visible.
+   * @params photo The photo.
+   */
   photoVisible: function(photo) {
     var beforeMiddle = Math.floor(this.numPhotos / 2);
     return photo.index >= this.currentIndex - beforeMiddle - 1 && photo.index < this.currentIndex + beforeMiddle + 2;
   },
   
+  /**
+   * @inner
+   * Animates the photos.
+   */
   animate: function() {
     var coordinates = [];
     var beforeMiddle = Math.floor(this.numPhotos / 2);
@@ -133,18 +201,32 @@ var PhotoAlbumWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * @inner
+   * This method calculates the z-Index of the photo with the given number.
+   */
   zIndex: function(number) {
     return this.photos.length - Math.abs(this.currentIndex - number);
   },
   
+  /**
+   * Moves the picture one right to the current picture into focus.
+   */
   moveRight: function() {
     this.moveTo(this.currentIndex + 1);
   },
   
+  /**
+   * Moves the picture one left to the current picture into focus.
+   */
   moveLeft: function() {
     this.moveTo(this.currentIndex - 1);
   },
   
+  /**
+   * Moves the picture with the given number into focus.
+   * @param {int} index The index of the picture that should have focus.
+   */
   moveTo: function(index) {
     if (index < 0) {
       this.currentIndex = 0;
@@ -156,6 +238,11 @@ var PhotoAlbumWidget = Class.create(Widget, {
     this.resize();
   },
   
+  /**
+   * This method is called when a picture is clicked. If the picture is
+   * out of focus, it gets focus. If it is in focus, the pictures link
+   * is followed.
+   */
   photoClick: function(photo, event) {
     if (photo.index != this.currentIndex) {
       this.moveTo(photo.index);
@@ -163,6 +250,11 @@ var PhotoAlbumWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * Sets the maximum number of photos that are visible at the same time. For the
+   * sake of symmetry, this number should be odd.
+   * @param {int} num The number of photos.
+   */
   setNumPhotos: function(num) {
     this.numPhotos = num;
     this.resize();

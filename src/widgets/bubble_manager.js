@@ -35,7 +35,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Starts a timer which lets the current bubble appear.
    */
   startShowTimeout: function() {
@@ -44,7 +44,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Starts a timer which lets the current bubble disappear.
    */
   startHideTimeout: function(){
@@ -53,7 +53,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Cancels the show / hide timeouts.
    */
   endTimeout: function(){
@@ -63,7 +63,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Lets the current bubble appear. This method calls the bubble's implementation
    * of appear(). Override the bubble's appear() method to get different effects.
    */
@@ -73,7 +73,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Lets the current bubble disappear. This method calls the bubble's implementation
    * of disappear(). Override the bubble's disappear() method to get different effects.
    */
@@ -83,7 +83,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Hides the current bubble. This method calls the bubble's implementation
    * of hide(). Override the bubble's hide() method to get different effects.
    */
@@ -93,7 +93,7 @@ var BubbleManager = Singleton.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Shows the current bubble. This method calls the bubble's implementation
    * of show(). Override the bubble's show() method to get different effects.
    */

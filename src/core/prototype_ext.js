@@ -12,17 +12,6 @@ String.prototype.format = function() {
   });
 };
 
-if (typeof TinyMCE != "undefined") {
-  TinyMCE.Observer = Class.create(Abstract.TimedObserver, {
-    getValue: function() {
-      if (tinyMCE.selectedInstance)
-        return tinyMCE.selectedInstance.getHTML();
-      else
-        return "";
-    }
-  });
-}
-
 if (Prototype.Browser.IE) {
   // this actually improves performance in IE 6
   Event.allEvents = [];
