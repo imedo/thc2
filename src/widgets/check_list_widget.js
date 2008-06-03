@@ -58,6 +58,7 @@ var CheckListWidget = Class.create(Widget,
   
   /**
    * Selects all check boxes.
+   * @param {Event} event The click event object.
    */
   selectAll: function(event) {
     if (!this.checkboxes) {
@@ -72,6 +73,7 @@ var CheckListWidget = Class.create(Widget,
   
   /**
    * Deselects all check boxes.
+   * @param {Event} event The click event object.
    */
   deselectAll: function(event) {
     if (!this.checkboxes) {
@@ -86,6 +88,7 @@ var CheckListWidget = Class.create(Widget,
   
   /**
    * Inverts the selection.
+   * @param {Event} event The click event object.
    */
   invertAll: function(event) {
     if (!this.checkboxes) {

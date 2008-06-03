@@ -16,7 +16,7 @@ var Singleton =
 /** @scope Singleton */
 {
   /**
-   * Creates a new singleton class. See the prototype Class.create documentation
+   * Creates a new singleton class. See the Prototype Class.create documentation
    * for details on parameters.
    *
    * The singleton instance is available to the <code>self()</code> method.

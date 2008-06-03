@@ -7,8 +7,10 @@
 */
 
 /**
- * Namespace for logging functions. See the Environment namespace for log level
+ * Namespace for logging functions. See the {@link Environment} namespace for log level
  * information.
+ * @static
+ * @class
  */
 var Logger = {
   /**

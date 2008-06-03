@@ -18,6 +18,7 @@ var Initializer = {
       CurrentPage.reconnect(document.body);
       Initializer.afterInit.each(function(func){ func(); })
     }).duration();
+    Logger.info("Initialization took " + d + "ms.");
   },
   
   doAfterInit: function(func) {

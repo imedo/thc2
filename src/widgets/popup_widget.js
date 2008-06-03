@@ -80,6 +80,7 @@ var PopupWidget = Class.create(Widget,
   
   /**
    * Opens the popup window and gives it focus.
+   * @param {Event} event The click event object.
    */
   showPopup: function(event) {
     if(!this.init) {

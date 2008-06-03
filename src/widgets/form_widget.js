@@ -59,6 +59,7 @@ var FormWidget = Class.create(Widget,
   /**
    * @inner
    * This method is called on form submission.
+   * @param {Event} event The submit event object.
    */
   submit: function(event) {
     if (!this.validate())

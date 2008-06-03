@@ -17,8 +17,9 @@
  *   });
  * </pre>
  *
- * You can also use the start() and stop() methods to start and stop the
- * timer. Use duration() to query the measured runtime.
+ * You can also use the {@link Benchmark#start} and {@link Benchmark#stop}
+ * methods to start and stop the timer. Use {@link Benchmark#duration} to
+ * query the measured runtime.
  *
  * @class Benchmark
  */
@@ -49,7 +50,7 @@ var Benchmark = Class.create(
   },
   
   /**
-   * Returns the elapsed time between the start() and stop() calls.
+   * Returns the elapsed time between the {@link Benchmark#start} and {@link Benchmark#stop} calls.
    * @return {integer} the elapsed time.
    */
   duration: function() {
@@ -58,7 +59,7 @@ var Benchmark = Class.create(
   
   /**
    * Convenience method that logs the measured time with log level <code>"info"</code>.
-   * See the Logger class for details about log levels.
+   * See the {@link Logger} class for details about log levels.
    */
   log: function() {
     if (this.what) {

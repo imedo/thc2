@@ -26,8 +26,11 @@ var ClickableWidget = Class.create(Widget,
    * Constructor.
    * @param {HTMLElement,String} element The widgets element.
    * @param {Object} options An options hash. The following options are
-   *   recognized: <code>href</code> - the target location when the widget
-   *   element is clicked.
+   *   recognized:
+   *     <ul>
+   *       <li><code>href</code> - The target location when the widget
+   *           element is clicked.</li>
+   *     </ul>
    */
   initialize: function(element, options) {
     Widget.prototype.initialize.apply(this, arguments);
@@ -40,6 +43,7 @@ var ClickableWidget = Class.create(Widget,
   
   /**
    * Click event handler.
+   * @param {Event} event The click event object.
    */
   click: function(event) {
     if (!this.init && !this.href) {

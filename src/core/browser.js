@@ -41,6 +41,7 @@ var Browser = {
    *   </tbody>
    * </table>
    *
+   * And the following operating systems:
    *
    * <table>
    *   <thead>

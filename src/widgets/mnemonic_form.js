@@ -59,7 +59,7 @@ var MnemonicForm = Class.create(FormWidget,
   
   /**
    * Restores all the form's fields to the values they had, before the
-   * <code>storeValues</code> method was called last.
+   * {@link MnemonicForm#storeValues} method was called last.
    */
   restore: function() {
     this.values.each(function(pair) {

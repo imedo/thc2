@@ -14,7 +14,8 @@ var BubbleManager = Singleton.create(
 /** @scope BubbleManager.prototype */
 {
   /**
-   * Mock object that represents the initial (non-existent) bubble.
+   * Points to the currently visible bubble. Defaults to a Null Object that
+   * represents the initial (non-existent) bubble.
    */
   currentBubble: {
     visible: function() {
@@ -65,7 +66,8 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Lets the current bubble appear. This method calls the bubble's implementation
-   * of appear(). Override the bubble's appear() method to get different effects.
+   * of {@link Bubble#appear}. Override the bubble's {@link Bubble#appear} method to
+   * get different effects.
    */
   appearBubble: function() {
     this.endTimeout();
@@ -75,7 +77,8 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Lets the current bubble disappear. This method calls the bubble's implementation
-   * of disappear(). Override the bubble's disappear() method to get different effects.
+   * of {@link Bubble#disappear}. Override the bubble's {@link Bubble#disappear} method
+   * to get different effects.
    */
   disappearBubble: function() {
     this.endTimeout();
@@ -85,7 +88,8 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Hides the current bubble. This method calls the bubble's implementation
-   * of hide(). Override the bubble's hide() method to get different effects.
+   * of {@link Bubble#hide}. Override the bubble's {@link Bubble#hide} method to get
+   * different effects.
    */
   hideBubbleNow: function() {
     this.endTimeout();
@@ -95,7 +99,8 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Shows the current bubble. This method calls the bubble's implementation
-   * of show(). Override the bubble's show() method to get different effects.
+   * of {@link Bubble#show}. Override the bubble's {@link Bubble#show} method to get
+   * different effects.
    */
   showBubbleNow: function() {
     this.endTimeout();
@@ -105,6 +110,7 @@ var BubbleManager = Singleton.create(
   /**
    * Schedules the current bubble for appearing. The bubble will appear after
    * a certain timeout, or immediately if another bubble was visible.
+   * @param {Bubble} bubble The bubble to show.
    */
   showBubble: function(bubble) {
     this.endTimeout();
@@ -122,7 +128,7 @@ var BubbleManager = Singleton.create(
    * Schedules the current bubble for disappearing. The bubble will disappear after
    * a certain timeout.
    */
-  hideBubble: function(event) {
+  hideBubble: function() {
     this.endTimeout();
     this.startHideTimeout();
   }

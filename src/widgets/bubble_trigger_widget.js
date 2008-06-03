@@ -33,6 +33,7 @@ var BubbleTriggerWidget = Class.create(Widget,
   
   /**
    * Event handler that shows the bubble.
+   * @param {Event} event The mouse event object.
    */
   showBubble: function(event) {
     BubbleManager.self().showBubble(this.bubble());
@@ -40,6 +41,7 @@ var BubbleTriggerWidget = Class.create(Widget,
   
   /**
    * Event handler that hides the bubble.
+   * @param {Event} event The mouse event object.
    */
   hideBubble: function(event) {
     BubbleManager.self().hideBubble(this.bubble());

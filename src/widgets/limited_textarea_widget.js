@@ -15,8 +15,15 @@
 /**
  * This widget limits the maximum characters allowed in a textarea. The maximum
  * number of characters is determined by a class parameter of the form
- * <code>maxlength_</code><em>length</em>, where length must be a parseable
+ * <code>maxlength_</code><em>length</em>, where <em>length</em> must be a parseable
  * integer number.
+ *
+ * Example:
+ *
+ * <pre>
+ *   &lt;textarea class=&quot;thc2-limited-textarea maxlength_200&quot;&gt;some text&lt;/textarea&gt;
+ * </pre>
+ *
  * @class
  * @extends Widget
  */
@@ -51,6 +58,7 @@ var LimitedTextareaWidget = Class.create(Widget,
    * @inner
    * This method is called on keypress; when the maximum length is exceeded,
    * any more characters are discarded.
+   * @param {Event} event The key event object.
    */
   keypress: function(event) {
     if (this.element.value.length >= this.maximum) {
@@ -64,6 +72,7 @@ var LimitedTextareaWidget = Class.create(Widget,
   /**
    * @inner
    * TODO: remove this method from this class
+   * @param {Event} event The key event object.
    */
   keyup: function(event) {
     if (this.span) {

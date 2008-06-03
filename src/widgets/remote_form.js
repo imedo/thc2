@@ -34,6 +34,7 @@ var RemoteForm = Class.create(FormWidget,
    * @inner
    * This method is called when the form is submitted. It sends an Ajax request
    * to the form's target URL.
+   * @param {Event} event The submit event object.
    */
   submit: function(event) {
     FormWidget.prototype.submit.apply(this, arguments);

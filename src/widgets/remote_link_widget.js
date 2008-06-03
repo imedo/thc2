@@ -30,6 +30,7 @@ var RemoteLinkWidget = Class.create(Widget,
    * @inner
    * This method is called when the link is clicked. It sends an Ajax request to
    * the URL specified by the link's <code>href</code> attribute.
+   * @param {Event} event The click event object.
    */
   click: function(event) {
     new Ajax.Request(this.url, {

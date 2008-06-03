@@ -9,7 +9,8 @@
 /**
  * Base class for bubble popups. You should subclass this class to implement your
  * bubble. If you need to load the bubble's contents via Ajax, have a look at the
- * AjaxBubble class, which caches the Ajax request's response, to minimize traffic.
+ * {@link AjaxBubble} class, which caches the Ajax request's response, to minimize
+ * traffic.
  * @class
  */
 var Bubble = Class.create(
@@ -119,6 +120,7 @@ var Bubble = Class.create(
   /**
    * @inner
    * Makes sure that the bubble stays visible when the mouse hovers over it.
+   * @param {Event} event The mouse event object.
    */
   onMouseOver: function(event) {
     BubbleManager.self().showBubble(this);
@@ -127,6 +129,7 @@ var Bubble = Class.create(
   /**
    * @inner
    * Makes sure that the bubble disappears when the mouse leaves it.
+   * @param {Event} event The mouse event object.
    */
   onMouseOut: function(event) {
     BubbleManager.self().hideBubble(this);
@@ -135,6 +138,7 @@ var Bubble = Class.create(
   /**
    * @inner
    * Eats onclick events.
+   * @param {Event} event The click event object.
    */
   onClick: function(event) {
     event.stop();

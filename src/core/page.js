@@ -12,10 +12,8 @@
 var THC2 = new Object();
 
 /**
- * @class THC2.Page
- *
  * Class representing a HTML page. Do not instantiate this class, use the
- * CurrentPage global variable.
+ * {@link CurrentPage} global variable.
  *
  * The CurrentPage serves mainly two purposes:
  *
@@ -49,10 +47,10 @@ var THC2 = new Object();
  * </pre>
  *
  * Now, when javascript is disabled, or the execution fails, the window will be
- * opened with target="_blank". It may not be perfect, but it is better than nothing.
- * But the problem remains, that javascript appears in the HTML source. And another
- * problem just emerged: the url ('/some/url') appears twice in the source, which
- * is a possible source for typos, and a waste of bandwidth.
+ * opened with <code>target="_blank"</code>. It may not be perfect, but it is better
+ * than nothing. But the problem remains, that javascript appears in the HTML source.
+ * And another problem just emerged: the url (<code>/some/url</code>) appears twice
+ * in the source, which is a possible source for typos, and a waste of bandwidth.
  *
  * Behaviours decouple the HTML from the javascript. That means that the HTML code
  * is written separately from the javascript, and both are connected at a later
@@ -111,8 +109,8 @@ var THC2 = new Object();
  *   CurrentPage.reconnect();
  * </pre>
  *
- * The first line registers the connection between the CSS selector "#alert", i.e. the
- * element with id "alert" and a function that displays the alert. The second line applies
+ * The first line registers the connection between the CSS selector <code>#alert</code>, i.e.
+ * the element with id "alert" and a function that displays the alert. The second line applies
  * all registered connections to the current document. In design pattern terms, connections
  * implement the observer pattern.
  *
@@ -122,6 +120,7 @@ var THC2 = new Object();
  * with each other. Connections, on the other hand, are for single elements and code that
  * would fit into one line, e.g. show an alert, let an element appear/disappear, go back in
  * history and so on.
+ * @class
  */
 THC2.Page = Class.create(
 /** @scope THC2.Page.prototype */
@@ -145,8 +144,8 @@ THC2.Page = Class.create(
    * </pre>
    *
    * After the two above calls, every text area with the CSS class
-   * <code>"thc2-limited-textarea"</code> will have the LimitedTextareaWidget behaviour
-   * applied.
+   * <code>thc2-limited-textarea</code> will have the {@link LimitedTextareaWidget}
+   * behaviour applied.
    *
    * @param behaviour The CSS class. Must start with "thc2-".
    * @param klass The javascript Widget subclass.
@@ -157,7 +156,7 @@ THC2.Page = Class.create(
   
   /**
    * Convenience method which registers multiple behaviours in one call.
-   * See the registerBehaviour() method for details. Example:
+   * See the {@link Page#registerBehaviour} method for details. Example:
    *
    * <pre>
    *   CurrentPage.registerBehaviours({
@@ -200,8 +199,8 @@ THC2.Page = Class.create(
   },
   
   /**
-   * Returns the instance(s) of the Widget subclass that was applied to the given
-   * element.
+   * Returns the instance(s) of the {@link Widget} subclass that was applied to
+   * the given element.
    */
   find: function(element, behaviour) {
     return this.objects.select(function (obj) {

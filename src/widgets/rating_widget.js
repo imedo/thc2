@@ -11,14 +11,14 @@
 
 /**
  * This class is the base class for rating widgets with five stars. There are
- * two subclasses, OneClickRatingWidget and InputRatingWidget, that send the
- * selected rating via Ajax to the server, or store it in a hidden field,
- * respectively. Do not use this class directly, use one of the subclasses
- * instead.
+ * two subclasses, {@link OneClickRatingWidget} and {@link InputRatingWidget},
+ * that send the selected rating via Ajax to the server, or store it in a
+ * hidden field, respectively. Do not use this class directly, use one of the
+ * subclasses instead.
  *
  * The star image must consist of 5 stars below each other. For now, each star
  * must have the size of 20 x 20 pixels (To change this size, see the
- * RatingStar.starheight property).
+ * {@link RatingStar#starheight} property).
  * 
  * From top to bottom, the stars represent:
  *
@@ -109,6 +109,7 @@ var RatingWidget = Class.create(Widget,
   /**
    * @inner
    * Event handler for mouse out event.
+   * @param {Event} event The mouse event object.
    */
   starMouseOut: function(event) {
     this.stars.each(function(star) {
@@ -139,9 +140,12 @@ var RatingWidget = Class.create(Widget,
  *
  * The link's href is used to determine the URL for any ajax request that
  * happens on click. Since the markup contains the URL, the widget also works
- * when Javascirpt, and hence Ajax, is not available.
+ * when Javascript, and hence Ajax, is not available.
+ * @class
  */
-var RatingStar = Class.create({
+var RatingStar = Class.create(
+/** @scope RatingStar.prototype */
+{
   /**
    * Default star height. Adjust this property to use differently sized stars.
    */
@@ -169,6 +173,7 @@ var RatingStar = Class.create({
    * @inner
    * This method is called when the star is clicked. Calls the starClick method
    * of the owning rating widget.
+   * @param {Event} event The click event object.
    */
   starClick: function(event) {
     this.ratingwidget.starClick(this);
@@ -179,6 +184,7 @@ var RatingStar = Class.create({
    * @inner
    * This method is called when the star is hovered. Calls the starMouseOver method
    * of the owning rating widget.
+   * @param {Event} event The mouse event object.
    */
   starMouseOver: function(event) {
     this.ratingwidget.starMouseOver(this);
@@ -265,7 +271,7 @@ var OneClickRatingWidget = Class.create(RatingWidget,
  * The markup of the widget should look like this:
  *
  * <pre>
- * &lt;ul class=&quot;stars thc2-input-rating&quot;&gt;
+ * &lt;ul class=&quot;stars thc2-input-rating store_in_rating_field&quot;&gt;
  *   &lt;li&gt;&lt;span class=&quot;rating&quot;&gt;Be the first to rate this!&amp;nbsp;Your rating:&amp;nbsp;&lt;/span&gt;&lt;/li&gt;
  *   &lt;li&gt;&lt;div&gt;&lt;a href=&quot;#&quot;&gt;&lt;img alt=&quot;good&quot; src=&quot;/images/star.gif&quot; title=&quot;Good&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;/li&gt;
  *   &lt;li&gt;&lt;div&gt;&lt;a href=&quot;#&quot;&gt;&lt;img alt=&quot;better&quot; src=&quot;/images/star.gif&quot; title=&quot;Better&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;/li&gt;
@@ -273,6 +279,7 @@ var OneClickRatingWidget = Class.create(RatingWidget,
  *   &lt;li&gt;&lt;div&gt;&lt;a href=&quot;#&quot;&gt;&lt;img alt=&quot;excellent&quot; src=&quot;/images/star.gif&quot; title=&quot;Excellent&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;/li&gt;
  *   &lt;li&gt;&lt;div&gt;&lt;a href=&quot;#&quot;&gt;&lt;img alt=&quot;unbeatable&quot; src=&quot;/images/star.gif&quot; title=&quot;Unbeatable&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;/li&gt;
  * &lt;/ul&gt;
+ * &lt;input type=&quot;hidden&quot; id=&quot;rating_field&quot; /&gt;
  * </pre>
  *
  * @class

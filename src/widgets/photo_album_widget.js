@@ -120,6 +120,7 @@ var PhotoAlbumWidget = Class.create(Widget,
   /**
    * @inner
    * Measures a photo's aspect ratio.
+   * @param {HTMLElement} photo The photo.
    */
   getAspectRatio: function(photo) {
     if (photo.ratio === undefined) {
@@ -145,7 +146,7 @@ var PhotoAlbumWidget = Class.create(Widget,
   /**
    * @inner
    * Returns <code>true</code> if the photo is currently visible.
-   * @params photo The photo.
+   * @param photo The photo.
    */
   photoVisible: function(photo) {
     var beforeMiddle = Math.floor(this.numPhotos / 2);

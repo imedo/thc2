@@ -10,8 +10,8 @@
  * Base class for bubble popups which are loaded via Ajax. Subclass this class
  * if you want a bubble with dynamically loaded content.
  *
- * In order for your class to work, you need to (at least) override the <code>url()</code>
- * and <code>bubbleElement()</code> methods.
+ * In order for your class to work, you need to (at least) override the {@link AjaxBubble#url}
+ * and {@link Bubble#bubbleElement} methods.
  * @class
  * @extends Bubble
  */
@@ -37,7 +37,8 @@ var AjaxBubble = Class.create(Bubble,
   /**
    * @inner
    * Gets called when the Ajax request response is ready. Stores the results in
-   * the AjaxCache and updates the bubble's content and position.
+   * the {@link AjaxCache} and updates the bubble's content and position.
+   * @param {String} result The response body of the Ajax request.
    */
   requestCompleted: function(result) {
     AjaxCache.self().store(this.url(), result);
@@ -47,6 +48,7 @@ var AjaxBubble = Class.create(Bubble,
   
   /**
    * Updates the bubble's contents with <code>text</code>.
+   * @param {String} text The new bubble contents.
    */
   updateBubble: function(text) {
     this.element.innerHTML = text;

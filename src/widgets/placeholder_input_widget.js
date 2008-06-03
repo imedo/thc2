@@ -13,8 +13,8 @@
  * placeholder is sent along with the enclosing form on submit.
  *
  * When the placeholder is displayed, the text field has the CSS class
- * "placeholder-input". You can use this fact for shading the text field when the
- * placeholder is shown.
+ * <code>placeholder-input</code>. You can use this fact for shading the text field
+ * when the placeholder is shown.
  *
  * @class
  * @extends Widget
@@ -37,6 +37,7 @@ var PlaceholderInputWidget = Class.create(Widget,
   /**
    * @inner
    * This method is called on focus. It lets the placeholder disappear.
+   * @param {Event} event The focus event object.
    */
   focus: function(event) {
     if (this.element.value == this.placeholder) {
@@ -49,6 +50,7 @@ var PlaceholderInputWidget = Class.create(Widget,
    * @inner
    * This method is called on blur. It shows the placeholder, if the text field
    * is empty.
+   * @param {Event} event The blur event object.
    */
   blur: function(event) {
     if (this.element.value == "") {

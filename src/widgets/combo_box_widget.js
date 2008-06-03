@@ -28,6 +28,7 @@ var ComboBoxWidget = Class.create(Widget,
   /**
    * @inner
    * Called on change of the select field. Changes the value of the text field.
+   * @param {Event} event The event object.
    */
   change: function(event) {
     this.textField.value = this.select.options[this.select.selectedIndex].value;

@@ -23,7 +23,7 @@
  *      used as the link.</li>
  * <li> Given by DOM Structure. When the widget is applied to an element, say, a
  *      <code>div</code>, which contains at least one link (<code>a</code>) and
- *      one <code>div</code> element as direct targetren, the link element is
+ *      one <code>div</code> element as direct children, the link element is
  *      considered the link, and the <code>div</code> is considered the target.</li>
  * </ul>
  *
@@ -32,8 +32,8 @@
  * <code>effect_</code><em>effect_name</em>. For a list of available effects,
  * please refer to the script.aculo.us documentation.
  *
- * To use this widget, simply add the class "thc2-toggle-widget" to your input
- * field.
+ * To use this widget, simply add the class <code>thc2-toggle-widget</code> to your
+ * input field.
  * @class
  * @extends Widget
  */
@@ -65,6 +65,7 @@ var ToggleWidget = Class.create(Widget,
   
   /**
    * Click handler.
+   * @param {Event} event The click event object.
    */
   click: function(event) {
     if (!this.init) {
@@ -92,7 +93,7 @@ var ToggleWidget = Class.create(Widget,
   
   /**
    * Sets the target. See this class' documentation for details.
-   * @params {HTMLElement,String} target The target.
+   * @param {HTMLElement,String} target The target.
    */
   setTarget: function(target) {
     this.target = $(target);
@@ -102,7 +103,7 @@ var ToggleWidget = Class.create(Widget,
    * Sets the transition effect. See the script.aculo.us docs for available
    * toggle effects, as well as the class documentation for other ways to
    * set this parameter. The default is <code>blind</code>.
-   * @params {String} effect The transition effect.
+   * @param {String} effect The transition effect.
    */
   setEffect: function(effect) {
     this.effect = effect;
@@ -110,7 +111,7 @@ var ToggleWidget = Class.create(Widget,
   
   /**
    * Sets the duration for the transition effect. The default is 0.5 seconds.
-   * @params {Float} duration The duration for the transition effect.
+   * @param {Float} duration The duration for the transition effect.
    */
   setDuration: function(duration) {
     this.duration = duration;

@@ -20,10 +20,10 @@
  * <pre>
  * &lt;div&gt;
  *   &lt;ul class=&quot;tab-list&quot;&gt;
- *     &lt;li class=&quot;rich-text on&quot; title=&quot;Formatiert&quot;&gt;
+ *     &lt;li class=&quot;rich-text on&quot; title=&quot;Rich text&quot;&gt;
  *       &lt;a href=&quot;#&quot;&gt;Rich text&lt;/a&gt;
  *     &lt;/li&gt;
- *     &lt;li class=&quot;plain-text&quot; title=&quot;HTML-Code&quot;&gt;
+ *     &lt;li class=&quot;plain-text&quot; title=&quot;Plain text&quot;&gt;
  *       &lt;a href=&quot;#&quot;&gt;Plain text&lt;/a&gt;
  *     &lt;/li&gt;
  *   &lt;/ul&gt;

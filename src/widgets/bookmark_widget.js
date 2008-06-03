@@ -25,6 +25,7 @@ var BookmarkWidget = Class.create(Widget,
   /**
    * Bookmarks the current page. The bookmark name used is the current page's
    * title. This method is called on click.
+   * @param {Event} event The click event object.
    */
   bookmark: function(event) {
     var url = location.href; 
