@@ -1,0 +1,55 @@
+<h2>Different kinds of toggle widgets</h2>
+<ul>
+<li>
+  <p>Link and target determined by DOM structure</p>
+  <div id="toggle_with_auto_target">
+    <a href="#" id="auto-toggler">Toggle me (automatic target)</a>
+    <div style="display:none; border: 1px solid #000;" id="auto_target">
+      <p>This is a toggle box where toggle link and toggle target are discovered automatically using the DOM structure.</p>
+    </div>
+  </div>
+</li>
+<li>
+  <p>Target specified by class parameter</p>
+  <a hreF="#" id="toggle_with_explicit_target" class="toggle_target">Toggle me (explicit target)</a>
+
+  <p id="target" style="display:none; border: 1px solid #000;">
+    This is a toggle box where toggle link and toggle target are connected explicitly.
+  </p>
+</li>
+<li>
+  <p>Link and Target specified in Javascript code</p>
+  
+  <a href="#" id="toggle_with_js_target">Toggle me (specified in JS)</a>
+  
+  <p id="target_js" style="display:none; border: 1px solid #000;">
+    This is a toggle box where toggle link and toggle target are connected in Javascript.
+  </p>
+</li>
+<li>
+  <p>Link and target determined by DOM structure with effect parameter</p>
+  <div id="toggle_with_auto_target_and_effect" class="effect_slide">
+    <a href="#" id="auto-toggler-effect">Toggle me (automatic target)</a>
+    <div style="display:none; border: 1px solid #000;" id="auto_target_effect">
+      <p>This is a toggle box where toggle link and toggle target are discovered automatically using the DOM structure.</p>
+    </div>
+  </div>
+</li>
+<li>
+  <p>Target specified by class parameter with effect parameter</p>
+  <a hreF="#" id="toggle_with_explicit_target_and_effect" class="toggle_target effect_slide">Toggle me (explicit target)</a>
+
+  <p id="target-effect" style="display:none; border: 1px solid #000;">
+    This is a toggle box where toggle link and toggle target are connected explicitly.
+  </p>
+</li>
+<li>
+  <p>Link and Target specified in Javascript code with effect parameter</p>
+  
+  <a href="#" id="toggle_with_js_target_and_effect" class="effect_slide">Toggle me (specified in JS)</a>
+  
+  <p id="target_js_effect" style="display:none; border: 1px solid #000;">
+    This is a toggle box where toggle link and toggle target are connected in Javascript.
+  </p>
+</li>
+</ul>
