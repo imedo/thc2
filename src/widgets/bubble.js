@@ -42,7 +42,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Calculates the bubble's vertical position.
    */
   verticalPosition: function(element_offset, bubble_size){
@@ -50,7 +50,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Calculates the bubble's horizontal position.
    */
   horizontalPosition: function(element_offset, element_size, bubble_size){
@@ -67,7 +67,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Returns the css class for the bubble, depending on the bubbles position
    * relative to the page.
    */
@@ -117,7 +117,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Makes sure that the bubble stays visible when the mouse hovers over it.
    */
   onMouseOver: function(event) {
@@ -125,7 +125,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Makes sure that the bubble disappears when the mouse leaves it.
    */
   onMouseOut: function(event) {
@@ -133,7 +133,7 @@ var Bubble = Class.create(
   },
   
   /**
-   * @internal
+   * @inner
    * Eats onclick events.
    */
   onClick: function(event) {

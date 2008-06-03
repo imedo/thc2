@@ -10,8 +10,11 @@
  * Implements the singleton pattern. To define a singleton class, use
  * <code>Singleton.create()</code>.
  * @static
+ * @class
  */
-var Singleton = {
+var Singleton =
+/** @scope Singleton */
+{
   /**
    * Creates a new singleton class. See the prototype Class.create documentation
    * for details on parameters.

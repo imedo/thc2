@@ -29,8 +29,11 @@
  * This profiler has no javascript dependencies and therefore reimplements a few
  * methods from other javascript libraries.
  * @static
+ * @class
  */
-var Profiler = {
+var Profiler =
+/** @scope Profiler */
+{
   objects: [],
   messages: [],
   data: {},
@@ -191,7 +194,7 @@ var Profiler = {
   },
   
   /**
-   * @internal
+   * @inner
    * Creates a cookie with value <code>value</code>.
    */
   createCookie: function(value) {
@@ -202,7 +205,7 @@ var Profiler = {
   },
 
   /**
-   * @internal
+   * @inner
    * Reads data from the cookie.
    */
   readCookie: function() {
@@ -255,7 +258,7 @@ var Profiler = {
   },
   
   /**
-   * @internal
+   * @inner
    * Stable sort method.
    */
   sortArray: function(list, comp_func) {
@@ -289,7 +292,7 @@ var Profiler = {
   },
   
   /**
-   * @internal
+   * @inner
    * Standard comparison function for the sort method.
    */
   compare: function(a, b) {
@@ -297,7 +300,7 @@ var Profiler = {
   },
   
   /**
-   * @internal
+   * @inner
    * Reverses the given array.
    */
   reverse: function(array) {

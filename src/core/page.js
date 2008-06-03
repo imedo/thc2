@@ -17,9 +17,12 @@ var THC2 = new Object();
  * Class representing a HTML page. Do not instantiate this class, use the
  * CurrentPage global variable.
  *
- * The CurrentPage serves mainly two purposes: 1) it is a registry for behaviours
- * and connections and 2) it applies the behaviours and connections to the current
- * DOM tree.
+ * The CurrentPage serves mainly two purposes:
+ *
+ * <ol>
+ * <li>it is a registry for behaviours and connections and</li>
+ * <li>it applies the behaviours and connections to the current DOM tree.</li>
+ * </ol>
  *
  * Behaviours and connections are unobstrusive ways to apply functionality to
  * the DOM tree, without a single trace of javascript in the HTML. Behaviours

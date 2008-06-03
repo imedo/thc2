@@ -26,7 +26,7 @@ end
 desc "Create documentation."
 task :document => :dist do
   Dir.chdir(JSDOC_DIR) do
-    %x{java -jar jsrun.jar app/run.js -t=templates/jsdoc -d=#{THC2_DOC_DIR} #{THC2_DIST_DIR}/thc2.js}
+    %x{java -jar jsrun.jar app/run.js -t=templates/jsdoc -d=#{THC2_DOC_DIR} #{THC2_DIST_DIR}/thc2.js #{THC2_SRC_DIR}/core/profiler.js}
   end
 end
 
