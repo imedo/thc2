@@ -7,11 +7,13 @@
 */
 
 /**
- * This class is a base class for tab widgets. Subclass this class to implement
- * your own tab widgets. But before you do, check out {@link AjaxTabWidget},
- * which loads the contents of new tabs on the fly.
+ * This class is a base class for tab widgets.
  *
- * The general markup for a tab widget is like follows:
+ * <p>Subclass this class to implement your own tab widgets. But before you do,
+ * check out {@link AjaxTabWidget}, which loads the contents of new tabs on
+ * the fly.</p>
+ *
+ * <p>The general markup for a tab widget is like follows:</p>
  *
  * <pre>
  * &lt;div&gt;

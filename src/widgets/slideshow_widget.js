@@ -7,11 +7,12 @@
 */
 
 /**
- * This widget provides a cross-fading slide show for pictures of a
- * photo album. The pictures are given in a list tag. Each picture
- * can have a description below it in a <code>span</code> tag.
+ * This widget provides a cross-fading slide show for pictures of a photo album.
  *
- * The markup for this widget looks like this:
+ * <p>The pictures are given in a list tag. Each picture can have a description
+ * below it in a <code>span</code> tag.</p>
+ *
+ * <p>The markup for this widget looks like this:</p>
  *
  * <pre>
  * &lt;div class=&quot;thc2-slideshow&quot; id=&quot;slideshow&quot;&gt;

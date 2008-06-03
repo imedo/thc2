@@ -8,11 +8,13 @@
 
 /**
  * For a list of items, this widget changes the contents of a list item on
- * mouse over. This is useful for showing more relevant information when
+ * mouse over.
+ *
+ * <p>This is useful for showing more relevant information when
  * the user hovers the list item, hence the name zooming teaser. This is
  * accomplished by providing two different children for each list item,
  * one with class <code>mouseover</code> which is visible on mouse over and
- * one with class <code>mouseout</code> which is visible otherwise.
+ * one with class <code>mouseout</code> which is visible otherwise.</p>
  *
  * @class
  * @extends Widget

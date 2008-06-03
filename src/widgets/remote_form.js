@@ -7,13 +7,15 @@
 */
 
 /**
- * This widget turns a form into a remote form (aka Ajax form). It provides many
- * callback methods. To use it, you should subclass it and override the callback
- * methods, or just overwrite the methods for an instance of this class.
+ * This widget turns a form into a remote form (aka Ajax form).
  *
- * It also automatically detects spinner elements in the form (elements with
+ * <p>It provides many callback methods. To use it, you should subclass it
+ * and override the callback methods, or just overwrite the methods for an
+ * instance of this class.</p>
+ *
+ * <p>It also automatically detects spinner elements in the form (elements with
  * class name <code>thc2-spinner</code>), which are shown on submit and hidden
- * on complete.
+ * on complete.</p>
  *
  * @class
  * @extends FormWidget

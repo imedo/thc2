@@ -13,12 +13,13 @@
 */
 
 /**
- * This widget limits the maximum characters allowed in a textarea. The maximum
- * number of characters is determined by a class parameter of the form
- * <code>maxlength_</code><em>length</em>, where <em>length</em> must be a parseable
- * integer number.
+ * This widget limits the maximum characters allowed in a textarea.
  *
- * Example:
+ * <p>The maximum number of characters is determined by a class parameter of the form
+ * <code>maxlength_</code><em>length</em>, where <em>length</em> must be a parseable
+ * integer number.</p>
+ *
+ * <p>Example:</p>
  *
  * <pre>
  *   &lt;textarea class=&quot;thc2-limited-textarea maxlength_200&quot;&gt;some text&lt;/textarea&gt;

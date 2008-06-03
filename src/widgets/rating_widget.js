@@ -10,17 +10,18 @@
 */
 
 /**
- * This class is the base class for rating widgets with five stars. There are
- * two subclasses, {@link OneClickRatingWidget} and {@link InputRatingWidget},
- * that send the selected rating via Ajax to the server, or store it in a
- * hidden field, respectively. Do not use this class directly, use one of the
- * subclasses instead.
+ * This class is the base class for rating widgets with five stars.
  *
- * The star image must consist of 5 stars below each other. For now, each star
+ * <p>There are two subclasses, {@link OneClickRatingWidget} and
+ * {@link InputRatingWidget}, that send the selected rating via Ajax to the
+ * server, or store it in a hidden field, respectively. Do not use this class
+ * directly, use one of the subclasses instead.</p>
+ *
+ * <p>The star image must consist of 5 stars below each other. For now, each star
  * must have the size of 20 x 20 pixels (To change this size, see the
- * {@link RatingStar#starheight} property).
+ * {@link RatingStar#starheight} property).</p>
  * 
- * From top to bottom, the stars represent:
+ * <p>From top to bottom, the stars represent:</p>
  *
  * <ul>
  * <li>Unselected star, not hovered, or unselected star, after click</li>

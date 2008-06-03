@@ -15,8 +15,8 @@
  * This class provides a visual photo album browser, much like Apple's cover flow
  * in their applications.
  *
- * To use this widget, simply apply it to a list of pictures, like in the markup
- * below. Note that the pictures must be embedded in link tags.
+ * <p>To use this widget, simply apply it to a list of pictures, like in the markup
+ * below. Note that the pictures must be embedded in link tags.</p>
  * 
  * <pre>
  * &lt;div id=&quot;photo_album&quot; style=&quot;height:200px;&quot;&gt;

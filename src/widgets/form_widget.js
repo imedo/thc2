@@ -8,11 +8,13 @@
 
 /**
  * This is a base class for widgets that want local validation support
- * for forms. Subclass this class and call the validator methods from
- * your class' constructor. The specified validations take place on submit
- * of the form. If one of them fail, the form submission is canceled.
+ * for forms.
  *
- * Currently, the following validators exist:
+ * <p>Subclass this class and call the validator methods from
+ * your class' constructor. The specified validations take place on submit
+ * of the form. If one of them fail, the form submission is canceled.</p>
+ *
+ * <p>Currently, the following validators exist:</p>
  *
  * <ul>
  * <li><code>validatesPresenceOf</code> Validates that the specified field
@@ -25,7 +27,8 @@
  *     specified field have a certain length.</li>
  * </ul>
  *
- * Example:
+ * <p>Example:</p>
+ *
  * <pre>
  * var SignupForm = Class.create(FormWidget, {
  *   initialize: function(element) {
@@ -39,6 +42,7 @@
  *     this.validatesFormatOf('email', /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 'The email address is invalid');
  *   }
  * });
+ * </pre>
  * @class
  * @extends Widget
  */

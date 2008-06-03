@@ -10,8 +10,8 @@
  * This widget toggles the visibility of a DOM element, when a certain link is
  * clicked. The toggled DOM element is called the <em>target</em>.
  *
- * There are several ways to specify which element is the link and which is the
- * target (in order of precendence):
+ * <p>There are several ways to specify which element is the link and which is the
+ * target (in order of precendence):</p>
  *
  * <ul>
  * <li> Given by a constructor parameter. When the <code>options</code> hash of the
@@ -27,13 +27,13 @@
  *      considered the link, and the <code>div</code> is considered the target.</li>
  * </ul>
  *
- * Another class parameter is the effect, which is used for the transition
+ * <p>Another class parameter is the effect, which is used for the transition
  * between visible and invisible. The effect is given by a parameter of the form
  * <code>effect_</code><em>effect_name</em>. For a list of available effects,
- * please refer to the script.aculo.us documentation.
+ * please refer to the script.aculo.us documentation.</p>
  *
- * To use this widget, simply add the class <code>thc2-toggle-widget</code> to your
- * input field.
+ * <p>To use this widget, simply add the class <code>thc2-toggle-widget</code> to your
+ * input field.</p>
  * @class
  * @extends Widget
  */
@@ -161,3 +161,4 @@ var ToggleWidget = Class.create(Widget,
 
 // TODO: rename to thc2-toggle for consistency
 CurrentPage.registerBehaviour("thc2-toggle-widget", ToggleWidget);
+<

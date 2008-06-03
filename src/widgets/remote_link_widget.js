@@ -7,9 +7,11 @@
 */
 
 /**
- * This widget turns a link into a remote link (aka Ajax link). It provides many
- * callback methods. To use it, you should subclass it and override the callback
- * methods, or just overwrite the methods for an instance of this class.
+ * This widget turns a link into a remote link (aka Ajax link).
+ *
+ * <p>It provides many callback methods. To use it, you should subclass it and
+ * override the callback methods, or just overwrite the methods for an instance
+ * of this class.</p>
  *
  * @class
  * @extends Widget

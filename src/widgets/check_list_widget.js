@@ -10,8 +10,8 @@
  * For a list with one check box per item, this widget adds support for buttons
  * to select all, deselect all and to invert the selection.
  *
- * This widget must be applied to a <code>form</code> element. All elements with
- * class
+ * <p>This widget must be applied to a <code>form</code> element. All elements with
+ * class</p>
  *
  * <ul>
  * <li><code>select_all</code> select all check boxes,</li>
@@ -19,7 +19,7 @@
  * <li><code>invert_all</code> invert the selection</li>
  * </ul>
  *
- * on click.
+ * <p>on click.</p>
  * @class
  * @extends Widget
  */

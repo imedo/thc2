@@ -10,7 +10,7 @@
  * With this class, you can observe TinyMCE fields for changes, just like you
  * can observe text fields or forms with the Prototype observers.
  *
- * To observe a TinyMCE field, create a new observer like so:
+ * <p>To observe a TinyMCE field, create a new observer like so:</p>
  *
  * <pre>
  * new TinyMCE.Observer(editor_id, frequency, callback)

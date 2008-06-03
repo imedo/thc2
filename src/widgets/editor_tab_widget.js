@@ -15,7 +15,7 @@
  * This widget provides a tabbed interface for a TinyMCE editor to switch rich
  * text on or off.
  *
- * Like for all tab widgets, the markup should look something like this:
+ * <p>Like for all tab widgets, the markup should look something like this:</p>
  *
  * <pre>
  * &lt;div&gt;
@@ -37,7 +37,7 @@
  * &lt;/div&gt;
  * </pre>
  *
- * The widget is applied to the outermost <code>div</code> element.
+ * <p>The widget is applied to the outermost <code>div</code> element.</p>
  * @class
  * @extends TabWidget
  */

@@ -20,9 +20,9 @@
 /**
  * Wrapper widget around Prototype's Autocompleter.
  *
- * Note: This still needs some work, as the autocomplete box and options
+ * <p><strong>Note:</strong> This still needs some work, as the autocomplete box and options
  * are hard-coded elements, and only the local autocompleter is supported
- * for now.
+ * for now.</p>
  * @class
  * @extends Widget
  */

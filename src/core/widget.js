@@ -29,7 +29,7 @@ Object.extend(Widget,
    * Applies <code>behaviours</code> on all elements under <code>parent</code>. Behaviour names must
    * start with <code>thc2-</code>.
    *
-   * Instead of this method, you should probably call <code>CurrentPage.applyBehaviours</code>.
+   * <p>Instead of this method, you should probably call <code>CurrentPage.applyBehaviours</code>.</p>
    */
   ApplyBehaviours: function(parent, behaviours) {
     var objects = new Array();

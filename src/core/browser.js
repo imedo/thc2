@@ -8,7 +8,8 @@
 var Browser = {
   /**
    * Detects the current browser / engine with version information and operating system via user agent sniffing.
-   * It detects the following browsers:
+   *
+   * <p>It detects the following browsers:</p>
    *
    * <table>
    *   <thead>
@@ -41,7 +42,7 @@ var Browser = {
    *   </tbody>
    * </table>
    *
-   * And the following operating systems:
+   * <p>And the following operating systems:</p>
    *
    * <table>
    *   <thead>

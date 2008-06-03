@@ -12,10 +12,10 @@
 var Global = this;
 
 /**
+ * Namespace for source file handling.
+ *
  * @static
  * @class
- *
- * Namespace for source file handling.
  */
 var Core = {
   /**

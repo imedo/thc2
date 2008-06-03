@@ -11,8 +11,8 @@
  * all text on focus or click. This is ideal for providing the user with
  * copy & paste code such as URLs or HTML code to embed something.
  *
- * To use this widget, simply add the class <code>thc2-code-input</code> to your
- * input field.
+ * <p>To use this widget, simply add the class <code>thc2-code-input</code> to your
+ * input field.</p>
  * @class
  * @extends Widget
  */

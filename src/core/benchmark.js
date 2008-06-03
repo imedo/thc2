@@ -9,7 +9,7 @@
 /**
  * Class for benchmarking the execution of javascript code.
  *
- * The easiest way to use this class is through the benchmark() method:
+ * <p>The easiest way to use this class is through the benchmark() method:</p>
  *
  * <pre>
  *   new Benchmark("time-consuming operation").benchmark(function() {
@@ -17,9 +17,9 @@
  *   });
  * </pre>
  *
- * You can also use the {@link Benchmark#start} and {@link Benchmark#stop}
+ * <p>You can also use the {@link Benchmark#start} and {@link Benchmark#stop}
  * methods to start and stop the timer. Use {@link Benchmark#duration} to
- * query the measured runtime.
+ * query the measured runtime.</p>
  *
  * @class Benchmark
  */

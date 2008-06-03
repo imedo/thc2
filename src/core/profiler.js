@@ -9,25 +9,111 @@
 /**
  * Javascript profiler written in javascript.
  *
- * The profiler works by rewriting every javascript function and event handler
+ * <p>The profiler works by rewriting every javascript function and event handler
  * such that before and after execution the current time is measured. Before the
  * profiler can start, it needs to be attached to the objects that should be
- * profiled.
+ * profiled.</p>
  *
- * In most browsers, the profiler can discover all javascript objects by itself.
- * In IE, though, it needs some hints. The easiest way is to add all objects
- * as properties to <code>window</code> (this is the global namespace), e.g.:
- *
+ * <h1>Design goals</h1>
+ * 
+ * <ul>
+ * <li>The Profiler is easy to integrate.</li>
+ * <li>It should not break any functionality.</li>
+ * <li>It also should be universal, which means that it should be able
+ *     to profile any javascript function.</li>
+ * <li>It does not have any dependencies besides core Javascript.</li>
+ * <li>It is possible to enable or disable the profiler on the fly.</li>
+ * <li>It is be unobstrusive, i.e. integration should be painless.</li>
+ * <li>Execution times with profiling enabled should be tolerable (for
+ *     patient developers).</li>
+ * </ul>
+ * 
+ * <h1>Using it</h1>
+ * 
+ * <p>The profiler is extremely easy to integrate. You need to include the
+ * <code>profiler.js</code> in your HTML file and call</p>
+ * 
  * <pre>
- * this.__CurrentPage = CurrentPage;
+ *   Profiler.init();
  * </pre>
- *
- * The profiler comes with a control and report window. In the control window,
- * you can enable or disable profiling. This setting is persistent, i.e. you
- * can reload the page and the setting is remembered.
- *
- * This profiler has no javascript dependencies and therefore reimplements a few
- * methods from other javascript libraries.
+ * 
+ * <p>after your javascript code is loaded and before any of the code is
+ * executed that you want to profile. If you are using Internet Explorer,
+ * you might need to tell the profiler about your javascript objects and
+ * functions. See below on how to do that. You’ll get a popup windows
+ * for controlling the profiler. Of course, you need to disable the popup
+ * blocker for your website. To create a profile of your javascript, click
+ * “Enable Profiler”, reload the page and have your Browser execute the
+ * code you want to profile. After it is finished, click on “Show Report”
+ * to get the execution profile.</p>
+ * 
+ * <h1>How it works</h1>
+ * 
+ * <p>First, the Profiler scans the javascript object tree and stores all
+ * objects it finds in an array (the discover phase). Herein lies the first
+ * problem: There is no way to enumerate all user-defined global functions
+ * or variables just with javascript in Internet Explorer. So you have to
+ * help out a little. There are several solutions to this problem, but since
+ * we recursively discover the whole object tree anyways, our solution is
+ * to make all global variables known to the window object (which equals
+ * the this-object in the global scope). Suppose we have a Greeter object:</p>
+ * 
+ * <pre>
+ * var Greeter = {
+ *   greet: function() {
+ *     alert('Hello');
+ *   }
+ * };
+ * </pre>
+ * 
+ * <p>You tell the profiler about this object by by making it available as a
+ * property to the window object (in global scope):</p>
+ * 
+ * <pre>
+ * this._$_Greeter = Greeter;
+ * </pre>
+ * 
+ * <p>Now, when browsing the object tree with root window, the Greeter object
+ * will be found.</p>
+ * 
+ * <p>The second phase is the rewrite phase: it takes all scanned objects and
+ * replaces each of their function properties with a wrapped version that
+ * measures the execution time. See {@link Function#profiledFunction} for
+ * details on how this happens.</p>
+ * 
+ * <p>One of the problems here is that there are enumerable and not enumerable
+ * properties in javascript. All enumerable properties can be discovered by
+ * using the for (var ... in ...) construct. A kind of important non-enumerable
+ * property is the prototype property, which needs to be discovered separately.</p>
+ * 
+ * <p>Again, Internet Explorer has a problem with global functions: They are not
+ * known to the window object, so they are not discoverable by the Profiler.
+ * However, it is easy to profile them anyway. Suppose we have a function
+ * called greet():</p>
+ * 
+ * <pre>
+ * function greet() {
+ *   alert('hello');
+ * }
+ * </pre>
+ * 
+ * <p>We profile the greet() function by replacing it with its profiled version
+ * like so:</p>
+ * 
+ * <pre>
+ * greet = greet.profiledFunction('greet');
+ * </pre>
+ * 
+ * <h1>Known issues</h1>
+ * 
+ * <ul>
+ * <li>You need to reload the page after enabling the profiler. We tried to
+ *     enable it on the fly, but that just doesn’t work in IE.</li>
+ * <li>There is no way to detach the profiler from your javascript yet.</li>
+ * <li>The control window is ugly. So is the report window.</li>
+ * <li>The percentage value is not really usable at the moment, since we
+ *     don’t measure the function’s “own time” yet.</li>
+ * </ul>
  * @static
  * @class
  */

@@ -8,8 +8,10 @@
 
 /**
  * This class adds mnemonic support to a form element, i.e. it remembers the
- * contents of the form's input elements. These contents can be restored at
- * any time. This class must be applied to <code>form</code> elements.
+ * contents of the form's input elements.
+ *
+ * <p>These contents can be restored at any time. This class must be applied
+ * to <code>form</code> elements.</p>
  * @class
  * @extends FormWidget
  */

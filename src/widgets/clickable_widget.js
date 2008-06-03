@@ -8,11 +8,13 @@
 
 /**
  * This simple widget turns a DOM element with possibly many children into a
- * link. This is especially useful for block elements like <code>div</code>s,
+ * link.
+ *
+ * <p>This is especially useful for block elements like <code>div</code>s,
  * which are not allowed in links. The target URL is either determined by the
  * <code>href</code> attribute of first link tag in the widgets element, or
  * by the <code>href</code> value in the constructors <code>options</code>
- * parameter hash.
+ * parameter hash.</p>
  *
  * @class
  * @extends Widget

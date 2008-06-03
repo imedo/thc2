@@ -7,10 +7,9 @@
 */
 
 /**
+ * Namespace for languages and translations
  * @static
  * @class
- *
- * Namespace for languages and translations
  */
 var Globalize = {
   /**

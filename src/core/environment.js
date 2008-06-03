@@ -18,11 +18,11 @@ var UnknownDebugLevelException = function(level) {
 }
 
 /**
- * @static
- * @class
- *
  * Namespace that contains variables and methods that depend on the current
  * environment (e.g. "development" or "production").
+ *
+ * @static
+ * @class
  */
 var Environment = {
   /**

@@ -10,8 +10,8 @@
  * Base class for bubble popups which are loaded via Ajax. Subclass this class
  * if you want a bubble with dynamically loaded content.
  *
- * In order for your class to work, you need to (at least) override the {@link AjaxBubble#url}
- * and {@link Bubble#bubbleElement} methods.
+ * <p>In order for your class to work, you need to (at least) override the {@link AjaxBubble#url}
+ * and {@link Bubble#bubbleElement} methods.</p>
  * @class
  * @extends Bubble
  */

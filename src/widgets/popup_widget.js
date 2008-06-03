@@ -8,11 +8,12 @@
 
 /**
  * This widget turns a DOM element (e.g. a link) into an element which opens
- * an URL in a new window. If the DOM element is a link, the link's href is
- * chosen as the URL. Otherwise, the href of this element's first link child
- * is chosen.
+ * an URL in a new window.
  *
- * There are two optional class parameters to configure the widget:
+ * <p>If the DOM element is a link, the link's href is chosen as the URL.
+ * Otherwise, the href of this element's first link child is chosen.</p>
+ *
+ * <p>There are two optional class parameters to configure the widget:</p>
  *
  * <ul>
  * <li><code>box_size_</code><em>width</em><code>_</code><em>height</em>. This
@@ -22,10 +23,10 @@
  *     same page.</li>
  * </ul>
  *
- * To keep your page working even when Javascript is disabled, it is advisable
- * to add a <code>target="_blank"</code> to your link.
+ * <p>To keep your page working even when Javascript is disabled, it is advisable
+ * to add a <code>target="_blank"</code> to your link.</p>
  *
- * Example:
+ * <p>Example:</p>
  * <pre>
  * &lt;a href=&quot;http://www.wikipedia.org&quot;
  *    target=&quot;_blank&quot;

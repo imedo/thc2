@@ -7,14 +7,14 @@
 */
 
 /**
- * Singleton class that caches results of ajax requests.
- * The unique instance is obtained through
+ * <p>Singleton class that caches results of ajax requests.
+ * The unique instance is obtained through</p>
  *
  * <pre>
  *   AjaxCache.self()
  * </pre>
  *
- * Do not call the <code>new</code>-Operator on AjaxCache.
+ * <p>Do not call the <code>new</code>-Operator on AjaxCache.</p>
  *
  * @class AjaxCache
  */
