@@ -6,7 +6,23 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var ZoomingTeaserWidget = Class.create(Widget, {
+/**
+ * For a list of items, this widget changes the contents of a list item on
+ * mouse over. This is useful for showing more relevant information when
+ * the user hovers the list item, hence the name zooming teaser. This is
+ * accomplished by providing two different children for each list item,
+ * one with class <code>mouseover</code> which is visible on mouse over and
+ * one with class <code>mouseout</code> which is visible otherwise.
+ *
+ * @class
+ * @extends Widget
+ */
+var ZoomingTeaserWidget = Class.create(Widget,
+/** @scope ZoomingTeaserWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.items = $A(this.element.getElementsByTagName('li'));
@@ -15,10 +31,17 @@ var ZoomingTeaserWidget = Class.create(Widget, {
     }.bind(this));
   },
   
+  /**
+   * @inner
+   * This method is called when a list item is hovered.
+   */
   mouseOver: function(item) {
     this.resetItems(item);
   },
   
+  /**
+   * @inner
+   */
   resetItems: function(item){
     var self = this;
     this.findChildren(item);
@@ -33,6 +56,9 @@ var ZoomingTeaserWidget = Class.create(Widget, {
     item.over.show();
   },
   
+  /**
+   * @inner
+   */
   findChildren: function(item) {
     if (!item.over || !item.out) {
       item.out = $(item).getElementsByClassName('mouseout')[0];

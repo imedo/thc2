@@ -6,12 +6,27 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var TinyMCEWidget = Class.create(Widget, {
+/**
+ * This widget turns a text area into a Tiny MCE editor.
+ *
+ * @class
+ * @extends Widget
+ */
+var TinyMCEWidget = Class.create(Widget,
+/** @scope TinyMCEWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     tinyMCE.execCommand('mceAddControl', true, this.element.id);
   },
   
+  /**
+   * Returns the TinyMCE editor instance for this widget.
+   * @return {TinyMCE} The editor instance.
+   */
   editor: function() {
     if (!this.editorInstance) {
       this.editorInstance = tinyMCE.getInstanceById(this.element.id);
@@ -19,10 +34,16 @@ var TinyMCEWidget = Class.create(Widget, {
     return this.editorInstance;
   },
   
+  /**
+   * Shows the editor instance and hides the text area.
+   */
   show: function() {
     this.editor().show();
   },
   
+  /**
+   * Hides the editor instance and shows the text area.
+   */
   hide: function() {
     this.editor().hide();
   }

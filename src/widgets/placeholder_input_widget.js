@@ -6,7 +6,25 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var PlaceholderInputWidget = Class.create(Widget, {
+/**
+ * This widget displays a placeholder in a text input field that disappears on focus.
+ * The placeholder is the value of the text input field. If the field is empty on
+ * blur, the placeholder appears again. Because of that, it is possible that the
+ * placeholder is sent along with the enclosing form on submit.
+ *
+ * When the placeholder is displayed, the text field has the CSS class
+ * "placeholder-input". You can use this fact for shading the text field when the
+ * placeholder is shown.
+ *
+ * @class
+ * @extends Widget
+ */
+var PlaceholderInputWidget = Class.create(Widget,
+/** @scope PlaceholderInputWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.placeholder = this.element.value;
@@ -16,6 +34,10 @@ var PlaceholderInputWidget = Class.create(Widget, {
     this.element.addClassName("placeholder-input");
   },
   
+  /**
+   * @inner
+   * This method is called on focus. It lets the placeholder disappear.
+   */
   focus: function(event) {
     if (this.element.value == this.placeholder) {
       this.element.value = "";
@@ -23,6 +45,11 @@ var PlaceholderInputWidget = Class.create(Widget, {
     }
   },
   
+  /**
+   * @inner
+   * This method is called on blur. It shows the placeholder, if the text field
+   * is empty.
+   */
   blur: function(event) {
     if (this.element.value == "") {
       this.element.value = this.placeholder;

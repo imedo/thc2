@@ -6,7 +6,42 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var TabWidget = Class.create(Widget, {
+/**
+ * This class is a base class for tab widgets. Subclass this class to implement
+ * your own tab widgets. But before you do, check out AjaxTabWidget, which loads
+ * the contents of new tabs on the fly.
+ *
+ * The general markup for a tab widget is like follows:
+ *
+ * <pre>
+ * &lt;div&gt;
+ *   &lt;ul class=&quot;tab-list&quot;&gt;
+ *     &lt;li class=&quot;on&quot; title=&quot;First tab&quot;&gt;
+ *       &lt;a href=&quot;/first/tab&quot;&gt;First tab&lt;/a&gt;
+ *     &lt;/li&gt;
+ *     &lt;li title=&quot;Second tab&quot;&gt;
+ *       &lt;a href=&quot;/second/tab&quot;&gt;Second tab&lt;/a&gt;
+ *     &lt;/li&gt;
+ *   &lt;/ul&gt;
+ *   &lt;div class=&quot;box-wrapper&quot;&gt;
+ *     &lt;div class=&quot;tab-content&quot;&gt;
+ *       &lt;div class=&quot;tab-container&quot;&gt;
+ *         &lt;p&gt;This is the content of the first tab, since the first tab is selected.&lt;/p&gt;
+ *       &lt;/div&gt;
+ *     &lt;/div&gt;
+ *   &lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ *
+ * @class
+ * @extends Widget
+ */
+var TabWidget = Class.create(Widget,
+/** @scope TabWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     var i = 0;
@@ -21,10 +56,19 @@ var TabWidget = Class.create(Widget, {
     }.bind(this));
   },
   
+  /**
+   * Returns the tab container, which is the element that contains the tab's
+   * content as immediate children.
+   * @return {HTMLElement} The tab container.
+   */
   tabContainer: function() {
     return $(this.element.getElementsByClassName('tab-container')[0]);
   },
   
+  /**
+   * Switches from the current tab to a new tab.
+   * @param {Tab} newTab The tab to switch to.
+   */
   switchTab: function(newTab) {
     this.beforeSwitch(this.currentTab, newTab);
     
@@ -36,41 +80,98 @@ var TabWidget = Class.create(Widget, {
     this.afterSwitch(oldTab, this.currentTab);
   },
   
+  /**
+   * Updates the internal currentTab property.
+   * @param {Tab} oldTab The old tab.
+   * @param {Tab} newTab The new tab.
+   */
   switchCurrent: function(oldTab, newTab) {
     oldTab.turnOff();
     newTab.turnOn();
     this.currentTab = newTab;
   },
   
+  /**
+   * Callback method that is called before the tab is switched.
+   * @param {Tab} oldTab The old tab.
+   * @param {Tab} newTab The new tab.
+   */
   beforeSwitch: function(oldTab, newTab) {
   },
   
+  /**
+   * Perform the actual switching of the tabs. Reimplement to add
+   * your own behaviour.
+   * @param {Tab} oldTab The old tab.
+   * @param {Tab} newTab The new tab.
+   */
   doSwitch: function(oldTab, newTab) {
   },
   
+  /**
+   * Callback method that is called after the tab is switched.
+   * @param {Tab} oldTab The old tab.
+   * @param {Tab} newTab The new tab.
+   */
   afterSwitch: function(oldTab, newTab) {
   }
 });
 
-var AjaxTabWidget = Class.create(TabWidget, {
+/**
+ * This class provides a tab widget that loads the content of tabs
+ * on the fly via ajax. The contents of already visited tabs are
+ * cached. Note that this class automatically applies behaviours
+ * to the elements which are loaded on the fly.
+ *
+ * Also, this class uses a fade-out effect before the switch, and a
+ * fade-in effect after the switch.
+ * @class
+ * @extends TabWidget
+ */
+var AjaxTabWidget = Class.create(TabWidget,
+/** @scope AjaxTabWidget.prototype */
+{
+  /**
+   * Callback before the fade before a tab switch.
+   */
   beforeFade: function() {
   },
   
+  /**
+   * Callback after the fade before a tab switch.
+   */
   afterFade: function() {
   },
   
+  /**
+   * Callback before the fade-in after a tab switch. The default
+   * implementation of this method applies behaviours to the newly
+   * loaded elements.
+   */
   beforeAppear: function() {
     CurrentPage.applyBehaviours(this.tabContent());
     CurrentPage.reconnect(this.tabContent());
   },
   
+  /**
+   * Callback after the fade-in after a tab switch.
+   */
   afterAppear: function() {
   },
   
+  /**
+   * Returns the element containing the tab container. This is the
+   * element which should be replaced by the Ajax response.
+   * @return {HTMLElement} The element containing the tab container.
+   */
   tabContent: function() {
     return $(this.element.getElementsBySelector("div.tab-content")[0]);
   },
-
+  
+  /**
+   * @inner
+   * Switches the current tab to <code>newTab</code> using a fade effect.
+   */
   switchTab: function(newTab) {
     if (!this.changing) {
       this.beforeSwitch(this.currentTab, newTab);
@@ -90,11 +191,19 @@ var AjaxTabWidget = Class.create(TabWidget, {
       }
     }
   },
-
+  
+  /**
+   * @inner
+   * Stores the loaded tab's contents in the AjaxCache.
+   */
   storeTab: function(req) {
     AjaxCache.self().store(this.nextTab.link, req.responseText);
   },
-
+  
+  /**
+   * @inner
+   * Shows the newly loaded tab content.
+   */
   showTab: function() {
     this.doSwitch(this.currentTab, this.nextTab);
     
@@ -119,15 +228,25 @@ var AjaxTabWidget = Class.create(TabWidget, {
     }
   },
 
+  /**
+   * @inner
+   * Polls for the Ajax request response.
+   */
   waitForResponse: function() {
     this.waitTimeout = setTimeout(this.showTab.bind(this), 100);
   },
-
+  
+  /**
+   * @inner
+   */
   fadeCallback: function() {
     this.afterFade();
     this.showTab();
   },
-
+  
+  /**
+   * @inner
+   */
   appearCallback: function() {
     this.afterAppear();
   }
@@ -135,7 +254,17 @@ var AjaxTabWidget = Class.create(TabWidget, {
 
 CurrentPage.registerBehaviour("thc2-tab-widget", AjaxTabWidget);
 
-var Tab = Class.create({
+/**
+ * This class represents a tab in a tab widget. You probably won't need
+ * to use this class directly.
+ * @class
+ */
+var Tab = Class.create(
+/** @scope Tab.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(tabWidget, button) {
     this.tabWidget = tabWidget;
     this.button = button;
@@ -146,10 +275,16 @@ var Tab = Class.create({
     }
   },
   
+  /**
+   * Sets the tab to "on" state.
+   */
   turnOn: function() {
     this.button.addClassName('on');
   },
   
+  /**
+   * Sets the tab to "off" state.
+   */
   turnOff: function() {
     this.button.removeClassName('on');
   }

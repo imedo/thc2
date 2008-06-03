@@ -21,10 +21,10 @@
  * &lt;div&gt;
  *   &lt;ul class=&quot;tab-list&quot;&gt;
  *     &lt;li class=&quot;rich-text on&quot; title=&quot;Formatiert&quot;&gt;
- *       &lt;a href=&quot;#&quot;&gt;Formatiert&lt;/a&gt;
+ *       &lt;a href=&quot;#&quot;&gt;Rich text&lt;/a&gt;
  *     &lt;/li&gt;
  *     &lt;li class=&quot;plain-text&quot; title=&quot;HTML-Code&quot;&gt;
- *       &lt;a href=&quot;#&quot;&gt;HTML-Code&lt;/a&gt;
+ *       &lt;a href=&quot;#&quot;&gt;Plain text&lt;/a&gt;
  *     &lt;/li&gt;
  *   &lt;/ul&gt;
  *   &lt;div class=&quot;box-wrapper&quot;&gt;

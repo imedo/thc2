@@ -6,24 +6,81 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var PopupWidget = Class.create(Widget, {
+/**
+ * This widget turns a DOM element (e.g. a link) into an element which opens
+ * an URL in a new window. If the DOM element is a link, the link's href is
+ * chosen as the URL. Otherwise, the href of this element's first link child
+ * is chosen.
+ *
+ * There are two optional class parameters to configure the widget:
+ *
+ * <ul>
+ * <li><code>box_size_</code><em>width</em><code>_</code><em>height</em>. This
+ *     class parameter specifies the popup window's width and height.</li>
+ * <li><code>popup_id_</code><em>id</em>. This parameter sets the popups window
+ *     id. This is important to distinguish different popups coming from the
+ *     same page.</li>
+ * </ul>
+ *
+ * To keep your page working even when Javascript is disabled, it is advisable
+ * to add a <code>target="_blank"</code> to your link.
+ *
+ * Example:
+ * <pre>
+ * &lt;a href=&quot;http://www.wikipedia.org&quot;
+ *    target=&quot;_blank&quot;
+ *    class=&quot;thc2-popup box_size_1024x768 popup_id_wikipedia&quot;&gt;Wikipedia&lt;/a&gt;
+ * </pre>
+ *
+ * @class
+ * @extends Widget
+ */
+var PopupWidget = Class.create(Widget,
+/** @scope PopupWidget.prototype */
+{
   SizeRegexp: /^box_size_(\d+)x(\d+)$/,
   IdRegexp: /^popup_id_(\w+)$/,
-  Format: 'width=#{1},height=#{2},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes',
   init: false,
+  
+  /**
+   * The default paramters for the popup window.
+   */
+  Format: 'width=#{1},height=#{2},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes',
+  
+  /**
+   * The default width of the popup window.
+   */
   defaultWidth: 690,
+  
+  /**
+   * The default height of the popup window.
+   */
   defaultHeight: 480,
+  
+  /**
+   * The default ID of the popup window.
+   */
   defaultId: 'popup',
   
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.showPopup.bindAsEventListener(this));
   },
   
+  /**
+   * @inner
+   * Finds the popup link's target URL.
+   */
   findLink: function() {
     return this.element.href ? this.element.href : this.element.down('a', 0).href;
   },
   
+  /**
+   * Opens the popup window and gives it focus.
+   */
   showPopup: function(event) {
     if(!this.init) {
       this.extractParams();
@@ -35,6 +92,10 @@ var PopupWidget = Class.create(Widget, {
     this.window.focus();
   },
   
+  /**
+   * @inner
+   * Extracts the class parameters.
+   */
   extractParams: function() {
     var size = this.element.classNames().grep(this.SizeRegexp)[0];
     this.url = this.findLink();
@@ -58,12 +119,5 @@ var PopupWidget = Class.create(Widget, {
     this.init = true;
   }
 });
-
-function showPopup(url, width, height){
-  var format = "width=#{w},height=#{h},location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes".interpolate({w:width, h:height});
-  var win = window.open(url, 'popup', format);
-  win.resizeTo(width, height);
-  win.focus();
-}
 
 CurrentPage.registerBehaviour("thc2-popup", PopupWidget);

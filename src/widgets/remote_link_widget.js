@@ -6,13 +6,31 @@
   For details, see the imedo.de web site: http://www.imedo.de
 */
 
-var RemoteLinkWidget = Class.create(Widget, {
+/**
+ * This widget turns a link into a remote link (aka Ajax link). It provides many
+ * callback methods. To use it, you should subclass it and override the callback
+ * methods, or just overwrite the methods for an instance of this class.
+ *
+ * @class
+ * @extends Widget
+ */
+var RemoteLinkWidget = Class.create(Widget,
+/** @scope RemoteLinkWidget.prototype */
+{
+  /**
+   * Constructor.
+   */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.url = this.element.href;
     Event.observe(this.element, "click", this.click.bindAsEventListener(this));
   },
   
+  /**
+   * @inner
+   * This method is called when the link is clicked. It sends an Ajax request to
+   * the URL specified by the link's <code>href</code> attribute.
+   */
   click: function(event) {
     new Ajax.Request(this.url, {
       asynchronous:true,
@@ -27,21 +45,46 @@ var RemoteLinkWidget = Class.create(Widget, {
     event.stop();
   },
   
+  /**
+   * This callback is called as soon as the Ajax request is sent.
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   loading: function() {
   },
   
+  /**
+   * This callback is called as soon as the Ajax request is finished loading.
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   loaded: function() {
   },
   
+  /**
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   interactive: function() {
   },
   
+  /**
+   * This callback is called as soon as the Ajax request is finished loading
+   * successfully.
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   success: function() {
   },
   
+  /**
+   * This callback is called as soon as the Ajax request is finished loading
+   * without success.
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   failure: function() {
   },
 
+  /**
+   * This callback is called as soon as the Ajax request is finished loading.
+   * See the Prototype documentation of Ajax.Request for details.
+   */
   complete: function() {
   }
 });
