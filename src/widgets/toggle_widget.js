@@ -161,4 +161,3 @@ var ToggleWidget = Class.create(Widget,
 
 // TODO: rename to thc2-toggle for consistency
 CurrentPage.registerBehaviour("thc2-toggle-widget", ToggleWidget);
-<
