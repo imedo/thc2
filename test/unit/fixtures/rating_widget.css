@@ -1,0 +1,29 @@
+ul.stars li div.on img {
+  position:relative;
+  top:-80px;
+} 
+ul.stars {
+  list-style-type: none;
+  margin:0;
+  text-align: right;
+  float:right;
+}
+ul.stars li {
+  display:inline;
+  float:left;
+  padding:0px;
+}
+ul.stars li div {
+  position:relative;
+  width:20px;
+  height:20px;
+  top:-4px;
+  overflow:hidden;
+  padding:0px;
+}
+ul.stars li div img {
+  position:relative;
+  padding:0 !important;
+  border:0;
+  background:none;
+}       

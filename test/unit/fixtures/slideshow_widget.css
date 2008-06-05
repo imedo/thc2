@@ -1,0 +1,17 @@
+.thc2-slideshow ul {
+  list-style:none;
+  padding:0 !important;
+  width:320px;
+  height:240px;
+}
+
+.thc2-slideshow li {
+  width:320px;
+  height:240px;
+  position:absolute;
+}
+
+.thc2-slideshow img {
+  max-width:320px;
+  max-height:240px;
+}
