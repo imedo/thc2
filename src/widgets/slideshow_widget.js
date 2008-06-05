@@ -223,21 +223,25 @@ var SlideshowControls = {
   start: function(event) {
     $S('slideshow', 'start')(event);
     this.showStop();
+    event.stop();
   },
   
   stop: function(event) {
     $S('slideshow', 'stop')(event);
     this.showStart();
+    event.stop();
   },
   
   next: function(event) {
     $S('slideshow', 'next')(event);
     this.showStart();
+    event.stop();
   },
   
   previous: function(event) {
     $S('slideshow', 'previous')(event);
     this.showStart();
+    event.stop();
   },
   
   showStart: function() {

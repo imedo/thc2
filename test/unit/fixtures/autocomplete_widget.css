@@ -1,0 +1,24 @@
+#autocomplete-options{
+  display:none;
+  float:left
+}
+#autocomplete ul {
+  z-index:100;
+  background-color:#fff;
+  border:1px solid #ccc;
+  border-top:0;
+  list-style-type:none;
+  margin:0px;
+  padding:0px;
+}
+#autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:1.1em;
+  cursor:pointer;
+}
+#autocomplete ul li.selected { 
+  background-color: #f3f9e1;
+}

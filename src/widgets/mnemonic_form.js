@@ -24,14 +24,13 @@ var MnemonicForm = Class.create(FormWidget,
   initialize: function(element) {
     FormWidget.prototype.initialize.apply(this, arguments);
     
-    var self = this;
     this.inputs = new Array();
     this.element.getInputs().each(function(element) {
       if (element.type != 'submit')
-        self.inputs.push(element);
+        this.inputs.push(element);
       if (element.type == 'text')
-        element.observe('keyup', self.storeValues.bindAsEventListener(self));
-    });
+        Event.observe(element, 'keyup', this.storeValues.bindAsEventListener(self));
+    }.bind(this));
     this.values = new Hash();
     this.storeValues();
   },
@@ -40,14 +39,16 @@ var MnemonicForm = Class.create(FormWidget,
    * Stores the values of all of the form's fields.
    */
   storeValues: function() {
-    this.values.merge(this.inputs.inject(new Hash(), function(hash, element) {
+    var h = new Hash();
+    this.values = this.values.merge(this.inputs.inject(h, function(hash, element) {
       if (element.value && element.value != "") {
-        if(element.type !== 'radio')
-          hash[element.identify()] = element.value;
+        if (element.type != 'radio') {
+          hash.set(element.identify(), element.value);
+        }
       }
       return hash;
     }));
-    this.values.merge(this.radios());
+    this.values = this.values.merge(this.radios());
   },
   
   /**
