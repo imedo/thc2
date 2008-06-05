@@ -35,8 +35,8 @@ var AutocompleteWidget = Class.create(Widget,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     this.autocompleteBox = $('autocomplete');
-    this.options = $('autocomplete-options').childElements().map(function(e){ return e.innerHTML; })
-    this.completer = new Autocompleter.Local(this.element, this.autocompleteBox, this.options);
+    this.items = $('autocomplete-options').childElements().map(function(e){ return e.innerHTML; })
+    this.completer = new Autocompleter.Local(this.element, this.autocompleteBox, this.items);
   }
 });
 
