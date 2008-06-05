@@ -131,12 +131,12 @@ var FormWidget = Class.create(Widget,
    * @param {String,HTMLElement} id_second The second form element.
    * @message {String} An error message that is shown on failure.
    */
-  validatesConfirmationOf: function(id_first, id_second, message){
+  validatesConfirmationOf: function(id_first, id_second, message) {
     var field_first = $(id_first);
     var field_second = $(id_second);
     this.validators.push(function() {
       if (field_first && field_second && $F(id_first) != $F(id_second)) {
-        FormWidget.handleError(field, message);
+        FormWidget.handleError(field_first, message);
         return false;
       }
       return true;
