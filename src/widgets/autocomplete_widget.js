@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
   
   Parts of this file are modified from an original version Copyright (c) 2007 stickmanlabs.
   See below for details.
