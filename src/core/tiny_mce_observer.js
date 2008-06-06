@@ -13,13 +13,13 @@
  * <p>To observe a TinyMCE field, create a new observer like so:</p>
  *
  * <pre>
- * new TinyMCE.Observer(editor_id, frequency, callback)
+ * new TinyMCEObserver(editor_id, frequency, callback)
  * </pre>
  *
  * @class
  * @extends Abstract.TimedObserver
  */
-TinyMCE.Observer = Class.create(Abstract.TimedObserver,
+TinyMCEObserver = Class.create(Abstract.TimedObserver,
 /** @scope TinyMCE.Observer.prototype */
 {
   /**
