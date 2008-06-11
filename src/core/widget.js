@@ -54,7 +54,11 @@ Object.extend(Widget,
           }
         }
       });
-      return objects;
+      try {
+        return objects;
+      } finally {
+        objects = null;
+      }
     } catch(e) {
     }
   }

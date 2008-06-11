@@ -1,0 +1,3 @@
+<% behaviors.each do |css, klass| %>
+.<%= css %> { behavior:url(/javascripts/lib/thc2/dist/htc/<%= css %>.htc); }
+<% end %>
