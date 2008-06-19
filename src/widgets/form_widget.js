@@ -90,13 +90,29 @@ var FormWidget = Class.create(Widget,
    * Adds a validator to this form that checks if the specified field is non-empty.
    * If it is, the validation fails.
    *
+   * If your validate a radiogroup, the validator will check if at one of the radio buttons is selected.
+   * For radiogroups you have to use the name property as id, for the following example:
+   * 
+   * <pre>
+   * &lt;form class="thc2-form-validation-widget" action="/users" id="signup-form" method="post"&gt;
+   *   &lt;input id="user_gender_male"  name="user[gender]" type="radio" id="user_gender" value="1" /&gt; male
+   *   &lt;input id="user_gender_female" name="user[gender]" type="radio" id="user_gender" value="0" /&gt; female
+   * &lt;input type="submit" value="submit" /&gt;
+   * </pre>
+   *
+   * you should use this validator-code:
+   *
+   * <pre>
+   * this.validatesPresenceOf('user[gender]', 'Please chose your gender.');
+   * </pre>
    * @param {String,HTMLElement} id The form element that needs to be validated.
    * @message {String} An error message that is shown on failure.
    */
   validatesPresenceOf: function(id, message) {
     var field = $(id);
     this.validators.push(function() {
-      if (field && (field.value == "" || $F(id) == null)) {
+      if ((field && (field.value == "" || $F(id) == null)) 
+      || (!field && ($$('input:checked[type="radio"][name="'+id+'"]') == 0))) {
         FormWidget.handleError(field, message);
         return false;
       }
