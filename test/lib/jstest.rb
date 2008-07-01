@@ -165,7 +165,7 @@ class OperaBrowser < Browser
     system("#{@path} #{url}") if windows? 
     system("opera #{url}")  if linux?
   end
-
+  
   def to_s
     "Opera"
   end
