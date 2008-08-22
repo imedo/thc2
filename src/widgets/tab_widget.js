@@ -46,10 +46,15 @@ var TabWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var i = 0;
+    this.initTabs();
+  },
+
+  /**
+   * Initializes the tabs.
+   * Call again if tab element reloaded/changed via AJAX.
+   */
+  initTabs: function() {
     this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
-    var tabwidget = this;
-    
     this.tabs = this.list.collect(function(item) {
       var tab = new Tab(this, $(item));
       if (item.hasClassName('on'))
@@ -120,6 +125,23 @@ var TabWidget = Class.create(Widget,
 });
 
 /**
+* FUCKO: Move effect to some better place. It's shit here
+*/
+Effect.PhaseIn = function(element, options) {
+  return new Effect.Parallel([
+    new Effect.Appear(element, { sync: true }),
+    new Effect.BlindDown(element, { sync: true, scaleFrom: 10})
+  ], options);
+}
+
+Effect.PhaseOut = function(element, options) {
+  return new Effect.Parallel([
+    new Effect.BlindUp(element, { sync: true, scaleTo: 10}),
+    new Effect.Fade(element, { sync: true })
+  ], options);
+}
+
+/**
  * This class provides a tab widget that loads the content of tabs
  * on the fly via ajax. The contents of already visited tabs are
  * cached. Note that this class automatically applies behaviours
@@ -133,6 +155,11 @@ var TabWidget = Class.create(Widget,
 var AjaxTabWidget = Class.create(TabWidget,
 /** @scope AjaxTabWidget.prototype */
 {
+  initialize: function(element) {
+    TabWidget.prototype.initialize.apply(this, arguments);
+    AjaxCache.self().store(this.currentTab.link, this.tabContent().innerHTML);
+  },
+  
   /**
    * Callback before the fade before a tab switch.
    */
@@ -183,7 +210,7 @@ var AjaxTabWidget = Class.create(TabWidget,
 
       this.beforeFade();
 
-      this.fadeEffect = new Effect.Fade(this.tabContainer(), {
+      this.fadeEffect = new Effect.PhaseOut(this.tabContainer(), {
         queue: { position: 'end', scope:'a' },
         afterFinish:this.fadeCallback.bind(this),
         duration: 0.5
@@ -219,7 +246,7 @@ var AjaxTabWidget = Class.create(TabWidget,
       this.contentBox.update(html);
       this.beforeAppear();
       this.switchCurrent(this.currentTab, this.nextTab);
-      this.appearEffect = new Effect.Appear(this.tabContainer(), {
+      this.appearEffect = new Effect.PhaseIn(this.tabContainer(), {
         queue: { position: 'end', scope:'b' },
         afterFinish:this.appearCallback.bind(this),
         duration: 0.5
