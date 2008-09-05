@@ -16,13 +16,21 @@ var TinyMCEWidget = Class.create(Widget,
 /** @scope TinyMCEWidget.prototype */
 {
   /**
-   * Constructor.
+  * Settings for TinyMCE, which will be applied on initialization
+  */
+  settings: { relative_urls: false,
+              convert_urls: false  
+            },
+  
+  /**
+   * Constructor. Also applies settings to editor
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
+    tinyMCE.settings = this.settings;
     tinyMCE.execCommand('mceAddControl', true, this.element.id);
   },
-  
+
   /**
    * Returns the TinyMCE editor instance for this widget.
    * @return {TinyMCE} The editor instance.
