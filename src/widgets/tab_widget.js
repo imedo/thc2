@@ -18,7 +18,7 @@
  * <pre>
  * &lt;div&gt;
  *   &lt;ul class=&quot;tab-list&quot;&gt;
- *     &lt;li class=&quot;on&quot; title=&quot;First tab&quot;&gt;
+ *     &lt;li class=&quot;select&quot; title=&quot;First tab&quot;&gt;
  *       &lt;a href=&quot;/first/tab&quot;&gt;First tab&lt;/a&gt;
  *     &lt;/li&gt;
  *     &lt;li title=&quot;Second tab&quot;&gt;
@@ -57,7 +57,7 @@ var TabWidget = Class.create(Widget,
     this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
     this.tabs = this.list.collect(function(item) {
       var tab = new Tab(this, $(item));
-      if (item.hasClassName('on'))
+      if (item.hasClassName(Tab.activeClassName))
         this.currentTab = tab;
       return tab;
     }.bind(this));
@@ -308,13 +308,15 @@ var Tab = Class.create(
    * Sets the tab to "on" state.
    */
   turnOn: function() {
-    this.button.addClassName('on');
+    this.button.addClassName(Tab.activeClassName);
   },
   
   /**
    * Sets the tab to "off" state.
    */
   turnOff: function() {
-    this.button.removeClassName('on');
+    this.button.removeClassName(Tab.activeClassName);
   }
 });
+
+Tab.activeClassName = 'select';
