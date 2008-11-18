@@ -1,0 +1,71 @@
+<html>
+<head>
+  
+  <script type="text/javascript" charset="utf-8" src="../vendor/prototype/prototype.js"></script>
+  
+  <script type="text/javascript" charset="utf-8" src="../src/core/core.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/browser.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/environment.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/logger.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/globalize.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/benchmark.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/singleton.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/ajax_cache.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/page.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/widget.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../src/core/prototype_ext.js"></script>
+  
+  <script type="text/javascript" charset="utf-8" src="../src/widgets/placeholder_input_widget.js"></script>
+  
+  <script type="text/javascript" charset="utf-8">
+    var Initializer = {
+      afterInit: [],
+
+      init: function() {
+        var d = (new Benchmark()).benchmark(function() {
+          CurrentPage.applyBehaviours(document.body);
+          CurrentPage.reconnect(document.body);
+          Initializer.afterInit.each(function(func){ func(); })
+        }).duration();
+        Logger.info("Initialization took " + d + "ms.");
+      },
+
+      doAfterInit: function(func) {
+        Initializer.afterInit.push(func);
+      }
+    };
+
+    document.observe("dom:loaded", Initializer.init);
+  </script>
+  
+  <style>
+    .placeholder-input {
+      color: gray;
+    }
+  </style>
+  
+</head>
+
+<body>
+  
+  <p>Sent parameters: 
+  <script type="text/javascript" charset="utf-8">
+    document.write(window.location.search);
+  </script></p>
+  
+  <h2>Value as placeholder text</h2>
+  
+  <form method="get">
+    <input name="value1" class="thc2-placeholder-input" value="xyz" id="value1"/>
+    <input type="submit"/>
+  </form>
+  
+  <h2>Title as placeholder text</h2>
+  
+  <form method="get">
+    <input title="placeholder text" name="value2" class="thc2-placeholder-input" title="xyz" id="value2"/>
+    <input type="submit"/>
+  </form>
+
+</body>
+</html>

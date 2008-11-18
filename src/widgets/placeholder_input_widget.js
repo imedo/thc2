@@ -28,11 +28,16 @@ var PlaceholderInputWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
+		this.element.value = this.element.value || this.element.title;
     this.placeholder = this.element.value;
+		
     Event.observe(this.element, "focus", this.focus.bindAsEventListener(this));
     Event.observe(this.element, "blur", this.blur.bindAsEventListener(this));
-    
-    this.element.addClassName("placeholder-input");
+    Event.observe(this.element.up('form'), 'submit', this.submit.bindAsEventListener(this));
+
+		if((this.element.title && this.element.title == this.element.value) || !this.element.title) {
+    	this.element.addClassName("placeholder-input");
+		}
   },
   
   /**
@@ -58,7 +63,13 @@ var PlaceholderInputWidget = Class.create(Widget,
       this.element.value = this.placeholder;
       this.element.addClassName("placeholder-input");
     }
-  }
+  },
+
+	submit: function(event) {
+		if(this.element.value == this.placeholder) {
+			this.element.value = '';
+		}
+	}
 });
 
 CurrentPage.registerBehaviour("thc2-placeholder-input", PlaceholderInputWidget);
