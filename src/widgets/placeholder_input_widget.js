@@ -9,9 +9,11 @@
 /**
  * This widget displays a placeholder in a text input field that disappears on focus.
  *
- * <p>The placeholder is the value of the text input field. If the field is empty on
+ * <p>The placeholder is the title of the text input field. If no title is set the value
+ * is used instead. If the field is empty on
  * blur, the placeholder appears again. Because of that, it is possible that the
- * placeholder is sent along with the enclosing form on submit.</p>
+ * placeholder is sent along with the enclosing form on submit. This does not happen when
+ * using the title which is the recommended use.</p>
  *
  * <p>When the placeholder is displayed, the text field has the CSS class
  * <code>placeholder-input</code>. You can use this fact for shading the text field
