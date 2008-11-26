@@ -72,7 +72,20 @@ var ToggleWidget = Class.create(Widget,
       this.extractParameters();
     }
     Effect.toggle(this.target, this.effect, {duration: this.duration});
+    this.toggleClassNames();
     event.stop();
+  },
+  
+  toggleClassNames: function(){
+    var elem = this.element.up('h2');
+    if(!elem){ return; }
+    if(elem.hasClassName('closed')){
+      elem.removeClassName('closed');
+      elem.addClassName('open');
+    } else if(elem.hasClassName('open')) {
+      elem.removeClassName('open');
+      elem.addClassName('closed');
+    }
   },
   
   /**
