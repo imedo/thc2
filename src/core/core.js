@@ -36,7 +36,7 @@ var Core = {
    * @return {boolean} <code>true</code>, if the file has been loaded, <code>false</code> otherwise.
    */
   fileLoaded: function(file) {
-    return Core.requiredFiles.include(file);
+    return $A(Core.requiredFiles).include(file);
   },
   
   /**
@@ -58,7 +58,7 @@ var Core = {
    * @param {string} file The file name relative to <code>loadPath</code>, without the extension.
    */
   loadFile: function(file) {
-    // console.debug("Loading file " + file);
+    // alert("Loading file " + file);
     document.write('<scr' + 'ipt type="text/javascript" src="' + Core.fileNameFor(file) + '"></scr' + 'ipt>');
   },
   
@@ -102,7 +102,7 @@ var Core = {
  * @param {boolean} blocking Load the file immediately.
  */
 function require(file, blocking) {
-  Core.require(file, blocking);
+  Core.require(file, false);
 }
 
 RegExp.prototype.argumentNames = function() { return []; }
