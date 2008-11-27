@@ -47,7 +47,7 @@ var Core = {
    * @return {string} The file name relative to the server root with the file extension.
    */
   fileNameFor: function(file) {
-    return '/' + Core.loadPath + '/' + file + '.js';
+    return Core.loadPath + '/' + file + '.js';
   },
   
   /**
