@@ -29,7 +29,7 @@ var MnemonicForm = Class.create(FormWidget,
       if (element.type != 'submit')
         this.inputs.push(element);
       if (element.type == 'text')
-        Event.observe(element, 'keyup', this.storeValues.bindAsEventListener(self));
+        Event.observe(element, 'keyup', this.storeValues.bindAsEventListener(this));
     }.bind(this));
     this.values = new Hash();
     this.storeValues();
