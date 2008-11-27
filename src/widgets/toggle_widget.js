@@ -43,6 +43,8 @@ var ToggleWidget = Class.create(Widget,
   init: false,
   defaultEffect: 'blind',
   defaultDuration: 0.5,
+  defaultOpenClass: 'open',
+  defaultClosedClass: 'closed',
 
   /**
    * Constructor.
@@ -54,6 +56,8 @@ var ToggleWidget = Class.create(Widget,
     Widget.prototype.initialize.apply(this, arguments);
     this.effect = this.defaultEffect;
     this.duration = this.defaultDuration;
+    this.openClass = this.defaultOpenClass;
+    this.closedClass = this.defaultClosedClass;
     
     if (options && options['target']) {
       this.setLink(this.element);
@@ -76,15 +80,18 @@ var ToggleWidget = Class.create(Widget,
     event.stop();
   },
   
+  
+  /**
+  * Toggle open and closed classes. If none of the classes is present to begin with, nothing will happen.
+  * Default classes are 'open' and 'closed'.
+  */
   toggleClassNames: function(){
-    var elem = this.element.up('h2');
-    if(!elem){ return; }
-    if(elem.hasClassName('closed')){
-      elem.removeClassName('closed');
-      elem.addClassName('open');
-    } else if(elem.hasClassName('open')) {
-      elem.removeClassName('open');
-      elem.addClassName('closed');
+    if(this.element.hasClassName(this.closedClass)){
+      this.element.removeClassName(this.closedClass);
+      this.element.addClassName(this.openClass);
+    } else if(this.element.hasClassName(this.openClass)) {
+      this.element.removeClassName(this.openClass);
+      this.element.addClassName(this.closedClass);
     }
   },
   
