@@ -75,14 +75,13 @@ var ToggleWidget = Class.create(Widget,
     if (!this.init) {
       this.extractParameters();
     }
-    Effect.toggle(this.target, this.effect, {duration: this.duration});
-    this.toggleClassNames();
+    Effect.toggle(this.target, this.effect, {duration: this.duration, afterFinish: this.toggleClassNames.bind(this)});
     event.stop();
   },
   
-  
   /**
-  * Toggle open and closed classes. If none of the classes is present to begin with, nothing will happen.
+  * Toggle open and closed classes. 
+  * If none of the class names is present to begin with, nothing will happen.
   * Default classes are 'open' and 'closed'.
   */
   toggleClassNames: function(){
