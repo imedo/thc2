@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>THC2 Unit test file | <%= @title %></title>
+  <title><%= @title %> | THC2 Unit test file</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <script type="text/javascript" charset="utf-8">
     var eventResults = {};
@@ -30,6 +30,8 @@
 <body>
 <h1>THC2 Unit test file</h1>
 <h2><%= @title %></h2>
+
+<p><a href="file://<%= File.expand_path("#{Dir.pwd}/test/unit/tmp/#{@js_filename.sub(/\.js/, '.html')}") %>" id="reload-link">Reload locally</a></p>
 
 <!-- This file is programmatically generated. Do not attempt to modify it. Instead, modify <%= @fixtures_filename %> -->
 
