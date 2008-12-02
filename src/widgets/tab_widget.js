@@ -319,4 +319,4 @@ var Tab = Class.create(
   }
 });
 
-Tab.activeClassName = 'select';
+Tab.activeClassName = 'selected';
