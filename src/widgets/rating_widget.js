@@ -150,7 +150,7 @@ var RatingStar = Class.create(
   /**
    * Default star height. Adjust this property to use differently sized stars.
    */
-  starheight: 20,
+  starheight: 14,
   
   /**
    * Constructor.
