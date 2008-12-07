@@ -6,6 +6,16 @@
   For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
+var NullLogger = {
+  log: function(text) {}
+}
+
+var ConsoleLogger = {
+  log: function(text) {
+    console.debug(text);
+  }
+};
+
 /**
  * Namespace for logging functions. See the {@link Environment} namespace for log level
  * information.
@@ -13,6 +23,8 @@
  * @class
  */
 var Logger = {
+  logger: window.console ? ConsoleLogger : NullLogger,
+  
   /**
    * Logs a message in the javascript console. If no javascript console is
    * available, nothing happens.
@@ -20,9 +32,7 @@ var Logger = {
    * @param {string} text The message.
    */
   log: function(text) {
-    try {
-      console.debug(text);
-    } catch(e) {}
+    logger.log(text);
   },
   
   /**
