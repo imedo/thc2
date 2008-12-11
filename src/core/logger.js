@@ -32,7 +32,7 @@ var Logger = {
    * @param {string} text The message.
    */
   log: function(text) {
-    logger.log(text);
+    Logger.logger.log(text);
   },
   
   /**
