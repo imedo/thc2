@@ -19,7 +19,7 @@ var TinyMCEWidget = Class.create(Widget,
   * Settings for TinyMCE, which will be applied on initialization
   */
   settings: { relative_urls: false,
-              convert_urls: false  
+              convert_urls: false
             },
   
   /**
