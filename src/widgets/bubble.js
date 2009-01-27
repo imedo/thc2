@@ -47,7 +47,7 @@ var Bubble = Class.create(
    * Calculates the bubble's vertical position.
    */
   verticalPosition: function(element_offset, bubble_size){
-    this.element.style.top = (( element_offset[1] - bubble_size['height']) + "px");
+    this.element.style.top = (( element_offset[1] - bubble_size['height'] + this.verticalOffset()) + "px");
   },
   
   /**
@@ -64,7 +64,21 @@ var Bubble = Class.create(
         left = element_offset[0]-bubble_size['width'];
       break;
     };
-    this.element.style.left = left + 'px';
+    this.element.style.left = (left + this.horizontalOffset()) + 'px';
+  },
+  
+  /**
+   * Override this method to specify a vertical offset for the bubble size.
+   */
+  verticalOffset: function() {
+    return 0;
+  },
+  
+  /**
+   * Override this method to specify a horizontal offset for the bubble size.
+   */
+  horizontalOffset: function() {
+    return 0;
   },
   
   /**
