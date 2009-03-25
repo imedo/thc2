@@ -55,9 +55,9 @@ var FormWidget = Class.create(Widget,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
     
-    this.validators = new Array();
+    this.validators = [];
     this.form = this.element;
-    this.element.observe('submit', this.submit.bindAsEventListener(this));
+    Event.observe(this.element, 'submit', this.submit.bindAsEventListener(this));
   },
   
   /**

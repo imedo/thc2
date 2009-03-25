@@ -152,13 +152,20 @@ var ToggleWidget = Class.create(Widget,
    * in the options hash.
    */
   extractTarget: function() {
-    var target = $w($(this.element).className).find(function(klass) { return klass.startsWith("toggle_"); });
+    var classNames = $(this.element).className.split(' ');
+    for (var i = 0; i != classNames.length; ++i) {
+      if (classNames[i].startsWith("toggle_")) {
+        var target = classNames[i];
+        break;
+      }
+    }
+    
     if (target) {
       this.setLink(this.element);
       this.target = $(target.gsub("toggle_", ''));
     } else {
       this.setLink(this.element.getElementsByTagName("a")[0]);
-      targetElement = this.element.getElementsBySelector("div")[0];
+      var targetElement = this.element.getElementsByTagName("div")[0];
       if (targetElement) {
         this.target = targetElement;
       }

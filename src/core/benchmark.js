@@ -57,6 +57,10 @@ var Benchmark = Class.create(
     return this.stop_time - this.start_time;
   },
   
+  lapTime: function() {
+    return (new Date()) - this.start_time;
+  },
+  
   /**
    * Convenience method that logs the measured time with log level <code>"info"</code>.
    * See the {@link Logger} class for details about log levels.

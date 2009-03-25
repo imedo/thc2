@@ -16,6 +16,13 @@ var ConsoleLogger = {
   }
 };
 
+var DocumentLogger = {
+  log: function(text) {
+    var element = new Element('p').update(text);
+    $('logger').insert(element);
+  }
+};
+
 /**
  * Namespace for logging functions. See the {@link Environment} namespace for log level
  * information.
@@ -23,7 +30,8 @@ var ConsoleLogger = {
  * @class
  */
 var Logger = {
-  logger: window.console ? ConsoleLogger : NullLogger,
+  logger: window.console ? ConsoleLogger :
+          Environment.DebugLevel == 'info' ? DocumentLogger : NullLogger,
   
   /**
    * Logs a message in the javascript console. If no javascript console is

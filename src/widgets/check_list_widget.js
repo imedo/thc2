@@ -31,9 +31,9 @@ var CheckListWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var selectAllElements = this.element.select('.select_all');
-    var deselectAllElements = this.element.select('.deselect_all');
-    var invertAllElements = this.element.select('.invert_all');
+    var selectAllElements = this.element.getElementsByClassName('select_all');
+    var deselectAllElements = this.element.getElementsByClassName('deselect_all');
+    var invertAllElements = this.element.getElementsByClassName('invert_all');
     
     selectAllElements.each(function(element) {
       Event.observe(element, 'click', this.selectAll.bindAsEventListener(this));
