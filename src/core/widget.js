@@ -59,7 +59,9 @@ Object.extend(Widget,
     try {
       return objects;
     } finally {
-      objects = null;
+      if (Prototype.Browser.IE) {
+        objects = null;
+      }
     }
   }
 });
