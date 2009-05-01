@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -43,6 +43,8 @@ var ToggleWidget = Class.create(Widget,
   init: false,
   defaultEffect: 'blind',
   defaultDuration: 0.5,
+  defaultOpenClass: 'open',
+  defaultClosedClass: 'closed',
 
   /**
    * Constructor.
@@ -54,6 +56,8 @@ var ToggleWidget = Class.create(Widget,
     Widget.prototype.initialize.apply(this, arguments);
     this.effect = this.defaultEffect;
     this.duration = this.defaultDuration;
+    this.openClass = this.defaultOpenClass;
+    this.closedClass = this.defaultClosedClass;
     
     if (options && options['target']) {
       this.setLink(this.element);
@@ -71,8 +75,23 @@ var ToggleWidget = Class.create(Widget,
     if (!this.init) {
       this.extractParameters();
     }
-    Effect.toggle(this.target, this.effect, {duration: this.duration});
+    Effect.toggle(this.target, this.effect, {duration: this.duration, afterFinish: this.toggleClassNames.bind(this)});
     event.stop();
+  },
+  
+  /**
+  * Toggle open and closed classes. 
+  * If none of the class names is present to begin with, nothing will happen.
+  * Default classes are 'open' and 'closed'.
+  */
+  toggleClassNames: function(){
+    if(this.element.hasClassName(this.closedClass)){
+      this.element.removeClassName(this.closedClass);
+      this.element.addClassName(this.openClass);
+    } else if(this.element.hasClassName(this.openClass)) {
+      this.element.removeClassName(this.openClass);
+      this.element.addClassName(this.closedClass);
+    }
   },
   
   /**
@@ -133,13 +152,20 @@ var ToggleWidget = Class.create(Widget,
    * in the options hash.
    */
   extractTarget: function() {
-    var target = $w($(this.element).className).find(function(klass) { return klass.startsWith("toggle_"); });
+    var classNames = $(this.element).className.split(' ');
+    for (var i = 0; i != classNames.length; ++i) {
+      if (classNames[i].startsWith("toggle_")) {
+        var target = classNames[i];
+        break;
+      }
+    }
+    
     if (target) {
       this.setLink(this.element);
       this.target = $(target.gsub("toggle_", ''));
     } else {
       this.setLink(this.element.getElementsByTagName("a")[0]);
-      targetElement = this.element.getElementsBySelector("div")[0];
+      var targetElement = this.element.getElementsByTagName("div")[0];
       if (targetElement) {
         this.target = targetElement;
       }

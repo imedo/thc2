@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -29,7 +29,7 @@ var MnemonicForm = Class.create(FormWidget,
       if (element.type != 'submit')
         this.inputs.push(element);
       if (element.type == 'text')
-        Event.observe(element, 'keyup', this.storeValues.bindAsEventListener(self));
+        Event.observe(element, 'keyup', this.storeValues.bindAsEventListener(this));
     }.bind(this));
     this.values = new Hash();
     this.storeValues();

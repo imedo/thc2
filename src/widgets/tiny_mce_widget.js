@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -16,13 +16,21 @@ var TinyMCEWidget = Class.create(Widget,
 /** @scope TinyMCEWidget.prototype */
 {
   /**
-   * Constructor.
+  * Settings for TinyMCE, which will be applied on initialization
+  */
+  settings: { relative_urls: false,
+              convert_urls: false
+            },
+  
+  /**
+   * Constructor. Also applies settings to editor
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
+    tinyMCE.settings = this.settings;
     tinyMCE.execCommand('mceAddControl', true, this.element.id);
   },
-  
+
   /**
    * Returns the TinyMCE editor instance for this widget.
    * @return {TinyMCE} The editor instance.

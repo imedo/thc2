@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -31,9 +31,9 @@ var CheckListWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var selectAllElements = this.element.select('.select_all');
-    var deselectAllElements = this.element.select('.deselect_all');
-    var invertAllElements = this.element.select('.invert_all');
+    var selectAllElements = this.element.getElementsByClassName('select_all');
+    var deselectAllElements = this.element.getElementsByClassName('deselect_all');
+    var invertAllElements = this.element.getElementsByClassName('invert_all');
     
     selectAllElements.each(function(element) {
       Event.observe(element, 'click', this.selectAll.bindAsEventListener(this));

@@ -8,8 +8,27 @@ THC2_PKG_DIR  = File.join(THC2_ROOT, 'pkg')
 THC2_DOC_DIR  = File.join(THC2_ROOT, 'doc')
 THC2_VERSION  = '0.1'
 JSDOC_DIR     = File.join(THC2_ROOT, 'lib/jsdoc')
+HTC_SRC_DIR   = File.join(THC2_SRC_DIR, 'htc')
+HTC_DIST_DIR  = File.join(THC2_DIST_DIR, 'htc')
 
 task :default => [:dist, :document, :package, :clean_package_source]
+
+desc "Generates HTC files for IE"
+task :build_htcs => :dist do
+  src = File.read(File.join(THC2_DIST_DIR, 'thc2.js'))
+  behaviors = src.grep(/CurrentPage\.registerBehaviour\([\'\"](thc2-[a-z\-]+)[\'\"],\s+([A-Za-z]+)\)/) { [$1, $2] }
+  puts behaviors.inspect
+  FileUtils.mkdir_p HTC_DIST_DIR
+  behaviors.each do |css, klass|
+    File.open(File.join(HTC_DIST_DIR, "#{css}.htc"), 'w') do |file|
+      file.print ERB.new(IO.read(File.join(HTC_SRC_DIR, 'component.htc')), nil, '%').result(binding)
+    end
+  end
+  
+  File.open(File.join(HTC_DIST_DIR, "behaviors.css"), 'w') do |file|
+    file.print ERB.new(IO.read(File.join(HTC_SRC_DIR, 'behaviors.css')), nil, '%').result(binding)
+  end
+end
 
 desc "Builds the distribution."
 task :dist do
