@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -18,7 +18,7 @@
  * <pre>
  * &lt;div&gt;
  *   &lt;ul class=&quot;tab-list&quot;&gt;
- *     &lt;li class=&quot;on&quot; title=&quot;First tab&quot;&gt;
+ *     &lt;li class=&quot;select&quot; title=&quot;First tab&quot;&gt;
  *       &lt;a href=&quot;/first/tab&quot;&gt;First tab&lt;/a&gt;
  *     &lt;/li&gt;
  *     &lt;li title=&quot;Second tab&quot;&gt;
@@ -46,13 +46,18 @@ var TabWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var i = 0;
+    this.initTabs();
+  },
+
+  /**
+   * Initializes the tabs.
+   * Call again if tab element reloaded/changed via AJAX.
+   */
+  initTabs: function() {
     this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
-    var tabwidget = this;
-    
     this.tabs = this.list.collect(function(item) {
       var tab = new Tab(this, $(item));
-      if (item.hasClassName('on'))
+      if (item.hasClassName(Tab.activeClassName))
         this.currentTab = tab;
       return tab;
     }.bind(this));
@@ -120,6 +125,23 @@ var TabWidget = Class.create(Widget,
 });
 
 /**
+* TODO: Move effect to some better place.
+*/
+Effect.PhaseIn = function(element, options) {
+  return new Effect.Parallel([
+    new Effect.Appear(element, { sync: true }),
+    new Effect.BlindDown(element, { sync: true, scaleFrom: 10})
+  ], options);
+}
+
+Effect.PhaseOut = function(element, options) {
+  return new Effect.Parallel([
+    new Effect.BlindUp(element, { sync: true, scaleTo: 10}),
+    new Effect.Fade(element, { sync: true })
+  ], options);
+}
+
+/**
  * This class provides a tab widget that loads the content of tabs
  * on the fly via ajax. The contents of already visited tabs are
  * cached. Note that this class automatically applies behaviours
@@ -133,6 +155,11 @@ var TabWidget = Class.create(Widget,
 var AjaxTabWidget = Class.create(TabWidget,
 /** @scope AjaxTabWidget.prototype */
 {
+  initialize: function(element) {
+    TabWidget.prototype.initialize.apply(this, arguments);
+    AjaxCache.self().store(this.currentTab.link, this.tabContent().innerHTML);
+  },
+  
   /**
    * Callback before the fade before a tab switch.
    */
@@ -183,7 +210,7 @@ var AjaxTabWidget = Class.create(TabWidget,
 
       this.beforeFade();
 
-      this.fadeEffect = new Effect.Fade(this.tabContainer(), {
+      this.fadeEffect = new Effect.PhaseOut(this.tabContainer(), {
         queue: { position: 'end', scope:'a' },
         afterFinish:this.fadeCallback.bind(this),
         duration: 0.5
@@ -219,7 +246,7 @@ var AjaxTabWidget = Class.create(TabWidget,
       this.contentBox.update(html);
       this.beforeAppear();
       this.switchCurrent(this.currentTab, this.nextTab);
-      this.appearEffect = new Effect.Appear(this.tabContainer(), {
+      this.appearEffect = new Effect.PhaseIn(this.tabContainer(), {
         queue: { position: 'end', scope:'b' },
         afterFinish:this.appearCallback.bind(this),
         duration: 0.5
@@ -281,13 +308,15 @@ var Tab = Class.create(
    * Sets the tab to "on" state.
    */
   turnOn: function() {
-    this.button.addClassName('on');
+    this.button.addClassName(Tab.activeClassName);
   },
   
   /**
    * Sets the tab to "off" state.
    */
   turnOff: function() {
-    this.button.removeClassName('on');
+    this.button.removeClassName(Tab.activeClassName);
   }
 });
+
+Tab.activeClassName = 'selected';

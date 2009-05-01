@@ -4,7 +4,8 @@ new Test.Unit.Runner({
   
   teardown: function() {
     ['auto-toggler', 'toggle_with_explicit_target', 'toggle_with_js_target',
-     'auto-toggler-effect', 'toggle_with_explicit_target_and_effect', 'toggle_with_js_target_and_effect'].each(function(w) {
+     'auto-toggler-effect', 'toggle_with_explicit_target_and_effect', 'toggle_with_js_target_and_effect',
+     'toggle_with_js_target_and_toggle_class'].each(function(w) {
       Event.stopObserving(w, 'click');
     });
   },
@@ -111,5 +112,17 @@ new Test.Unit.Runner({
     var w = new ToggleWidget($('toggle_with_auto_target'));
     w.extractParameters();
     assertEqual(w.defaultEffect, w.effect);
+  }},
+  
+  testToggleClassesWhenClassOpenGiven: function(){ with(this) {
+    // this does not work right now, because the change of the class name
+    // is the transition effect's after hook, which happens asynchronously
+
+    // var w = new ToggleWidget($('toggle_with_js_target_and_toggle_class'), { target: 'target_js_toggle_class' });
+    // assert(w.element.hasClassName('open'));
+    // Event.simulateMouse(w.link, 'click');
+    // assert(w.element.hasClassName('closed'));
+    // Event.simulateMouse(w.link, 'click');
+    // assert(w.element.hasClassName('open'));
   }}
 });

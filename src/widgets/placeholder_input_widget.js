@@ -31,11 +31,11 @@ var PlaceholderInputWidget = Class.create(Widget,
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
 		this.element.value = this.element.value || this.element.title;
-    this.placeholder = this.element.value;
+    this.placeholder = this.element.title || this.element.value;
 		
     Event.observe(this.element, "focus", this.focus.bindAsEventListener(this));
     Event.observe(this.element, "blur", this.blur.bindAsEventListener(this));
-    Event.observe(this.element.up('form'), 'submit', this.submit.bindAsEventListener(this));
+    Event.observe(this.findForm(this.element), 'submit', this.submit.bindAsEventListener(this));
 
 		if((this.element.title && this.element.title == this.element.value) || !this.element.title) {
     	this.element.addClassName("placeholder-input");
@@ -71,6 +71,16 @@ var PlaceholderInputWidget = Class.create(Widget,
 		if(this.element.value == this.placeholder) {
 			this.element.value = '';
 		}
+	},
+	
+	findForm: function(element) {
+	  if (element.tagName.toUpperCase() == 'HTML') {
+	    return undefined;
+	  } else if (element.tagName.toUpperCase() == 'FORM') {
+	    return element;
+	  } else {
+	    return this.findForm(element.parentNode);
+	  }
 	}
 });
 

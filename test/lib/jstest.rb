@@ -21,7 +21,7 @@ class Browser
   end
   
   def windows?
-    host.include?('mswin')
+    host.include?('mswin') || host.include?('cygwin')
   end
   
   def linux?
@@ -35,18 +35,22 @@ class Browser
 end
 
 class FirefoxBrowser < Browser
-  def initialize(path=File.join(ENV['ProgramFiles'] || 'c:\Program Files', '\Mozilla Firefox\firefox.exe'))
+  def initialize(path=File.join(ENV['ProgramFiles'] || '/cygdrive/c/Programme', 'Mozilla Firefox/firefox.exe'))
     @path = path
   end
 
   def visit(url)
     system("open -a Firefox '#{url}'") if macos?
-    system("#{@path} #{url}") if windows? 
+    system("'#{@path}' #{url}") if windows? 
     system("firefox #{url}") if linux?
   end
 
   def to_s
     "Firefox"
+  end
+  
+  def teardown
+    system('taskkill /f /im firefox.exe') if windows?
   end
 end
 
@@ -95,6 +99,10 @@ class IEBrowser < Browser
   def to_s
     "Internet Explorer"
   end
+  
+  def teardown
+    system('taskkill /f /im iexplore.exe') if windows?
+  end
 end
 
 class KonquerorBrowser < Browser
@@ -136,7 +144,7 @@ class KonquerorBrowser < Browser
 end
 
 class OperaBrowser < Browser
-  def initialize(path='c:\Program Files\Opera\Opera.exe')
+  def initialize(path='/cygdrive/c/Programme/Opera/Opera.exe')
     @path = path
   end
   
@@ -157,7 +165,7 @@ class OperaBrowser < Browser
     system("#{@path} #{url}") if windows? 
     system("opera #{url}")  if linux?
   end
-
+  
   def to_s
     "Opera"
   end
@@ -294,6 +302,8 @@ class JavaScriptTestTask < ::Rake::TaskLib
       trap("INT") { @server.shutdown }
       t = Thread.new { @server.start }
       
+      success = true
+      
       # run all combinations of browsers and tests
       @browsers.each do |browser|
         if browser.supported?
@@ -312,6 +322,7 @@ class JavaScriptTestTask < ::Rake::TaskLib
           
           print "\nFinished in #{Time.now - t0} seconds."
           print test_suite_results
+          success &&= !test_suite_results.error? && !test_suite_results.failure?
           browser.teardown
         else
           puts "\nSkipping #{browser}, not supported on this OS."
@@ -320,6 +331,8 @@ class JavaScriptTestTask < ::Rake::TaskLib
 
       @server.shutdown
       t.join
+      
+      raise "failed" unless success
     end
   end
   

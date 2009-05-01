@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -36,7 +36,7 @@ var Core = {
    * @return {boolean} <code>true</code>, if the file has been loaded, <code>false</code> otherwise.
    */
   fileLoaded: function(file) {
-    return Core.requiredFiles.include(file);
+    return $A(Core.requiredFiles).include(file);
   },
   
   /**
@@ -47,7 +47,7 @@ var Core = {
    * @return {string} The file name relative to the server root with the file extension.
    */
   fileNameFor: function(file) {
-    return '/' + Core.loadPath + '/' + file + '.js';
+    return Core.loadPath + '/' + file + '.js';
   },
   
   /**
@@ -58,7 +58,7 @@ var Core = {
    * @param {string} file The file name relative to <code>loadPath</code>, without the extension.
    */
   loadFile: function(file) {
-    // console.debug("Loading file " + file);
+    // alert("Loading file " + file);
     document.write('<scr' + 'ipt type="text/javascript" src="' + Core.fileNameFor(file) + '"></scr' + 'ipt>');
   },
   
@@ -102,7 +102,7 @@ var Core = {
  * @param {boolean} blocking Load the file immediately.
  */
 function require(file, blocking) {
-  Core.require(file, blocking);
+  Core.require(file, false);
 }
 
 RegExp.prototype.argumentNames = function() { return []; }

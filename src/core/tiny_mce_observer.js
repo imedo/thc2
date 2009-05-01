@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -13,13 +13,13 @@
  * <p>To observe a TinyMCE field, create a new observer like so:</p>
  *
  * <pre>
- * new TinyMCE.Observer(editor_id, frequency, callback)
+ * new TinyMCEObserver(editor_id, frequency, callback)
  * </pre>
  *
  * @class
  * @extends Abstract.TimedObserver
  */
-TinyMCE.Observer = Class.create(Abstract.TimedObserver,
+TinyMCEObserver = Class.create(Abstract.TimedObserver,
 /** @scope TinyMCE.Observer.prototype */
 {
   /**

@@ -1,0 +1,8 @@
+<PUBLIC:COMPONENT>
+  <PUBLIC:ATTACH EVENT="onload" FOR="window" ONEVENT="initialize()"  />
+  <SCRIPT>
+    function initialize() {
+      new <%= klass %>(this);
+    }
+  </SCRIPT>
+</PUBLIC:COMPONENT>

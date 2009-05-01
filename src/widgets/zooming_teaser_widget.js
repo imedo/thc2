@@ -3,7 +3,7 @@
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
-  For details, see the imedo.de web site: http://www.imedo.de
+  For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
 /**
@@ -45,15 +45,14 @@ var ZoomingTeaserWidget = Class.create(Widget,
    * @inner
    */
   resetItems: function(item){
-    var self = this;
     this.findChildren(item);
     this.items.each(function(subitem){
-      self.findChildren(subitem);
+      this.findChildren(subitem);
       if(item != subitem){
         subitem.over.hide();
         subitem.out.show();
       }
-    });
+    }.bind(this));
     item.out.hide();
     item.over.show();
   },
