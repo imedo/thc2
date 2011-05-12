@@ -7,12 +7,12 @@
 */
 
 /**
- * Represents a DOM element that gains complex behaviour. Subclass <code>Widget</code>
+ * Represents a DOM element that gains complex behaviour. Subclass <code>thc2.Widget</code>
  * to create your own behaviours.
- * @class Widget
+ * @class thc2.Widget
  */
-var Widget = Class.create(
-/** @scope Widget.prototype */
+thc2.Widget = Class.create(
+/** @scope thc2.Widget.prototype */
 {
   /**
    * Initializes the element. Call this method from your overridden constructor.
@@ -22,37 +22,43 @@ var Widget = Class.create(
   }
 });
 
-Object.extend(Widget,
-/** @scope Widget */
+Object.extend(thc2.Widget,
+/** @scope thc2.Widget */
 {
   /**
    * Applies <code>behaviours</code> on all elements under <code>parent</code>. Behaviour names must
    * start with <code>thc2-</code>.
    *
-   * <p>Instead of this method, you should probably call <code>CurrentPage.applyBehaviours</code>.</p>
+   * <p>Instead of this method, you should probably call <code>thc2.CurrentPage.applyBehaviours</code>.</p>
    */
   ApplyBehaviours: function(parent, behaviours) {
     var objects = [];
     var elements = $(parent || document.body).getElementsByTagName("*");
+    var behaviourElements = [];
     for (var k = 0; k != elements.length; ++k) {
       var element = elements[k];
       var names = element.className;
       if (/thc2-/.match(names) > 0) {
-        var matching_classes = names.split(' ').select(function(c) { return c.startsWith("thc2-"); });
-        for (var i = 0; i != matching_classes.length; i++) {
-          var className = matching_classes[i];
-          var mapping = behaviours[className];
-          if (mapping && CurrentPage.find(element, className).length == 0) {
-            try {
-              // Logger.info('' + Initializer.benchmark.lapTime() + ': Creating Behaviour of type ' + className);
-              var obj = new mapping.klass(element);
-              obj.behaviour = className;
-            } catch(e) {
-              Logger.error("Could not create class " + className + ", error: " + e.message);
-              return;
-            }
-            objects.push(obj);
+        behaviourElements.push(element);
+      }
+    }
+    for (var k = 0; k != behaviourElements.length; ++k) {
+      var element = behaviourElements[k];
+      var names = element.className;
+      var matching_classes = names.split(' ').select(function(c) { return c.startsWith("thc2-"); });
+      for (var i = 0; i != matching_classes.length; i++) {
+        var className = matching_classes[i];
+        var mapping = behaviours[className];
+        if (mapping && thc2.CurrentPage.find(element, className).length == 0) {
+          try {
+            // thc2.Logger.info('' + Initializer.benchmark.lapTime() + ': Creating Behaviour of type ' + className);
+            var obj = new mapping.klass(element);
+            obj.behaviour = className;
+          } catch(e) {
+            thc2.Logger.error("Could not create class " + className + ", error: " + e.message);
+            return;
           }
+          objects.push(obj);
         }
       }
     }

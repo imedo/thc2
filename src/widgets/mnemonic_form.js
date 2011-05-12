@@ -13,16 +13,16 @@
  * <p>These contents can be restored at any time. This class must be applied
  * to <code>form</code> elements.</p>
  * @class
- * @extends FormWidget
+ * @extends thc2.FormWidget
  */
-var MnemonicForm = Class.create(FormWidget,
-/** @scope MnemonicForm.prototype */
+thc2.MnemonicForm = Class.create(thc2.FormWidget,
+/** @scope thc2.MnemonicForm.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    FormWidget.prototype.initialize.apply(this, arguments);
+    thc2.FormWidget.prototype.initialize.apply(this, arguments);
     
     this.inputs = new Array();
     this.element.getInputs().each(function(element) {
@@ -62,7 +62,7 @@ var MnemonicForm = Class.create(FormWidget,
   
   /**
    * Restores all the form's fields to the values they had, before the
-   * {@link MnemonicForm#storeValues} method was called last.
+   * {@link thc2.MnemonicForm#storeValues} method was called last.
    */
   restore: function() {
     this.values.each(function(pair) {

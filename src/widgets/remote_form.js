@@ -18,16 +18,16 @@
  * on complete.</p>
  *
  * @class
- * @extends FormWidget
+ * @extends thc2.FormWidget
  */
-var RemoteForm = Class.create(FormWidget,
-/** @scope RemoteForm.prototype */
+thc2.RemoteForm = Class.create(thc2.FormWidget,
+/** @scope thc2.RemoteForm.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    FormWidget.prototype.initialize.apply(this, arguments);
+    thc2.FormWidget.prototype.initialize.apply(this, arguments);
     this.action = this.element.action;
     this.spinner = $(this.element.getElementsByClassName('thc2-spinner')[0]);
   },
@@ -39,7 +39,7 @@ var RemoteForm = Class.create(FormWidget,
    * @param {Event} event The submit event object.
    */
   submit: function(event) {
-    FormWidget.prototype.submit.apply(this, arguments);
+    thc2.FormWidget.prototype.submit.apply(this, arguments);
     new Ajax.Request(this.action, {
       asynchronous:true,
       evalScripts:true,
@@ -120,4 +120,4 @@ var RemoteForm = Class.create(FormWidget,
   }
 });
 
-CurrentPage.registerBehaviour('thc2-remote-form', RemoteForm);
+thc2.CurrentPage.registerBehaviour('thc2-remote-form', thc2.RemoteForm);

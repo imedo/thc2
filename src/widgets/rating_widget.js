@@ -12,8 +12,8 @@
 /**
  * This class is the base class for rating widgets with five stars.
  *
- * <p>There are two subclasses, {@link OneClickRatingWidget} and
- * {@link InputRatingWidget}, that send the selected rating via Ajax to the
+ * <p>There are two subclasses, {@link thc2.OneClickRatingWidget} and
+ * {@link thc2.InputRatingWidget}, that send the selected rating via Ajax to the
  * server, or store it in a hidden field, respectively. Do not use this class
  * directly, use one of the subclasses instead.</p>
  *
@@ -32,16 +32,16 @@
  * <ul>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var RatingWidget = Class.create(Widget,
-/** @scope RatingWidget.prototype */
+thc2.RatingWidget = Class.create(thc2.Widget,
+/** @scope thc2.RatingWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.list = $A(this.element.getElementsByTagName('li'));
     this.ratingField = $(this.list.first());
     this.ratingText = this.ratingField.innerHTML;
@@ -52,6 +52,12 @@ var RatingWidget = Class.create(Widget,
       return new RatingStar(item, widget, i++);
     });
     
+    this.stars.each(function(star){
+      if(star.selected){
+        this.currentStar = star;
+        this.ratingField.innerHTML = this.ratingText = this.currentStar.ratingText;
+      }
+    }.bind(this));
     Event.observe(this.element, "mouseout", this.starMouseOut.bindAsEventListener(this));
   },
   
@@ -62,6 +68,7 @@ var RatingWidget = Class.create(Widget,
   starClick: function(currentStar) {
     var rating = currentStar.number;
     this.setRating(rating);
+    this.ratingField.innerHTML = this.ratingText = currentStar.ratingText;
   },
   
   /**
@@ -144,7 +151,7 @@ var RatingWidget = Class.create(Widget,
  * when Javascript, and hence Ajax, is not available.
  * @class
  */
-var RatingStar = Class.create(
+thc2.RatingStar = Class.create(
 /** @scope RatingStar.prototype */
 {
   /**
@@ -237,10 +244,10 @@ var RatingStar = Class.create(
  * </pre>
  *
  * @class
- * @extends RatingWidget
+ * @extends thc2.RatingWidget
  */
-var OneClickRatingWidget = Class.create(RatingWidget,
-/** @scope OneClickRatingWidget.prototype */
+thc2.OneClickRatingWidget = Class.create(thc2.RatingWidget,
+/** @scope thc2.OneClickRatingWidget.prototype */
 {
   /**
    * @inner
@@ -248,7 +255,7 @@ var OneClickRatingWidget = Class.create(RatingWidget,
    * to the URL specified by the clicked star.
    */
   starClick: function(star) {
-    RatingWidget.prototype.starClick.apply(this, arguments);
+    thc2.RatingWidget.prototype.starClick.apply(this, arguments);
     new Ajax.Request(star.link(), { method:'get', onComplete:this.replaceStars.bind(this) });
   },
   
@@ -284,10 +291,10 @@ var OneClickRatingWidget = Class.create(RatingWidget,
  * </pre>
  *
  * @class
- * @extends RatingWidget
+ * @extends thc2.RatingWidget
  */
-var InputRatingWidget = Class.create(RatingWidget,
-/** @scope InputRatingWidget.prototype */
+thc2.InputRatingWidget = Class.create(thc2.RatingWidget,
+/** @scope thc2.InputRatingWidget.prototype */
 {
   ContainerRegexp: /^store_in_(\S+)$/,
   
@@ -295,26 +302,39 @@ var InputRatingWidget = Class.create(RatingWidget,
    * Constructor.
    */
   initialize: function(element) {
-    RatingWidget.prototype.initialize.apply(this, arguments);
+    thc2.RatingWidget.prototype.initialize.apply(this, arguments);
     var container = this.element.classNames().grep(this.ContainerRegexp)[0];
     if (container) {
       var match = container.match(this.ContainerRegexp);
       this.container = match[1];
     }
+    if (this.resetLink()) {
+      Event.observe(this.resetLink(), "click", this.reset.bindAsEventListener(this));
+    }
   },
-  
+
+  resetLink: function() {
+    return this.element.next(".thc2-input-rating-reset")
+  },
+
+  reset: function(event) {
+    this.setRating(-1)
+    $(this.container).value = "";
+    event.stop()
+  },
+
   /**
    * @inner
    * This method is called when a star is clicked. It stores the rating value
    * in the widget's associated hidden field.
    */
   starClick: function(star) {
-    RatingWidget.prototype.starClick.apply(this, arguments);
+    thc2.RatingWidget.prototype.starClick.apply(this, arguments);
     $(this.container).value = (star.number + 1);
   }
 });
 
-CurrentPage.registerBehaviours({
-  "thc2-one-click-rating": OneClickRatingWidget,
-  "thc2-input-rating": InputRatingWidget
+thc2.CurrentPage.registerBehaviours({
+  "thc2-one-click-rating": thc2.OneClickRatingWidget,
+  "thc2-input-rating": thc2.InputRatingWidget
 });

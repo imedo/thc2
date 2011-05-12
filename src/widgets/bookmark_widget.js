@@ -9,16 +9,16 @@
 /**
  * This widget adds the current page to the browser's bookmarks on click.
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var BookmarkWidget = Class.create(Widget,
-/** @scope BookmarkWidget.prototype */
+thc2.BookmarkWidget = Class.create(thc2.Widget,
+/** @scope thc2.BookmarkWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.bookmark.bindAsEventListener(this));
   },
   
@@ -32,10 +32,10 @@ var BookmarkWidget = Class.create(Widget,
     var title = document.title;
     bookmark(url, title);
     event.stop();
-  } 
+  }
 });
 
-CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
+thc2.CurrentPage.registerBehaviour("thc2-bookmark", thc2.BookmarkWidget);
 
 /**
  * Creates a new bookmark, if supported by the browser. If not, it shows an
@@ -47,7 +47,7 @@ CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
  */
 function bookmark(url, title) {
   var ua = navigator.userAgent.toLowerCase();
-  
+
   var bookmarkCode = {
     ie: function() { window.external.AddFavorite(url, title); },
     konq: function() { alert('You need to press CTRL + B to bookmark our site.'.t()); },
@@ -55,7 +55,7 @@ function bookmark(url, title) {
     safari: function() { (ua.indexOf('mac') != -1) ? alert('You need to press Command/Cmd + D to bookmark our site.'.t()) : alert('You need to press CTRL + D to bookmark our site.'.t()); },
     misc: function() { alert('In order to bookmark this site you need to do so manually through your browser.'.t()); }
   };
-  
+
   var browser = (window.external && (!document.createTextNode || (typeof(window.external.AddFavorite) == 'unknown'))) ? ie :
                 (ua.indexOf('konqueror') != -1) ? 'konq' :
                 (window.opera) ? 'opera' :
@@ -64,7 +64,7 @@ function bookmark(url, title) {
   bookmarkCode[browser]();
 }
 
-Object.extend(Globalize.German, {
+Object.extend(thc2.Globalize.German, {
   'You need to press CTRL + B to bookmark our site.' : 'Sie müssen STRG + B drücken, um diese Seite zu Ihren Favoriten hinzuzufügen.',
   'In order to bookmark this site you need to do so manually through your browser.' : 'Sie können diese Seite leider nur manuell zu Ihren Favoriten hinzufügen. Bitte lesen Sie dazu die Hilfe Ihres Browsers.',
   'You need to press Command/Cmd + D to bookmark our site.' : 'Sie müssen Apfel + D drücken, um diese Seite zu Ihren Lesezeichen hinzuzufügen.',

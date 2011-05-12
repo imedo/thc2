@@ -10,7 +10,7 @@
  * This class is a base class for tab widgets.
  *
  * <p>Subclass this class to implement your own tab widgets. But before you do,
- * check out {@link AjaxTabWidget}, which loads the contents of new tabs on
+ * check out {@link thc2.AjaxTabWidget}, which loads the contents of new tabs on
  * the fly.</p>
  *
  * <p>The general markup for a tab widget is like follows:</p>
@@ -36,16 +36,16 @@
  * </pre>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var TabWidget = Class.create(Widget,
-/** @scope TabWidget.prototype */
+thc2.TabWidget = Class.create(thc2.Widget,
+/** @scope thc2.TabWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.initTabs();
   },
 
@@ -125,7 +125,7 @@ var TabWidget = Class.create(Widget,
 });
 
 /**
-* TODO: Move effect to some better place.
+* FUCKO: Move effect to some better place. It's shit here
 */
 Effect.PhaseIn = function(element, options) {
   return new Effect.Parallel([
@@ -150,14 +150,14 @@ Effect.PhaseOut = function(element, options) {
  * Also, this class uses a fade-out effect before the switch, and a
  * fade-in effect after the switch.
  * @class
- * @extends TabWidget
+ * @extends thc2.TabWidget
  */
-var AjaxTabWidget = Class.create(TabWidget,
-/** @scope AjaxTabWidget.prototype */
+thc2.AjaxTabWidget = Class.create(thc2.TabWidget,
+/** @scope thc2.AjaxTabWidget.prototype */
 {
   initialize: function(element) {
-    TabWidget.prototype.initialize.apply(this, arguments);
-    AjaxCache.self().store(this.currentTab.link, this.tabContent().innerHTML);
+    thc2.TabWidget.prototype.initialize.apply(this, arguments);
+    thc2.AjaxCache.self().store(this.currentTab.link, this.tabContent().innerHTML);
   },
   
   /**
@@ -178,8 +178,8 @@ var AjaxTabWidget = Class.create(TabWidget,
    * loaded elements.
    */
   beforeAppear: function() {
-    CurrentPage.applyBehaviours(this.tabContent());
-    CurrentPage.reconnect(this.tabContent());
+    thc2.CurrentPage.applyBehaviours(this.tabContent());
+    thc2.CurrentPage.reconnect(this.tabContent());
   },
   
   /**
@@ -215,7 +215,7 @@ var AjaxTabWidget = Class.create(TabWidget,
         afterFinish:this.fadeCallback.bind(this),
         duration: 0.5
       });
-      if (!AjaxCache.self().find(this.nextTab.link)) {
+      if (!thc2.AjaxCache.self().find(this.nextTab.link)) {
         new Ajax.Request(this.nextTab.link, { method:'get', onComplete:this.storeTab.bind(this) });
       }
     }
@@ -223,10 +223,10 @@ var AjaxTabWidget = Class.create(TabWidget,
   
   /**
    * @inner
-   * Stores the loaded tab's contents in the AjaxCache.
+   * Stores the loaded tab's contents in the thc2.AjaxCache.
    */
   storeTab: function(req) {
-    AjaxCache.self().store(this.nextTab.link, req.responseText);
+    thc2.AjaxCache.self().store(this.nextTab.link, req.responseText);
   },
   
   /**
@@ -237,7 +237,7 @@ var AjaxTabWidget = Class.create(TabWidget,
     this.doSwitch(this.currentTab, this.nextTab);
     
     clearTimeout(this.waitTimeout);
-    var html = AjaxCache.self().find(this.nextTab.link);
+    var html = thc2.AjaxCache.self().find(this.nextTab.link);
 
     if (html) {
       if (!this.contentBox) {
@@ -281,14 +281,14 @@ var AjaxTabWidget = Class.create(TabWidget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-tab-widget", AjaxTabWidget);
+thc2.CurrentPage.registerBehaviour("thc2-tab-widget", thc2.AjaxTabWidget);
 
 /**
  * This class represents a tab in a tab widget. You probably won't need
  * to use this class directly.
  * @class
  */
-var Tab = Class.create(
+thc2.Tab = Class.create(
 /** @scope Tab.prototype */
 {
   /**
@@ -319,4 +319,4 @@ var Tab = Class.create(
   }
 });
 
-Tab.activeClassName = 'selected';
+thc2.Tab.activeClassName = 'selected';

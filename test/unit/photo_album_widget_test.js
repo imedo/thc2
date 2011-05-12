@@ -6,9 +6,9 @@ new Test.Unit.Runner({
   },
   
   testEventHandlers: function() { with(this) {
-    var w = new PhotoAlbumWidget($('photo_album'));
+    var w = new thc2.PhotoAlbumWidget($('photo_album'));
     // assertObserved(['click'], function() {
-    //   var w = new ClickableWidget($('clickable'));
+    //   var w = new thc2.ClickableWidget($('clickable'));
     //   assertNotNull(w.element);
     // }.bind(this));
   }}

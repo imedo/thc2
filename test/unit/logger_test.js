@@ -1,42 +1,42 @@
 new Test.Unit.Runner({
   setup: function() {
-    this.mockup(Logger, 'log', function(text) {
+    this.mockup(thc2.Logger, 'log', function(text) {
       this.loggedText = text;
     }.bind(this));
   },
   
   teardown: function() {
-    this.undoMockup(Logger, 'log');
+    this.undoMockup(thc2.Logger, 'log');
     this.loggedText = null;
   },
   
   testInfo: function() { with(this) {
-    Environment.setDebugLevel('info');
-    Logger.info('test');
+    thc2.Environment.setDebugLevel('info');
+    thc2.Logger.info('test');
     assertEqual(this.loggedText, 'test');
 
     this.loggedText = null;
 
-    Environment.setDebugLevel('warning');
-    Logger.info('test');
+    thc2.Environment.setDebugLevel('warning');
+    thc2.Logger.info('test');
     assertNotEqual(this.loggedText, 'test');
   }},
   
   testWarning: function() { with(this) {
-    Environment.setDebugLevel('warning');
-    Logger.warning('test');
+    thc2.Environment.setDebugLevel('warning');
+    thc2.Logger.warning('test');
     assertEqual(this.loggedText, 'test');
 
     this.loggedText = null;
 
-    Environment.setDebugLevel('error');
-    Logger.warning('test');
+    thc2.Environment.setDebugLevel('error');
+    thc2.Logger.warning('test');
     assertNotEqual(this.loggedText, 'test');
   }},
   
   testError: function() { with(this) {
-    Environment.setDebugLevel('error');
-    Logger.error('test');
+    thc2.Environment.setDebugLevel('error');
+    thc2.Logger.error('test');
     assertEqual(this.loggedText, 'test');
   }}
 });

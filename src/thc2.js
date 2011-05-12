@@ -1,6 +1,6 @@
 <%= include 'HEADER' %>
 
-<%= include 'core/core.js', 'core/browser.js', 'core/environment.js', 'core/logger.js', 'core/globalize.js', 'core/benchmark.js', 'core/singleton.js', 'core/ajax_cache.js', 'core/page.js', 'core/widget.js', 'core/prototype_ext.js' %>
+<%= include 'core/namespace.js','core/core.js', 'core/browser.js', 'core/environment.js', 'core/logger.js', 'core/globalize.js', 'core/benchmark.js', 'core/singleton.js', 'core/ajax_cache.js', 'core/page.js', 'core/widget.js', 'core/prototype_ext.js' %>
 
 if (typeof tinymce != "undefined") {
 <%= include 'core/tiny_mce_observer.js' %>

@@ -1,14 +1,14 @@
 new Test.Unit.Runner({
   setup: function() {
-    Object.extend(Globalize.German, {
+    Object.extend(thc2.Globalize.German, {
       'foo' : 'fu',
       'baz' : 'bar'
     });
   },
   
   teardown: function() {
-    Globalize.German = {};
-    Globalize.currentLanguage = "";
+    thc2.Globalize.German = {};
+    thc2.Globalize.currentLanguage = "";
   },
   
   testTranslationWithoutCurrentLanguage: function() { with(this) {
@@ -17,7 +17,7 @@ new Test.Unit.Runner({
   }},
 
   testTranslationWithCurrentLanguage: function() { with(this) {
-    Globalize.currentLanguage = 'German';
+    thc2.Globalize.currentLanguage = 'German';
     assertEqual('foo'.t(), 'fu');
     assertEqual('baz'.t(), 'bar');
   }}

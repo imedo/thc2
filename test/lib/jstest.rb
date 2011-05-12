@@ -76,6 +76,24 @@ class SafariBrowser < Browser
   end
 end
 
+class ChromeBrowser < Browser
+  def supported?
+    macos?
+  end
+
+  def visit(url)
+    system("open -a 'Google Chrome' '#{url}'")
+  end
+
+  def teardown
+    #applescript('tell application "Safari" to close front document')
+  end
+
+  def to_s
+    "Chrome"
+  end
+end
+
 class IEBrowser < Browser
   def setup
     require 'win32ole' if windows?
@@ -369,6 +387,8 @@ class JavaScriptTestTask < ::Rake::TaskLib
           KonquerorBrowser.new
         when :opera
           OperaBrowser.new
+        when :chrome
+          ChromeBrowser.new
         else
           browser
       end

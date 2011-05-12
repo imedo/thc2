@@ -12,19 +12,19 @@
  * <p>The easiest way to use this class is through the benchmark() method:</p>
  *
  * <pre>
- *   new Benchmark("time-consuming operation").benchmark(function() {
+ *   new thc2.Benchmark("time-consuming operation").benchmark(function() {
  *     // your code here
  *   });
  * </pre>
  *
- * <p>You can also use the {@link Benchmark#start} and {@link Benchmark#stop}
- * methods to start and stop the timer. Use {@link Benchmark#duration} to
+ * <p>You can also use the {@link thc2.Benchmark#start} and {@link thc2.Benchmark#stop}
+ * methods to start and stop the timer. Use {@link thc2.Benchmark#duration} to
  * query the measured runtime.</p>
  *
- * @class Benchmark
+ * @class thc2.Benchmark
  */
-var Benchmark = Class.create(
-/** @scope Benchmark.prototype */
+thc2.Benchmark = Class.create(
+/** @scope thc2.Benchmark.prototype */
 {
   /**
    * Constructor.
@@ -50,7 +50,7 @@ var Benchmark = Class.create(
   },
   
   /**
-   * Returns the elapsed time between the {@link Benchmark#start} and {@link Benchmark#stop} calls.
+   * Returns the elapsed time between the {@link thc2.Benchmark#start} and {@link thc2.Benchmark#stop} calls.
    * @return {integer} the elapsed time.
    */
   duration: function() {
@@ -63,13 +63,13 @@ var Benchmark = Class.create(
   
   /**
    * Convenience method that logs the measured time with log level <code>"info"</code>.
-   * See the {@link Logger} class for details about log levels.
+   * See the {@link thc2.Logger} class for details about log levels.
    */
   log: function() {
     if (this.what) {
-      Logger.info("#{1} took #{2} ms".t().format(this.what, this.duration()));
+      thc2.Logger.info("#{1} took #{2} ms".t().format(this.what, this.duration()));
     } else {
-      Logger.info("Benchmark took #{1} ms".t().format(this.duration()));
+      thc2.Logger.info("thc2.Benchmark took #{1} ms".t().format(this.duration()));
     }
   },
   
@@ -78,7 +78,7 @@ var Benchmark = Class.create(
    * given code block.
    *
    * @param {function} func The code block of which the execution time is measured.
-   * @return {Benchmark} <code>this</code> object.
+   * @return {thc2.Benchmark} <code>this</code> object.
    */
   benchmark: function(func) {
     this.start();
@@ -89,7 +89,7 @@ var Benchmark = Class.create(
   }
 });
 
-Object.extend(Globalize.German, {
+Object.extend(thc2.Globalize.German, {
   "#{1} took #{2} ms": "#{1} hat #{2} ms gedauert",
-  "Benchmark took #{1} ms": "Benchmark hat #{1} ms gedauert"
+  "thc2.Benchmark took #{1} ms": "thc2.Benchmark hat #{1} ms gedauert"
 });

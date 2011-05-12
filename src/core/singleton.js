@@ -8,12 +8,12 @@
 
 /**
  * Implements the singleton pattern. To define a singleton class, use
- * <code>Singleton.create()</code>.
+ * <code>thc2.Singleton.create()</code>.
  * @static
  * @class
  */
-var Singleton =
-/** @scope Singleton */
+thc2.Singleton =
+/** @scope thc2.Singleton */
 {
   /**
    * Creates a new singleton class. See the Prototype Class.create documentation
@@ -23,6 +23,11 @@ var Singleton =
    */
   create: function() {
     var klass = Class.create.apply(Class, arguments);
+    this.singletonize(klass);
+    return klass;
+  },
+
+  singletonize: function(klass) {
     Object.extend(klass, {
       self: function() {
         if (!klass.instance) {
@@ -31,7 +36,5 @@ var Singleton =
         return klass.instance;
       }
     });
-    
-    return klass;
   }
 };

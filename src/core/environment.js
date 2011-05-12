@@ -8,7 +8,7 @@
 
 /**
  * This exception is thrown, when an unknown debug level is chosen in
- * Environment.
+ * thc2.Environment.
  * @class
  */
 var UnknownDebugLevelException = function(level) {
@@ -24,7 +24,7 @@ var UnknownDebugLevelException = function(level) {
  * @static
  * @class
  */
-var Environment = {
+thc2.Environment = {
   /**
    * The default level of debugging information logged to the console. 
    * The debug levels are (in order of severety):
@@ -46,10 +46,10 @@ var Environment = {
    * is thrown.
    */
   setDebugLevel: function(level) {
-    if (!Environment.AvailableDebugLevels.include(level)) {
+    if (!this.AvailableDebugLevels.include(level)) {
       throw new UnknownDebugLevelException(level);
     }
-    Environment.DebugLevel = level;
+    this.DebugLevel = level;
   },
   
   /**
@@ -73,8 +73,8 @@ var Environment = {
    *                   <code>false</code> otherwise.
    */
   debugLevelIncludes: function(level) {
-    return (Environment.DebugLevel == 'info') ||
-           (Environment.DebugLevel == 'warning' && (level == 'warning' || level == 'error')) ||
-           (Environment.DebugLevel == 'error' && level == 'error');
+    return (this.DebugLevel == 'info') ||
+           (this.DebugLevel == 'warning' && (level == 'warning' || level == 'error')) ||
+           (this.DebugLevel == 'error' && level == 'error');
   }
 };

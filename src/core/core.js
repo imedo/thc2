@@ -9,7 +9,7 @@
 /**
  * Name for the (otherwise anonymous) top level namespace.
  */
-var Global = this;
+thc2.Global = this;
 
 /**
  * Namespace for source file handling.
@@ -17,7 +17,7 @@ var Global = this;
  * @static
  * @class
  */
-var Core = {
+thc2.Core = {
   /**
    * The base path for javascript files on your web server.
    */
@@ -36,7 +36,7 @@ var Core = {
    * @return {boolean} <code>true</code>, if the file has been loaded, <code>false</code> otherwise.
    */
   fileLoaded: function(file) {
-    return $A(Core.requiredFiles).include(file);
+    return $A(this.requiredFiles).include(file);
   },
   
   /**
@@ -47,7 +47,7 @@ var Core = {
    * @return {string} The file name relative to the server root with the file extension.
    */
   fileNameFor: function(file) {
-    return Core.loadPath + '/' + file + '.js';
+    return this.loadPath + '/' + file + '.js';
   },
   
   /**
@@ -59,7 +59,7 @@ var Core = {
    */
   loadFile: function(file) {
     // alert("Loading file " + file);
-    document.write('<scr' + 'ipt type="text/javascript" src="' + Core.fileNameFor(file) + '"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt type="text/javascript" src="' + this.fileNameFor(file) + '"></scr' + 'ipt>');
   },
   
   /**
@@ -71,8 +71,8 @@ var Core = {
   loadFileNow: function(file) {
     // console.debug("Loading file " + file + " now!");
     var script = "";
-    new Ajax.Request(Core.fileNameFor(file), { method:'get', onComplete: function(req) { script = req.responseText }, asynchronous: false });
-    Global.eval(script);
+    new Ajax.Request(this.fileNameFor(file), { method:'get', onComplete: function(req) { script = req.responseText }, asynchronous: false });
+    thc2.Global.eval(script);
   },
   
   /**
@@ -84,25 +84,25 @@ var Core = {
    *                           loadFileNow() for details.
    */
   require: function(file, blocking) {
-    if (!Core.fileLoaded(file)) {
+    if (!this.fileLoaded(file)) {
       if (blocking) {
-        Core.loadFileNow(file);
+        this.loadFileNow(file);
       } else {
-        Core.loadFile(file);
+        this.loadFile(file);
       }
-      Core.requiredFiles.push(file);
+      this.requiredFiles.push(file);
     }
   }
 };
 
 /**
- * Shortcut for Core.require().
+ * Shortcut for thc2.Core.require().
  *
  * @param {string} file The file to load.
  * @param {boolean} blocking Load the file immediately.
  */
 function require(file, blocking) {
-  Core.require(file, false);
+  this.require(file, false);
 }
 
 RegExp.prototype.argumentNames = function() { return []; }

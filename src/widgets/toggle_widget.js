@@ -1,5 +1,5 @@
 /*
-  This Widget makes the the element togglable
+  This thc2.Widget makes the the element togglable
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -35,14 +35,14 @@
  * <p>To use this widget, simply add the class <code>thc2-toggle-widget</code> to your
  * input field.</p>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var ToggleWidget = Class.create(Widget,
-/** @scope ToggleWidget.prototype */
+thc2.ToggleWidget = Class.create(thc2.Widget,
+/** @scope thc2.ToggleWidget.prototype */
 {
   init: false,
   defaultEffect: 'blind',
-  defaultDuration: 0.5,
+  defaultDuration: 0.25,
   defaultOpenClass: 'open',
   defaultClosedClass: 'closed',
 
@@ -53,7 +53,7 @@ var ToggleWidget = Class.create(Widget,
    *   - target: the element which is toggled on click.
    */
   initialize: function(element, options) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.effect = this.defaultEffect;
     this.duration = this.defaultDuration;
     this.openClass = this.defaultOpenClass;
@@ -75,7 +75,8 @@ var ToggleWidget = Class.create(Widget,
     if (!this.init) {
       this.extractParameters();
     }
-    Effect.toggle(this.target, this.effect, {duration: this.duration, afterFinish: this.toggleClassNames.bind(this)});
+    this.toggleClassNames();
+    Effect.toggle(this.target, this.effect, {duration: this.duration});
     event.stop();
   },
   
@@ -186,4 +187,4 @@ var ToggleWidget = Class.create(Widget,
 });
 
 // TODO: rename to thc2-toggle for consistency
-CurrentPage.registerBehaviour("thc2-toggle-widget", ToggleWidget);
+thc2.CurrentPage.registerBehaviour("thc2-toggle-widget", thc2.ToggleWidget);

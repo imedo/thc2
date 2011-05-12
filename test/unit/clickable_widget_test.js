@@ -9,24 +9,24 @@ new Test.Unit.Runner({
   
   testEventHandlers: function() { with(this) {
     assertObserved(['click'], function() {
-      var w = new ClickableWidget($('clickable'));
+      var w = new thc2.ClickableWidget($('clickable'));
       assertNotNull(w.element);
     }.bind(this));
 
     assertObserved(['click'], function() {
-      var w = new ClickableWidget($('clickable_without_link'));
+      var w = new thc2.ClickableWidget($('clickable_without_link'));
       assertNotNull(w.element);
     }.bind(this));
   }},
   
   testFindLink: function() { with(this) {
-    var w = new ClickableWidget($('clickable'));
+    var w = new thc2.ClickableWidget($('clickable'));
     w.findLink();
     assertEqual('http://www.wikipedia.org/', w.href);
   }},
   
   testClick: function() { with(this) {
-    var w = new ClickableWidget($('clickable'));
+    var w = new thc2.ClickableWidget($('clickable'));
     var called = false;
     mockup(w, 'followLink', function() {
       called = true;
@@ -38,18 +38,18 @@ new Test.Unit.Runner({
   }},
   
   testSetURL: function() { with(this) {
-    var w = new ClickableWidget($('clickable_without_link'));
+    var w = new thc2.ClickableWidget($('clickable_without_link'));
     w.setURL('http://www.google.com/');
     assertEqual('http://www.google.com/', w.href);
   }},
   
   testConstructorURL: function() { with(this) {
-    var w = new ClickableWidget($('clickable_without_link'), { href: 'http://www.google.com/' });
+    var w = new thc2.ClickableWidget($('clickable_without_link'), { href: 'http://www.google.com/' });
     assertEqual('http://www.google.com/', w.href);
   }},
   
   testPrecedenceOfConstructorURLOverLink: function() { with(this) {
-    var w = new ClickableWidget($('clickable'), { href: 'http://www.google.com/' });
+    var w = new thc2.ClickableWidget($('clickable'), { href: 'http://www.google.com/' });
     assertEqual('http://www.google.com/', w.href);
     mockup(w, 'followLink', function() {});
     Event.simulateMouse(w.element, 'click');

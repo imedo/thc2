@@ -1,5 +1,5 @@
 /*
-  This Widget provides select all/deselect all capabilities to a list of check box items.
+  This thc2.Widget provides select all/deselect all capabilities to a list of check box items.
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -10,8 +10,7 @@
  * For a list with one check box per item, this widget adds support for buttons
  * to select all, deselect all and to invert the selection.
  *
- * <p>This widget must be applied to a <code>form</code> element. All elements with
- * class</p>
+ * <p>All elements with class</p>
  *
  * <ul>
  * <li><code>select_all</code> select all check boxes,</li>
@@ -21,19 +20,19 @@
  *
  * <p>on click.</p>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var CheckListWidget = Class.create(Widget,
-/** @scope CheckListWidget.prototype */
+thc2.CheckListWidget = Class.create(thc2.Widget,
+/** @scope thc2.CheckListWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
-    var selectAllElements = this.element.getElementsByClassName('select_all');
-    var deselectAllElements = this.element.getElementsByClassName('deselect_all');
-    var invertAllElements = this.element.getElementsByClassName('invert_all');
+    thc2.Widget.prototype.initialize.apply(this, arguments);
+    var selectAllElements = $A(this.element.getElementsByClassName('select_all'));
+    var deselectAllElements = $A(this.element.getElementsByClassName('deselect_all'));
+    var invertAllElements = $A(this.element.getElementsByClassName('invert_all'));
     
     selectAllElements.each(function(element) {
       Event.observe(element, 'click', this.selectAll.bindAsEventListener(this));
@@ -53,7 +52,7 @@ var CheckListWidget = Class.create(Widget,
    * Finds all check boxes in the form.
    */
   findCheckBoxes: function() {
-    this.checkboxes = this.element.getInputs('checkbox');
+    this.checkboxes = this.element.getElementsBySelector('input[type="checkbox"]');
   },
   
   /**
@@ -102,4 +101,4 @@ var CheckListWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-check-list", CheckListWidget);
+thc2.CurrentPage.registerBehaviour("thc2-check-list", thc2.CheckListWidget);

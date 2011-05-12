@@ -5,7 +5,7 @@
  * @static
  * @class
  */
-var Browser = {
+thc2.Browser = {
   /**
    * Detects the current browser / engine with version information and operating system via user agent sniffing.
    *
@@ -14,7 +14,7 @@ var Browser = {
    * <table>
    *   <thead>
    *     <tr>
-   *       <th>Browser / Engine</th>
+   *       <th>thc2.Browser / Engine</th>
    *       <th>Return Value</th>
    *     </tr>
    *   </thead>
@@ -81,6 +81,14 @@ var Browser = {
                  is('konqueror')?'konqueror' :
                  is('applewebkit/') ? 'webkit safari':
                  is('mozilla/')?'gecko':'';
+
+    if (b == 'gecko') {
+      if (is('firefox/2')) {
+        b += ' firefox2';
+      } else if (is('firefox/3')) {
+        b += ' firefox3';
+      }
+    }
     // see: http://www.mozilla.org/docs/web-developer/sniffer/browser_type.html
     var os = (is('x11')||is('linux'))?' linux':is('mac')?' mac':is('win')?' win':'';
     var css = {browser:b,os:os};

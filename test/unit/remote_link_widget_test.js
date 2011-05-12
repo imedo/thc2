@@ -10,19 +10,19 @@ new Test.Unit.Runner({
   
   testEventHandlers: function() { with(this) {
     assertObserved(['click'], function() {
-      var w = new RemoteLinkWidget($('remote_link'));
+      var w = new thc2.RemoteLinkWidget($('remote_link'));
       assertNotNull(w.element);
     }.bind(this));
   }},
   
   testClick: function() { with(this) {
-    var w = new RemoteLinkWidget($('remote_link'));
+    var w = new thc2.RemoteLinkWidget($('remote_link'));
     Event.simulateMouse(w.element, 'click');
     
   }}// ,
   // 
   //   testCallbacks: function() { with(this) {
-  //     var w = new RemoteLinkWidget($('remote_link'));
+  //     var w = new thc2.RemoteLinkWidget($('remote_link'));
   //     var numCalled = 0;
   //     var callbacks = ['loading', 'loaded', 'interactive', 'success', 'failure', 'complete'];
   //     callbacks.each(function(callback) {

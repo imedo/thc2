@@ -12,41 +12,41 @@ new Test.Unit.Runner({
   
   testEventHandlers: function() { with(this) {
     assertObserved(['click'], function() {
-      var w = new ToggleWidget($('toggle_with_auto_target'));
+      var w = new thc2.ToggleWidget($('toggle_with_auto_target'));
       assertNotNull(w.element);
     }.bind(this));
 
     assertObserved(['click'], function() {
-      var w = new ToggleWidget($('toggle_with_explicit_target'));
+      var w = new thc2.ToggleWidget($('toggle_with_explicit_target'));
       assertNotNull(w.element);
     }.bind(this));
 
     assertObserved(['click'], function() {
-      var w = new ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
+      var w = new thc2.ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
       assertNotNull(w.element);
     }.bind(this));
   }},
   
   testClickOnAutoTarget: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_auto_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_auto_target'));
     Event.simulateMouse(w.link, 'click');
     assertEqual(true, w.init);
   }},
 
   testClickOnExplicitTarget: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_explicit_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_explicit_target'));
     Event.simulateMouse(w.link, 'click');
     assertEqual(true, w.init);
   }},
   
   testClickOnJavascriptSpecifiedTarget: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
+    var w = new thc2.ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
     Event.simulateMouse(w.link, 'click');
     assertEqual(true, w.init);
   }},
   
   testSetTarget: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_js_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_js_target'));
     w.setTarget('target_js');
     assertEqual($('target_js'), w.target);
     w.setTarget($('target_js'));
@@ -54,62 +54,62 @@ new Test.Unit.Runner({
   }},
 
   testSetEffect: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_js_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_js_target'));
     assertEqual(w.defaultEffect, w.effect);
     w.setEffect('slide');
     assertEqual('slide', w.effect);
   }},
 
   testSetDuration: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_js_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_js_target'));
     assertEqual(w.defaultDuration, w.duration);
     w.setDuration(5.0);
     assertEqual(5.0, w.duration);
   }},
 
   testExtractParameters: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_auto_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_auto_target'));
     w.extractParameters();
     assertEqual(w.defaultEffect, w.effect);
     assertEqual(true, w.init);
   }},
 
   testExtractTarget: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_auto_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_auto_target'));
     w.extractTarget();
     assertEqual($('auto_target'), w.target);
     
-    w = new ToggleWidget($('toggle_with_explicit_target'));
+    w = new thc2.ToggleWidget($('toggle_with_explicit_target'));
     w.extractTarget();
     assertEqual($('target'), w.target);
 
-    w = new ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
+    w = new thc2.ToggleWidget($('toggle_with_js_target'), { target: 'target_js' });
     w.extractTarget();
     assertEqual($('target_js'), w.target);
   }},
 
   testPrecedenceOfConstructorTargetOverClassParameter: function() { with(this) {
-    w = new ToggleWidget($('toggle_with_auto_target'), { target: 'target_js' });
+    w = new thc2.ToggleWidget($('toggle_with_auto_target'), { target: 'target_js' });
     assertNotEqual($('auto_target'), w.target);
     assertEqual($('target_js'), w.target);
   }},
 
   testExtractEffect: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_auto_target_and_effect'));
+    var w = new thc2.ToggleWidget($('toggle_with_auto_target_and_effect'));
     w.extractEffect();
     assertEqual('slide', w.effect);
 
-    w = new ToggleWidget($('toggle_with_explicit_target_and_effect'));
+    w = new thc2.ToggleWidget($('toggle_with_explicit_target_and_effect'));
     w.extractEffect();
     assertEqual('slide', w.effect);
 
-    w = new ToggleWidget($('toggle_with_js_target_and_effect'));
+    w = new thc2.ToggleWidget($('toggle_with_js_target_and_effect'));
     w.extractEffect();
     assertEqual('slide', w.effect);
   }},
   
   testDefaultEffectWhenNoneGiven: function() { with(this) {
-    var w = new ToggleWidget($('toggle_with_auto_target'));
+    var w = new thc2.ToggleWidget($('toggle_with_auto_target'));
     w.extractParameters();
     assertEqual(w.defaultEffect, w.effect);
   }},
@@ -118,7 +118,7 @@ new Test.Unit.Runner({
     // this does not work right now, because the change of the class name
     // is the transition effect's after hook, which happens asynchronously
 
-    // var w = new ToggleWidget($('toggle_with_js_target_and_toggle_class'), { target: 'target_js_toggle_class' });
+    // var w = new thc2.ToggleWidget($('toggle_with_js_target_and_toggle_class'), { target: 'target_js_toggle_class' });
     // assert(w.element.hasClassName('open'));
     // Event.simulateMouse(w.link, 'click');
     // assert(w.element.hasClassName('closed'));
