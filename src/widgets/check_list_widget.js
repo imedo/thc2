@@ -1,5 +1,5 @@
 /*
-  This Widget provides select all/deselect all capabilities to a list of check box items.
+  This thc2.Widget provides select all/deselect all capabilities to a list of check box items.
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -20,16 +20,16 @@
  *
  * <p>on click.</p>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var CheckListWidget = Class.create(Widget,
-/** @scope CheckListWidget.prototype */
+thc2.CheckListWidget = Class.create(thc2.Widget,
+/** @scope thc2.CheckListWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     var selectAllElements = $A(this.element.getElementsByClassName('select_all'));
     var deselectAllElements = $A(this.element.getElementsByClassName('deselect_all'));
     var invertAllElements = $A(this.element.getElementsByClassName('invert_all'));
@@ -101,4 +101,4 @@ var CheckListWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-check-list", CheckListWidget);
+thc2.CurrentPage.registerBehaviour("thc2-check-list", thc2.CheckListWidget);

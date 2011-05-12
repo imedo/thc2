@@ -1,5 +1,5 @@
 /*
-  This Widget provides a fancy photo album browser.
+  This thc2.Widget provides a fancy photo album browser.
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -40,10 +40,10 @@
  * </pre>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var PhotoAlbumWidget = Class.create(Widget,
-/** @scope PhotoAlbumWidget.prototype */
+thc2.PhotoAlbumWidget = Class.create(thc2.Widget,
+/** @scope thc2.PhotoAlbumWidget.prototype */
 {
   numPhotos: 11,
   currentIndex: 0,
@@ -52,8 +52,8 @@ var PhotoAlbumWidget = Class.create(Widget,
    * Constructor.
    */
   initialize: function(element) {
-    PhotoAlbumWidget.self = this;
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.PhotoAlbumWidget.self = this;
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     
     this.measurer = new Element('div', { style: "visibility:hidden; position:absolute" });
     document.body.insert(this.measurer);
@@ -262,4 +262,4 @@ var PhotoAlbumWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-photo-album", PhotoAlbumWidget);
+thc2.CurrentPage.registerBehaviour("thc2-photo-album", thc2.PhotoAlbumWidget);

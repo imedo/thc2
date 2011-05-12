@@ -14,16 +14,16 @@
  * of this class.</p>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var RemoteLinkWidget = Class.create(Widget,
-/** @scope RemoteLinkWidget.prototype */
+thc2.RemoteLinkWidget = Class.create(thc2.Widget,
+/** @scope thc2.RemoteLinkWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.url = this.element.href;
     Event.observe(this.element, "click", this.click.bindAsEventListener(this));
   },
@@ -92,4 +92,4 @@ var RemoteLinkWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour('thc2-remote-link', RemoteLinkWidget);
+thc2.CurrentPage.registerBehaviour('thc2-remote-link', thc2.RemoteLinkWidget);

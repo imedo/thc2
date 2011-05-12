@@ -39,20 +39,20 @@
  *
  * <p>The widget is applied to the outermost <code>div</code> element.</p>
  * @class
- * @extends TabWidget
+ * @extends thc2.TabWidget
  */
-var EditorTabWidget = Class.create(TabWidget,
-/** @scope EditorTabWidget.prototype */
+thc2.EditorTabWidget = Class.create(thc2.TabWidget,
+/** @scope thc2.EditorTabWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    TabWidget.prototype.initialize.apply(this, arguments);
+    thc2.TabWidget.prototype.initialize.apply(this, arguments);
     this.tabs.each(function(tab) {
       tab.name = $A(tab.button.classNames())[0];
     }.bind(this));
-    this.editor = new TinyMCEWidget(this.element.getElementsByTagName('textarea')[0]);
+    this.editor = new thc2.TinyMCEWidget(this.element.getElementsByTagName('textarea')[0]);
   },
   
   /**
@@ -73,4 +73,4 @@ var EditorTabWidget = Class.create(TabWidget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-editor-tab-widget", EditorTabWidget);
+thc2.CurrentPage.registerBehaviour("thc2-editor-tab-widget", thc2.EditorTabWidget);

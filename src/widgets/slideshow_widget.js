@@ -29,10 +29,10 @@
  * &lt;/div&gt;
  * </pre>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var SlideshowWidget = Class.create(Widget,
-/** @scope SlideshowWidget.prototype */
+thc2.SlideshowWidget = Class.create(thc2.Widget,
+/** @scope thc2.SlideshowWidget.prototype */
 {
   current: 0,
   stopped: true,
@@ -43,7 +43,7 @@ var SlideshowWidget = Class.create(Widget,
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     
     this.slides = $A(this.element.getElementsByTagName('li'));
     this.slides.each(function(slide) {
@@ -223,7 +223,7 @@ var SlideshowWidget = Class.create(Widget,
 
 var SlideshowControls = {
   connect: function() {
-    CurrentPage.connectAll({
+    thc2.CurrentPage.connectAll({
       '#start-slideshow': { click: $S(SlideshowControls, 'start') },
       '#stop-slideshow': { click: $S(SlideshowControls, 'stop') },
       '#next-slide': { click: $S(SlideshowControls, 'next') },
@@ -266,5 +266,5 @@ var SlideshowControls = {
   }
 };
 
-CurrentPage.registerBehaviour("thc2-slideshow", SlideshowWidget);
+thc2.CurrentPage.registerBehaviour("thc2-slideshow", thc2.SlideshowWidget);
 SlideshowControls.connect();

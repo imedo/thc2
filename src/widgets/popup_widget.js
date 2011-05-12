@@ -34,10 +34,10 @@
  * </pre>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var PopupWidget = Class.create(Widget,
-/** @scope PopupWidget.prototype */
+thc2.PopupWidget = Class.create(thc2.Widget,
+/** @scope thc2.PopupWidget.prototype */
 {
   SizeRegexp: /^box_size_(\d+)x(\d+)$/,
   IdRegexp: /^popup_id_(\w+)$/,
@@ -67,7 +67,7 @@ var PopupWidget = Class.create(Widget,
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.showPopup.bindAsEventListener(this));
   },
   
@@ -122,4 +122,4 @@ var PopupWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-popup", PopupWidget);
+thc2.CurrentPage.registerBehaviour("thc2-popup", thc2.PopupWidget);

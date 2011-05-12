@@ -10,10 +10,10 @@
  * This widget turns a text area into a Tiny MCE editor.
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var TinyMCEWidget = Class.create(Widget,
-/** @scope TinyMCEWidget.prototype */
+thc2.TinyMCEWidget = Class.create(thc2.Widget,
+/** @scope thc2.TinyMCEWidget.prototype */
 {
   /**
   * Settings for TinyMCE, which will be applied on initialization
@@ -26,7 +26,7 @@ var TinyMCEWidget = Class.create(Widget,
    * Constructor. Also applies settings to editor
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     tinyMCE.settings = this.settings;
     tinyMCE.execCommand('mceAddControl', true, this.element.id);
   },
@@ -57,4 +57,4 @@ var TinyMCEWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-tiny-mce", TinyMCEWidget);
+thc2.CurrentPage.registerBehaviour("thc2-tiny-mce", thc2.TinyMCEWidget);

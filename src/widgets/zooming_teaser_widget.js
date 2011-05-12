@@ -17,16 +17,16 @@
  * one with class <code>mouseout</code> which is visible otherwise.</p>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var ZoomingTeaserWidget = Class.create(Widget,
-/** @scope ZoomingTeaserWidget.prototype */
+thc2.ZoomingTeaserWidget = Class.create(thc2.Widget,
+/** @scope thc2.ZoomingTeaserWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.items = $A(this.element.getElementsByTagName('li'));
     this.items.each(function(item) {
       Event.observe($(item), 'mouseover', function(event) { this.mouseOver(item); }.bind(this));
@@ -68,4 +68,4 @@ var ZoomingTeaserWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-zooming-teaser", ZoomingTeaserWidget);
+thc2.CurrentPage.registerBehaviour("thc2-zooming-teaser", thc2.ZoomingTeaserWidget);

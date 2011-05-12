@@ -6,9 +6,9 @@
   For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
-var DropdownMenuWidget = Class.create(Widget, {
+thc2.DropdownMenuWidget = Class.create(thc2.Widget, {
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     
     this.applyDropDownBehaviour(this.element);
   },
@@ -31,5 +31,5 @@ var DropdownMenuWidget = Class.create(Widget, {
 });
 
 if (Prototype.Browser.IE) {
-  CurrentPage.registerBehaviour("thc2-dropdown-menu", DropdownMenuWidget);
+  thc2.CurrentPage.registerBehaviour("thc2-dropdown-menu", thc2.DropdownMenuWidget);
 }

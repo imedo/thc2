@@ -30,10 +30,10 @@
  * <p>Example:</p>
  *
  * <pre>
- * var SignupForm = Class.create(FormWidget, {
+ * var SignupForm = Class.create(thc2.FormWidget, {
  *   initialize: function(element) {
  *     // call the base class' constructor
- *     FormWidget.prototype.initialize.apply(this, arguments);
+ *     thc2.FormWidget.prototype.initialize.apply(this, arguments);
  *     this.validatesPresenceOf('username', 'Please enter a user name');
  *     this.validatesLengthOf('username', 3, 40, 'Username must be 3 to 40 characters long');
  *     this.validatesPresenceOf('password', 'Please enter a password');
@@ -44,16 +44,16 @@
  * });
  * </pre>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var FormWidget = Class.create(Widget,
-/** @scope FormWidget.prototype */
+var thc2.FormWidget = Class.create(thc2.Widget,
+/** @scope thc2.FormWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     
     this.validators = [];
     this.form = this.element;
@@ -113,7 +113,7 @@ var FormWidget = Class.create(Widget,
     this.validators.push(function() {
       if ((field && (field.value == "" || $F(id) == null)) 
       || (!field && ($$('input:checked[type="radio"][name="'+id+'"]') == 0))) {
-        FormWidget.handleError(field, message);
+        this.handleError(field, message);
         return false;
       }
       return true;
@@ -132,7 +132,7 @@ var FormWidget = Class.create(Widget,
     var field = $(id);
     this.validators.push(function() {
       if (field && (field.type != 'text' || !format.match(field.value))) {
-        FormWidget.handleError(field, message);
+        this.handleError(field, message);
         return false;
       }
       return true;
@@ -152,7 +152,7 @@ var FormWidget = Class.create(Widget,
     var field_second = $(id_second);
     this.validators.push(function() {
       if (field_first && field_second && $F(id_first) != $F(id_second)) {
-        FormWidget.handleError(field_first, message);
+        this.handleError(field_first, message);
         return false;
       }
       return true;
@@ -174,7 +174,7 @@ var FormWidget = Class.create(Widget,
     var field = $(id);
     this.validators.push(function() {
       if (field && ((field.type != 'text') || (minlength != null && field.value.length < minlength) || (maxlength != null && field.value.length > maxlength))) {
-        FormWidget.handleError(field, message);
+        this.handleError(field, message);
         return false;
       }
       return true;
@@ -185,11 +185,11 @@ var FormWidget = Class.create(Widget,
 /**
  * Base class for validation error handlers. Subclass this class to handle
  * errors your own way. To make your subclass the default error handler,
- * change the FormWidget.defaultErrorHandler property.
+ * change the thc2.FormWidget.defaultErrorHandler property.
  * @class
  */
-FormWidget.ErrorHandler = Class.create(
-/** @scope FormWidget.ErrorHandler.prototype */
+thc2.FormWidget.ErrorHandler = Class.create(
+/** @scope thc2.FormWidget.ErrorHandler.prototype */
 {
   /**
    * Handle a validation error. You must implement this method in your
@@ -199,7 +199,7 @@ FormWidget.ErrorHandler = Class.create(
    * @param {String} message The error message to show.
    */
   handle: function(field, message) {
-    throw "FormWidget.ErrorHandler.handle not implemented";
+    throw "thc2.FormWidget.ErrorHandler.handle not implemented";
   }
 });
 
@@ -207,10 +207,10 @@ FormWidget.ErrorHandler = Class.create(
  * Validation error handler that shows an alert and gives focus to the
  * failing input field.
  * @class
- * @extends FormWidget.ErrorHandler
+ * @extends thc2.FormWidget.ErrorHandler
  */
-FormWidget.AlertErrorHandler = Class.create(FormWidget.ErrorHandler,
-/** @scope FormWidget.AlertErrorHandler.prototype */
+thc2.FormWidget.AlertErrorHandler = Class.create(thc2.FormWidget.ErrorHandler,
+/** @scope thc2.FormWidget.AlertErrorHandler.prototype */
 {
   /**
    * Handles errors by showing the error message in an alert and giving
@@ -222,14 +222,14 @@ FormWidget.AlertErrorHandler = Class.create(FormWidget.ErrorHandler,
   }
 });
 
-Object.extend(FormWidget,
-/** @scope FormWidget */
+Object.extend(thc2.FormWidget,
+/** @scope thc2.FormWidget */
 {
   /**
    * The default error handler for validation errors. The value of this
-   * property should be a subclass of FormWidget.ErrorHandler.
+   * property should be a subclass of thc2.FormWidget.ErrorHandler.
    */
-  defaultErrorHandler: FormWidget.AlertErrorHandler,
+  defaultErrorHandler: thc2.FormWidget.AlertErrorHandler,
   
   /**
    * Handles a validation error for the failing input field by instancing
@@ -239,7 +239,7 @@ Object.extend(FormWidget,
    * @param {String} message The error message to display.
    */
   handleError: function(field, message) {
-    var handler = new FormWidget.defaultErrorHandler();
+    var handler = new thc2.FormWidget.defaultErrorHandler();
     handler.handle(field, message);
   }
 });

@@ -18,16 +18,16 @@
  * when the placeholder is shown.</p>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var PlaceholderInputWidget = Class.create(Widget,
-/** @scope PlaceholderInputWidget.prototype */
+thc2.PlaceholderInputWidget = Class.create(thc2.Widget,
+/** @scope thc2.PlaceholderInputWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
 		this.element.value = this.element.value || this.element.title;
     this.placeholder = this.element.title || this.element.value;
 		
@@ -82,4 +82,4 @@ var PlaceholderInputWidget = Class.create(Widget,
 	}
 });
 
-CurrentPage.registerBehaviour("thc2-placeholder-input", PlaceholderInputWidget);
+thc2.CurrentPage.registerBehaviour("thc2-placeholder-input", thc2.PlaceholderInputWidget);

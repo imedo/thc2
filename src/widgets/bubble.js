@@ -9,12 +9,12 @@
 /**
  * Base class for bubble popups. You should subclass this class to implement your
  * bubble. If you need to load the bubble's contents via Ajax, have a look at the
- * {@link AjaxBubble} class, which caches the Ajax request's response, to minimize
+ * {@link thc2.AjaxBubble} class, which caches the Ajax request's response, to minimize
  * traffic.
  * @class
  */
-var Bubble = Class.create(
-/** @scope Bubble.prototype */
+thc2.Bubble = Class.create(
+/** @scope thc2.Bubble.prototype */
 {
   /**
    * Constructor.
@@ -137,7 +137,7 @@ var Bubble = Class.create(
    * @param {Event} event The mouse event object.
    */
   onMouseOver: function(event) {
-    BubbleManager.self().showBubble(this);
+    thc2.BubbleManager.self().showBubble(this);
   },
   
   /**
@@ -146,7 +146,7 @@ var Bubble = Class.create(
    * @param {Event} event The mouse event object.
    */
   onMouseOut: function(event) {
-    BubbleManager.self().hideBubble(this);
+    thc2.BubbleManager.self().hideBubble(this);
   },
   
   /**
@@ -162,6 +162,6 @@ var Bubble = Class.create(
    * Returns the bubble's DOM element. You need to override this method for your type of bubble.
    */
   bubbleElement: function() {
-    throw 'Bubble.bubbleElement not implemented!';
+    throw 'thc2.Bubble.bubbleElement not implemented!';
   }
 });

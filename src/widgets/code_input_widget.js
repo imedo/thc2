@@ -14,17 +14,17 @@
  * <p>To use this widget, simply add the class <code>thc2-code-input</code> to your
  * input field.</p>
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var CodeInputWidget = Class.create(Widget,
-/** @scope CodeInputWidget.prototype */
+thc2.CodeInputWidget = Class.create(thc2.Widget,
+/** @scope thc2.CodeInputWidget.prototype */
 {
   /**
    * Constructor. Turns the element to readonly and observes the focus and
    * click events.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "focus", this.select.bindAsEventListener(this));
     Event.observe(this.element, "click", this.select.bindAsEventListener(this));
     this.element.readOnly = true;
@@ -40,4 +40,4 @@ var CodeInputWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-code-input", CodeInputWidget);
+thc2.CurrentPage.registerBehaviour("thc2-code-input", thc2.CodeInputWidget);

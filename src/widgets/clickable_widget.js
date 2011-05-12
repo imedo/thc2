@@ -1,5 +1,5 @@
 /*
-  This Widget makes the whole Element clickable, based on the first link within the widget.
+  This thc2.Widget makes the whole Element clickable, based on the first link within the widget.
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -17,10 +17,10 @@
  * parameter hash.</p>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var ClickableWidget = Class.create(Widget,
-/** @scope ClickableWidget.prototype */
+thc2.ClickableWidget = Class.create(thc2.Widget,
+/** @scope thc2.ClickableWidget.prototype */
 {
   init: false,
   
@@ -35,7 +35,7 @@ var ClickableWidget = Class.create(Widget,
    *     </ul>
    */
   initialize: function(element, options) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.click.bindAsEventListener(this));
     
     if (options && options['href']) {
@@ -82,4 +82,4 @@ var ClickableWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-clickable-widget", ClickableWidget);
+thc2.CurrentPage.registerBehaviour("thc2-clickable-widget", thc2.ClickableWidget);

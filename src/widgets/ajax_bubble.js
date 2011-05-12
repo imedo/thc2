@@ -10,20 +10,20 @@
  * Base class for bubble popups which are loaded via Ajax. Subclass this class
  * if you want a bubble with dynamically loaded content.
  *
- * <p>In order for your class to work, you need to (at least) override the {@link AjaxBubble#url}
- * and {@link Bubble#bubbleElement} methods.</p>
+ * <p>In order for your class to work, you need to (at least) override the {@link thc2.AjaxBubble#url}
+ * and {@link thc2.Bubble#bubbleElement} methods.</p>
  * @class
- * @extends Bubble
+ * @extends thc2.Bubble
  */
-var AjaxBubble = Class.create(Bubble,
-/** @scope AjaxBubble.prototype */
+thc2.AjaxBubble = Class.create(thc2.Bubble,
+/** @scope thc2.AjaxBubble.prototype */
 {
   /**
    * Fetches the bubble's contents and shows the bubble.
    */
   show: function() {
     this.fetch();
-    Bubble.prototype.show.apply(this, arguments);
+    thc2.Bubble.prototype.show.apply(this, arguments);
   },
   
   /**
@@ -31,17 +31,17 @@ var AjaxBubble = Class.create(Bubble,
    */
   appear: function() {
     this.fetch();
-    Bubble.prototype.appear.apply(this, arguments);
+    thc2.Bubble.prototype.appear.apply(this, arguments);
   },
   
   /**
    * @inner
    * Gets called when the Ajax request response is ready. Stores the results in
-   * the {@link AjaxCache} and updates the bubble's content and position.
+   * the {@link thc2.AjaxCache} and updates the bubble's content and position.
    * @param {String} result The response body of the Ajax request.
    */
   requestCompleted: function(result) {
-    AjaxCache.self().store(this.url(), result);
+    thc2.AjaxCache.self().store(this.url(), result);
     this.updateBubble(result);
     this.updatePosition();
   },
@@ -58,7 +58,7 @@ var AjaxBubble = Class.create(Bubble,
    * Loads the bubble's contents via Ajax.
    */
   fetch: function() {
-    this.contents = AjaxCache.self().find(this.url());
+    this.contents = thc2.AjaxCache.self().find(this.url());
     if (this.contents) {
       this.requestCompleted(this.contents);
     } else {
@@ -72,7 +72,7 @@ var AjaxBubble = Class.create(Bubble,
    * loaded from.
    */
   url: function() {
-    throw "AjaxBubble.url not implemented";
+    throw "thc2.AjaxBubble.url not implemented";
   },
   
   /**

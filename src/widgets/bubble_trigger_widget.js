@@ -1,5 +1,5 @@
 /*
-  Widget that shows a bubble popup on mouse over.
+  thc2.Widget that shows a bubble popup on mouse over.
    (c) 2007 imedo GmbH
 
   This file is freely distributable under the terms of an MIT-style license.
@@ -9,16 +9,16 @@
 /**
  * Base class for widgets that show bubbles on mouse over.
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var BubbleTriggerWidget = Class.create(Widget,
-/** @scope BubbleTriggerWidget.prototype */
+thc2.BubbleTriggerWidget = Class.create(thc2.Widget,
+/** @scope thc2.BubbleTriggerWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "mouseover", this.showBubble.bindAsEventListener(this));
     Event.observe(this.element, "mouseout", this.hideBubble.bindAsEventListener(this));
   },
@@ -28,7 +28,7 @@ var BubbleTriggerWidget = Class.create(Widget,
    * for your own bubble type.
    */
   bubble: function() {
-    throw "BubbleTriggerWidget.bubble not implemented";
+    throw "thc2.BubbleTriggerWidget.bubble not implemented";
   },
   
   /**
@@ -36,7 +36,7 @@ var BubbleTriggerWidget = Class.create(Widget,
    * @param {Event} event The mouse event object.
    */
   showBubble: function(event) {
-    BubbleManager.self().showBubble(this.bubble());
+    thc2.BubbleManager.self().showBubble(this.bubble());
   },
   
   /**
@@ -44,6 +44,6 @@ var BubbleTriggerWidget = Class.create(Widget,
    * @param {Event} event The mouse event object.
    */
   hideBubble: function(event) {
-    BubbleManager.self().hideBubble(this.bubble());
+    thc2.BubbleManager.self().hideBubble(this.bubble());
   }
 });

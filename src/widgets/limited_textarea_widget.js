@@ -26,10 +26,10 @@
  * </pre>
  *
  * @class
- * @extends Widget
+ * @extends thc2.Widget
  */
-var LimitedTextareaWidget = Class.create(Widget,
-/** @scope LimitedTextareaWidget.prototype */
+thc2.LimitedTextareaWidget = Class.create(thc2.Widget,
+/** @scope thc2.LimitedTextareaWidget.prototype */
 {
   LengthRegexp: /^maxlength_(\d+)$/,
   
@@ -37,7 +37,7 @@ var LimitedTextareaWidget = Class.create(Widget,
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "keypress", this.keypress.bindAsEventListener(this));
     Event.observe(this.element, "keyup", this.keyup.bindAsEventListener(this));
 
@@ -91,4 +91,4 @@ var LimitedTextareaWidget = Class.create(Widget,
   }
 });
 
-CurrentPage.registerBehaviour("thc2-limited-textarea", LimitedTextareaWidget);
+thc2.CurrentPage.registerBehaviour("thc2-limited-textarea", thc2.LimitedTextareaWidget);

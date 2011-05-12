@@ -1,5 +1,5 @@
 /*
-  Manage different kind of Help and Info Bubbles and also cache XHR requests
+  Manage different kind of Help and Info thc2.Bubbles and also cache XHR requests
    (c) 2007 imedo GmbH
  
   This file is freely distributable under the terms of an MIT-style license.
@@ -7,11 +7,11 @@
 */
 
 /**
- * Singleton class that manages all bubble popup widgets on the current page.
+ * thc2.Singleton class that manages all bubble popup widgets on the current page.
  * @class
  */
-var BubbleManager = Singleton.create(
-/** @scope BubbleManager.prototype */
+thc2.BubbleManager = thc2.Singleton.create(
+/** @scope thc2.BubbleManager.prototype */
 {
   /**
    * Points to the currently visible bubble. Defaults to a Null Object that
@@ -66,7 +66,7 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Lets the current bubble appear. This method calls the bubble's implementation
-   * of {@link Bubble#appear}. Override the bubble's {@link Bubble#appear} method to
+   * of {@link thc2.Bubble#appear}. Override the bubble's {@link thc2.Bubble#appear} method to
    * get different effects.
    */
   appearBubble: function() {
@@ -77,7 +77,7 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Lets the current bubble disappear. This method calls the bubble's implementation
-   * of {@link Bubble#disappear}. Override the bubble's {@link Bubble#disappear} method
+   * of {@link thc2.Bubble#disappear}. Override the bubble's {@link thc2.Bubble#disappear} method
    * to get different effects.
    */
   disappearBubble: function() {
@@ -88,7 +88,7 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Hides the current bubble. This method calls the bubble's implementation
-   * of {@link Bubble#hide}. Override the bubble's {@link Bubble#hide} method to get
+   * of {@link thc2.Bubble#hide}. Override the bubble's {@link thc2.Bubble#hide} method to get
    * different effects.
    */
   hideBubbleNow: function() {
@@ -99,7 +99,7 @@ var BubbleManager = Singleton.create(
   /**
    * @inner
    * Shows the current bubble. This method calls the bubble's implementation
-   * of {@link Bubble#show}. Override the bubble's {@link Bubble#show} method to get
+   * of {@link thc2.Bubble#show}. Override the bubble's {@link thc2.Bubble#show} method to get
    * different effects.
    */
   showBubbleNow: function() {
@@ -110,7 +110,7 @@ var BubbleManager = Singleton.create(
   /**
    * Schedules the current bubble for appearing. The bubble will appear after
    * a certain timeout, or immediately if another bubble was visible.
-   * @param {Bubble} bubble The bubble to show.
+   * @param {thc2.Bubble} bubble The bubble to show.
    */
   showBubble: function(bubble) {
     this.endTimeout();
