@@ -10,8 +10,7 @@
  * For a list with one check box per item, this widget adds support for buttons
  * to select all, deselect all and to invert the selection.
  *
- * <p>This widget must be applied to a <code>form</code> element. All elements with
- * class</p>
+ * <p>All elements with class</p>
  *
  * <ul>
  * <li><code>select_all</code> select all check boxes,</li>
@@ -31,9 +30,9 @@ var CheckListWidget = Class.create(Widget,
    */
   initialize: function(element) {
     Widget.prototype.initialize.apply(this, arguments);
-    var selectAllElements = this.element.getElementsByClassName('select_all');
-    var deselectAllElements = this.element.getElementsByClassName('deselect_all');
-    var invertAllElements = this.element.getElementsByClassName('invert_all');
+    var selectAllElements = $A(this.element.getElementsByClassName('select_all'));
+    var deselectAllElements = $A(this.element.getElementsByClassName('deselect_all'));
+    var invertAllElements = $A(this.element.getElementsByClassName('invert_all'));
     
     selectAllElements.each(function(element) {
       Event.observe(element, 'click', this.selectAll.bindAsEventListener(this));
@@ -53,7 +52,7 @@ var CheckListWidget = Class.create(Widget,
    * Finds all check boxes in the form.
    */
   findCheckBoxes: function() {
-    this.checkboxes = this.element.getInputs('checkbox');
+    this.checkboxes = this.element.getElementsBySelector('input[type="checkbox"]');
   },
   
   /**

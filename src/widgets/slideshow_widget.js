@@ -37,6 +37,7 @@ var SlideshowWidget = Class.create(Widget,
   current: 0,
   stopped: true,
   cycles: 0,
+  SpeedRegexp: /^speed-(\d+)$/,
   
   /**
    * Constructor.
@@ -54,9 +55,17 @@ var SlideshowWidget = Class.create(Widget,
     }
     
     this.slides.first().style.display = "block";
+    this.slides.first().style.zIndex = -200;
     this.slides.first().xOpacity = .99;
     
-    this.speed = 3000;
+    var speed = this.element.classNames().grep(this.SpeedRegexp)[0];
+    if (speed) {
+      var match = speed.match(this.SpeedRegexp);
+      this.speed = parseInt(match[1]);
+    } else {
+      this.speed = 3000;
+    }
+
     this.startLater();
   },
   
@@ -113,6 +122,7 @@ var SlideshowWidget = Class.create(Widget,
     this.currentSlide().xOpacity = .99;
     this.setOpacity(this.currentSlide());
     this.currentSlide().style.display = "block";
+    this.currentSlide().style.zIndex = -200;
     this.stopped = true;
   },
   
@@ -140,6 +150,7 @@ var SlideshowWidget = Class.create(Widget,
     var nextOpacity = (this.nextSlide().xOpacity) + .05;
     
     this.nextSlide().style.display = "block";
+    this.nextSlide().style.zIndex = -200;
     this.currentSlide().xOpacity = currentOpacity;
     this.nextSlide().xOpacity = nextOpacity;
     this.setOpacity(this.currentSlide());

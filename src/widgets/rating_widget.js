@@ -52,6 +52,12 @@ var RatingWidget = Class.create(Widget,
       return new RatingStar(item, widget, i++);
     });
     
+    this.stars.each(function(star){
+      if(star.selected){
+        this.currentStar = star;
+        this.ratingField.innerHTML = this.ratingText = this.currentStar.ratingText;
+      }
+    }.bind(this));
     Event.observe(this.element, "mouseout", this.starMouseOut.bindAsEventListener(this));
   },
   
@@ -62,6 +68,7 @@ var RatingWidget = Class.create(Widget,
   starClick: function(currentStar) {
     var rating = currentStar.number;
     this.setRating(rating);
+    this.ratingField.innerHTML = this.ratingText = currentStar.ratingText;
   },
   
   /**
@@ -301,8 +308,21 @@ var InputRatingWidget = Class.create(RatingWidget,
       var match = container.match(this.ContainerRegexp);
       this.container = match[1];
     }
+    if (this.resetLink()) {
+      Event.observe(this.resetLink(), "click", this.reset.bindAsEventListener(this));
+    }
   },
-  
+
+  resetLink: function() {
+    return this.element.next(".thc2-input-rating-reset")
+  },
+
+  reset: function(event) {
+    this.setRating(-1)
+    $(this.container).value = "";
+    event.stop()
+  },
+
   /**
    * @inner
    * This method is called when a star is clicked. It stores the rating value

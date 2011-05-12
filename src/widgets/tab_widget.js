@@ -125,7 +125,7 @@ var TabWidget = Class.create(Widget,
 });
 
 /**
-* TODO: Move effect to some better place.
+* FUCKO: Move effect to some better place. It's shit here
 */
 Effect.PhaseIn = function(element, options) {
   return new Effect.Parallel([

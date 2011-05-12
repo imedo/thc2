@@ -42,7 +42,7 @@ var ToggleWidget = Class.create(Widget,
 {
   init: false,
   defaultEffect: 'blind',
-  defaultDuration: 0.5,
+  defaultDuration: 0.25,
   defaultOpenClass: 'open',
   defaultClosedClass: 'closed',
 
@@ -75,7 +75,8 @@ var ToggleWidget = Class.create(Widget,
     if (!this.init) {
       this.extractParameters();
     }
-    Effect.toggle(this.target, this.effect, {duration: this.duration, afterFinish: this.toggleClassNames.bind(this)});
+    this.toggleClassNames();
+    Effect.toggle(this.target, this.effect, {duration: this.duration});
     event.stop();
   },
   
