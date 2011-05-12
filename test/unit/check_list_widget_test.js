@@ -11,21 +11,21 @@ new Test.Unit.Runner({
   
   testEventHandlers: function() { with(this) {
     assertObserved(['click', 'click', 'click'], function() {
-      var w = new CheckListWidget($('check-list'));
+      var w = new thc2.CheckListWidget($('check-list'));
       assertNotNull(w.element);
     }.bind(this));
-    var w = new CheckListWidget($('check-list'));
+    var w = new thc2.CheckListWidget($('check-list'));
   }},
   
   testFindCheckBoxes: function() { with(this) {
-    var w = new CheckListWidget($('check-list'));
+    var w = new thc2.CheckListWidget($('check-list'));
     w.findCheckBoxes();
     assertNotEmpty(w.checkboxes);
     assertEqual(w.checkboxes.length, 5);
   }},
 
   testSelectAll: function() { with(this) {
-    var w = new CheckListWidget($('check-list'));
+    var w = new thc2.CheckListWidget($('check-list'));
     w.selectAll(new MockEvent());
     w.checkboxes.each(function(checkbox) {
       assertEqual(checkbox.checked, true);
@@ -33,7 +33,7 @@ new Test.Unit.Runner({
   }},
 
   testDeselectAll: function() { with(this) {
-    var w = new CheckListWidget($('check-list'));
+    var w = new thc2.CheckListWidget($('check-list'));
     w.deselectAll(new MockEvent());
     w.checkboxes.each(function(checkbox) {
       assertEqual(checkbox.checked, false);
@@ -41,7 +41,7 @@ new Test.Unit.Runner({
   }},
 
   testInvertAll: function() { with(this) {
-    var w = new CheckListWidget($('check-list'));
+    var w = new thc2.CheckListWidget($('check-list'));
     $('check1').checked = true;
     $('check3').checked = true;
     $('check5').checked = true;

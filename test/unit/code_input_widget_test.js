@@ -15,18 +15,18 @@ new Test.Unit.Runner({
   
   testEventHandlers: function() { with(this) {
     assertObserved(['focus', 'click'], function() {
-      var c = new CodeInputWidget($('code-input'));
+      var c = new thc2.CodeInputWidget($('code-input'));
       assertNotNull(c.element);
     }.bind(this));
     
     assertObserved(['focus', 'click'], function() {
-      var c = new CodeInputWidget($('code-area'));
+      var c = new thc2.CodeInputWidget($('code-area'));
       assertNotNull(c.element);
     }.bind(this));
   }},
   
   testSelectOnInput: function() { with(this) {
-    var c = new CodeInputWidget($('code-input'));
+    var c = new thc2.CodeInputWidget($('code-input'));
     c.element.value = "foo";
     $('code-input').setSelectionRange(0, 0);
     assertSelected(c.element, "");
@@ -35,7 +35,7 @@ new Test.Unit.Runner({
   }},
   
   testClickOnInput: function() { with(this) {
-    var c = new CodeInputWidget($('code-input'));
+    var c = new thc2.CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
     Event.simulateMouse(c.element, 'click');
@@ -43,7 +43,7 @@ new Test.Unit.Runner({
   }},
 
   testFocusOnInput: function() { with(this) {
-    var c = new CodeInputWidget($('code-input'));
+    var c = new thc2.CodeInputWidget($('code-input'));
     c.element.value = 'foo';
     assertSelected(c.element, "");
     c.element.focus();
@@ -51,7 +51,7 @@ new Test.Unit.Runner({
   }},
 
   testSelectOnArea: function() { with(this) {
-    var c = new CodeInputWidget($('code-area'));
+    var c = new thc2.CodeInputWidget($('code-area'));
     c.element.value = "foo\nbar";
     $('code-input').setSelectionRange(0, 0);
     assertSelected(c.element, "");
@@ -60,7 +60,7 @@ new Test.Unit.Runner({
   }},
   
   testClickOnArea: function() { with(this) {
-    var c = new CodeInputWidget($('code-area'));
+    var c = new thc2.CodeInputWidget($('code-area'));
     c.element.value = "foo\nbar";
     assertSelected(c.element, "");
     Event.simulateMouse(c.element, 'click');
@@ -68,7 +68,7 @@ new Test.Unit.Runner({
   }},
 
   testFocusOnArea: function() { with(this) {
-    var c = new CodeInputWidget($('code-area'));
+    var c = new thc2.CodeInputWidget($('code-area'));
     c.element.value = "foo\nbar";
     assertSelected(c.element, "");
     c.element.focus();

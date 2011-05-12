@@ -6,12 +6,12 @@ new Test.Unit.Runner({
   },
   
   testInitialize: function() { with(this) {
-    bench = new Benchmark('test');
+    bench = new thc2.Benchmark('test');
     assertEqual(bench.what, 'test');
   }},
   
   testStartAndStop: function() { with(this) {
-    bench = new Benchmark('test');
+    bench = new thc2.Benchmark('test');
     bench.start();
     assertNotNull(bench.start_time);
     pause(100);
@@ -22,7 +22,7 @@ new Test.Unit.Runner({
   }},
   
   testDuration: function() { with(this) {
-    bench = new Benchmark('test');
+    bench = new thc2.Benchmark('test');
     bench.start();
     pause(100);
     bench.stop();
@@ -31,21 +31,21 @@ new Test.Unit.Runner({
   
   testLog: function() { with(this) {
     var log_text = "";
-    mockup(Logger, 'info', function(text) {
+    mockup(thc2.Logger, 'info', function(text) {
       log_text = text;
     }.bind(this));
     
-    bench = new Benchmark('test');
+    bench = new thc2.Benchmark('test');
     bench.benchmark(function() {}); // this calls log()
     assert(/test/.match(log_text));
 
-    bench = new Benchmark();
+    bench = new thc2.Benchmark();
     bench.benchmark(function() {});
     assert(!/test/.match(log_text));
   }},
   
   testBenchmark: function() { with(this) {
-    bench = new Benchmark().benchmark(function() {
+    bench = new thc2.Benchmark().benchmark(function() {
       pause(100);
     });
     assertNotNull(bench.start_time);

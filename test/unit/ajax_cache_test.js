@@ -1,31 +1,31 @@
 new Test.Unit.Runner({
   setup: function() {
-    AjaxCache.self();
+    thc2.AjaxCache.self();
   },
   
   teardown: function() {
-    AjaxCache.instance = null;
+    thc2.AjaxCache.instance = null;
   },
   
   testInitialize: function() { with(this) {
-    assertNotNull(AjaxCache.self().cache);
-    assert(AjaxCache.self().cache instanceof Hash);
+    assertNotNull(thc2.AjaxCache.self().cache);
+    assert(thc2.AjaxCache.self().cache instanceof Hash);
   }},
   
   testStore: function() { with(this) {
-    assertUndefined(AjaxCache.self().find('foo'));
-    AjaxCache.self().store('foo', 'bar');
-    assertNotNull(AjaxCache.self().find('foo'));
-    assertEqual(AjaxCache.self().find('foo'), 'bar');
+    assertUndefined(thc2.AjaxCache.self().find('foo'));
+    thc2.AjaxCache.self().store('foo', 'bar');
+    assertNotNull(thc2.AjaxCache.self().find('foo'));
+    assertEqual(thc2.AjaxCache.self().find('foo'), 'bar');
   }},
   
   testClear: function() { with(this) {
-    assertUndefined(AjaxCache.self().find('foo'));
-    AjaxCache.self().store('foo', 'bar');
-    assertNotNull(AjaxCache.self().find('foo'));
-    assertEqual(AjaxCache.self().find('foo'), 'bar');
+    assertUndefined(thc2.AjaxCache.self().find('foo'));
+    thc2.AjaxCache.self().store('foo', 'bar');
+    assertNotNull(thc2.AjaxCache.self().find('foo'));
+    assertEqual(thc2.AjaxCache.self().find('foo'), 'bar');
 
-    AjaxCache.self().clear();
-    assertUndefined(AjaxCache.self().find('foo'));
+    thc2.AjaxCache.self().clear();
+    assertUndefined(thc2.AjaxCache.self().find('foo'));
   }}
 });

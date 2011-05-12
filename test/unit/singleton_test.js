@@ -6,7 +6,7 @@ new Test.Unit.Runner({
   },
   
   testCreate: function() { with(this) {
-    var s = Singleton.create({b: function() {}});
+    var s = thc2.Singleton.create({b: function() {}});
     assertRespondsTo('self', s);
     assertRespondsTo('b', s.self());
     assertInstanceOf(s, s.self());
@@ -14,7 +14,7 @@ new Test.Unit.Runner({
   
   testCreateWithSuperclass: function() { with(this) {
     var c = Class.create({a: function() {}});
-    var s = Singleton.create(c, {b: function() {}})
+    var s = thc2.Singleton.create(c, {b: function() {}})
     assertRespondsTo('self', s);
     assertRespondsTo('a', s.self());
     assertRespondsTo('b', s.self());
@@ -23,7 +23,7 @@ new Test.Unit.Runner({
   }},
   
   testSelf: function() { with(this) {
-    var s = Singleton.create({a: function() {}});
+    var s = thc2.Singleton.create({a: function() {}});
     assertUndefined(s.instance);
     s.self();
     assertNotNull(s.instance);
