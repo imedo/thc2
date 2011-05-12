@@ -8,12 +8,12 @@
 
 /**
  * Implements the singleton pattern. To define a singleton class, use
- * <code>Singleton.create()</code>.
+ * <code>thc2.Singleton.create()</code>.
  * @static
  * @class
  */
 thc2.Singleton =
-/** @scope Singleton */
+/** @scope thc2.Singleton */
 {
   /**
    * Creates a new singleton class. See the Prototype Class.create documentation

@@ -14,7 +14,7 @@ thc2.Browser = {
    * <table>
    *   <thead>
    *     <tr>
-   *       <th>Browser / Engine</th>
+   *       <th>thc2.Browser / Engine</th>
    *       <th>Return Value</th>
    *     </tr>
    *   </thead>

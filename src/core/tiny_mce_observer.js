@@ -13,7 +13,7 @@
  * <p>To observe a TinyMCE field, create a new observer like so:</p>
  *
  * <pre>
- * new TinyMCEObserver(editor_id, frequency, callback)
+ * new thc2.TinyMCEObserver(editor_id, frequency, callback)
  * </pre>
  *
  * @class

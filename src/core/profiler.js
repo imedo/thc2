@@ -17,7 +17,7 @@
  * <h1>Design goals</h1>
  * 
  * <ul>
- * <li>The Profiler is easy to integrate.</li>
+ * <li>The thc2.Profiler is easy to integrate.</li>
  * <li>It should not break any functionality.</li>
  * <li>It also should be universal, which means that it should be able
  *     to profile any javascript function.</li>
@@ -43,13 +43,13 @@
  * functions. See below on how to do that. You’ll get a popup windows
  * for controlling the profiler. Of course, you need to disable the popup
  * blocker for your website. To create a profile of your javascript, click
- * “Enable Profiler”, reload the page and have your Browser execute the
+ * “Enable thc2.Profiler”, reload the page and have your thc2.Browser execute the
  * code you want to profile. After it is finished, click on “Show Report”
  * to get the execution profile.</p>
  * 
  * <h1>How it works</h1>
  * 
- * <p>First, the Profiler scans the javascript object tree and stores all
+ * <p>First, the thc2.Profiler scans the javascript object tree and stores all
  * objects it finds in an array (the discover phase). Herein lies the first
  * problem: There is no way to enumerate all user-defined global functions
  * or variables just with javascript in Internet Explorer. So you have to
@@ -87,7 +87,7 @@
  * property is the prototype property, which needs to be discovered separately.</p>
  * 
  * <p>Again, Internet Explorer has a problem with global functions: They are not
- * known to the window object, so they are not discoverable by the Profiler.
+ * known to the window object, so they are not discoverable by the thc2.Profiler.
  * However, it is easy to profile them anyway. Suppose we have a function
  * called greet():</p>
  * 
@@ -118,7 +118,7 @@
  * @class
  */
 thc2.Profiler =
-/** @scope Profiler */
+/** @scope thc2.Profiler */
 {
   objects: [],
   messages: [],
@@ -502,10 +502,10 @@ thc2.Profiler =
     var win = this.getControlWindow();
     if (win) {
       var html = ['<ul>',
-                  '<li><a href="#" onclick="window.opener.profiler.enable(); return false;">Enable Profiler</a></li>',
-                  '<li><a href="#" onclick="window.opener.profiler.disable(); return false;">Disable Profiler</a></li>',
+                  '<li><a href="#" onclick="window.opener.profiler.enable(); return false;">Enable thc2.Profiler</a></li>',
+                  '<li><a href="#" onclick="window.opener.profiler.disable(); return false;">Disable thc2.Profiler</a></li>',
                   '<li><a href="#" onclick="window.opener.profiler.report(); return false;">Show Report</a></li>',
-                  '<li><a href="#" onclick="window.opener.profiler.reset(); return false;">Reset Profiler</a></li>',
+                  '<li><a href="#" onclick="window.opener.profiler.reset(); return false;">Reset thc2.Profiler</a></li>',
                   '</ul>'].join('');
       win.document.getElementById('controls').innerHTML = html;
     } else {
@@ -520,7 +520,7 @@ thc2.Profiler =
     if (!this.controlWindow || this.controlWindow.closed) {
       var win = window.open('', 'control', 'width=300,height=120,scrollbars=yes,resizable=yes');
       if (win) {
-        var html = '<html><head><title>Profiler control</title></head><body><div id="controls"></div><div id="message"></div></body></html>';
+        var html = '<html><head><title>thc2.Profiler control</title></head><body><div id="controls"></div><div id="message"></div></body></html>';
         win.document.write(html);
 
         this.controlWindow = win;

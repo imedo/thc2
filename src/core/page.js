@@ -61,9 +61,9 @@
  * this:</p>
  *
  * <pre>
- *   var PopupWidget = Class.create(Widget, {
+ *   var thc2.PopupWidget = Class.create(thc2.Widget, {
  *     initialize: function(element) {
- *       Widget.prototype.initialize.apply(this, arguments);
+ *       thc2.Widget.prototype.initialize.apply(this, arguments);
  *       this.url = this.element.href;
  *       Event.observe(this.element, "click", this.showPopup.bindAsEventListener(this));
  *     },
@@ -73,7 +73,7 @@
  *       win = window.open(this.url, 'popup', "width=640,height=480");
  *     } 
  *   });
- *   thc2.CurrentPage.registerBehaviour("thc2-popup", PopupWidget);
+ *   thc2.CurrentPage.registerBehaviour("thc2-popup", thc2.PopupWidget);
  * </pre>
  *
  * <p>On the first sight, this seems like a lot of code for a trivial example like
@@ -119,7 +119,7 @@
  * @class
  */
 thc2.Page = Class.create(
-/** @scope THC2.Page.prototype */
+/** @scope thc2.Page.prototype */
 {
   /**
    * Constructor. Initializes the page object.
@@ -132,19 +132,19 @@ thc2.Page = Class.create(
   },
   
   /**
-   * Associates a CSS class with a Widget subclass. Example:
+   * Associates a CSS class with a thc2.Widget subclass. Example:
    *
    * <pre>
-   *   thc2.CurrentPage.registerBehaviour("thc2-limited-textarea", LimitedTextareaWidget);
+   *   thc2.CurrentPage.registerBehaviour("thc2-limited-textarea", thc2.LimitedTextareaWidget);
    *   thc2.CurrentPage.applyBehaviours();
    * </pre>
    *
    * After the two above calls, every text area with the CSS class
-   * <code>thc2-limited-textarea</code> will have the {@link LimitedTextareaWidget}
+   * <code>thc2-limited-textarea</code> will have the {@link thc2.LimitedTextareaWidget}
    * behaviour applied.
    *
    * @param behaviour The CSS class. Must start with "thc2-".
-   * @param klass The javascript Widget subclass.
+   * @param klass The javascript thc2.Widget subclass.
    */
   registerBehaviour: function(behaviour, klass) {
     this.behaviours[behaviour] = {klass: klass};
@@ -152,17 +152,17 @@ thc2.Page = Class.create(
   
   /**
    * Convenience method which registers multiple behaviours in one call.
-   * See the {@link Page#registerBehaviour} method for details. Example:
+   * See the {@link thc2.Page#registerBehaviour} method for details. Example:
    *
    * <pre>
    *   thc2.CurrentPage.registerBehaviours({
-   *     "thc2-modal-link": ModalLinkWidget,
-   *     "thc2-modal-cancel": ModalCancelWidget
+   *     "thc2-modal-link": thc2.ModalLinkWidget,
+   *     "thc2-modal-cancel": thc2.ModalCancelWidget
    *   });
    * </pre>
    *
    * @param hash An object of key-value-pairs with the CSS classes as keys
-   *             and the Widget subclasses as values.
+   *             and the thc2.Widget subclasses as values.
    */
   registerBehaviours: function(hash) {
     var page = this;
@@ -195,7 +195,7 @@ thc2.Page = Class.create(
   },
   
   /**
-   * Returns the instance(s) of the {@link Widget} subclass that was applied to
+   * Returns the instance(s) of the {@link thc2.Widget} subclass that was applied to
    * the given element.
    */
   find: function(element, behaviour) {
@@ -205,7 +205,7 @@ thc2.Page = Class.create(
   },
   
   /**
-   * Returns all Widget instances associated with the given element.
+   * Returns all thc2.Widget instances associated with the given element.
    */
   findObjects: function(element) {
     return this.objects.select(function (obj) {
@@ -324,13 +324,13 @@ thc2.Page = Class.create(
 
 /**
  * Global variable representing the currently loaded page. Do not instantiate
- * the THC2.Page class; use this variable instead.
+ * the thc2.Page class; use this variable instead.
  */
 thc2.CurrentPage = new thc2.Page();
 
 /**
  * Returns a function that, when called, calls the method <code>funcname</code>
- * of the Widget instance associated with element <code>obj</code>. This is
+ * of the thc2.Widget instance associated with element <code>obj</code>. This is
  * especially useful for event handlers.
  *
  * @param obj Element or Element ID.

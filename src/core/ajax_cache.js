@@ -7,19 +7,19 @@
 */
 
 /**
- * <p>Singleton class that caches results of ajax requests.
+ * <p>thc2.Singleton class that caches results of ajax requests.
  * The unique instance is obtained through</p>
  *
  * <pre>
- *   AjaxCache.self()
+ *   thc2.AjaxCache.self()
  * </pre>
  *
- * <p>Do not call the <code>new</code>-Operator on AjaxCache.</p>
+ * <p>Do not call the <code>new</code>-Operator on thc2.AjaxCache.</p>
  *
- * @class AjaxCache
+ * @class thc2.AjaxCache
  */
-thc2.AjaxCache = Singleton.create(
-/** @scope AjaxCache.prototype */
+thc2.AjaxCache = thc2.Singleton.create(
+/** @scope thc2.AjaxCache.prototype */
 {
   /**
    * Constructor. Initializes the cache.

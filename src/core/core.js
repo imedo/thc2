@@ -96,7 +96,7 @@ thc2.Core = {
 };
 
 /**
- * Shortcut for Core.require().
+ * Shortcut for thc2.Core.require().
  *
  * @param {string} file The file to load.
  * @param {boolean} blocking Load the file immediately.

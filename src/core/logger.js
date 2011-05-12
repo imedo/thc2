@@ -34,7 +34,7 @@ thc2.AlertLogger = {
 }
 
 /**
- * Namespace for logging functions. See the {@link Environment} namespace for log level
+ * Namespace for logging functions. See the {@link thc2.Environment} namespace for log level
  * information.
  * @static
  * @class
@@ -84,7 +84,7 @@ thc2.Logger = {
    * @param {string} text The message.
    */
   error: function(text) {
-    if (Environment.debugLevelIncludes('error')) {
+    if (thc2.Environment.debugLevelIncludes('error')) {
       this.log(text);
     }
   }

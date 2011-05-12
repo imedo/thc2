@@ -8,7 +8,7 @@
 
 /**
  * This exception is thrown, when an unknown debug level is chosen in
- * Environment.
+ * thc2.Environment.
  * @class
  */
 var UnknownDebugLevelException = function(level) {

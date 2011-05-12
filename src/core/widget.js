@@ -7,12 +7,12 @@
 */
 
 /**
- * Represents a DOM element that gains complex behaviour. Subclass <code>Widget</code>
+ * Represents a DOM element that gains complex behaviour. Subclass <code>thc2.Widget</code>
  * to create your own behaviours.
- * @class Widget
+ * @class thc2.Widget
  */
 thc2.Widget = Class.create(
-/** @scope Widget.prototype */
+/** @scope thc2.Widget.prototype */
 {
   /**
    * Initializes the element. Call this method from your overridden constructor.
@@ -23,13 +23,13 @@ thc2.Widget = Class.create(
 });
 
 Object.extend(thc2.Widget,
-/** @scope Widget */
+/** @scope thc2.Widget */
 {
   /**
    * Applies <code>behaviours</code> on all elements under <code>parent</code>. Behaviour names must
    * start with <code>thc2-</code>.
    *
-   * <p>Instead of this method, you should probably call <code>CurrentPage.applyBehaviours</code>.</p>
+   * <p>Instead of this method, you should probably call <code>thc2.CurrentPage.applyBehaviours</code>.</p>
    */
   ApplyBehaviours: function(parent, behaviours) {
     var objects = [];
@@ -51,7 +51,7 @@ Object.extend(thc2.Widget,
         var mapping = behaviours[className];
         if (mapping && thc2.CurrentPage.find(element, className).length == 0) {
           try {
-            // Logger.info('' + Initializer.benchmark.lapTime() + ': Creating Behaviour of type ' + className);
+            // thc2.Logger.info('' + Initializer.benchmark.lapTime() + ': Creating Behaviour of type ' + className);
             var obj = new mapping.klass(element);
             obj.behaviour = className;
           } catch(e) {

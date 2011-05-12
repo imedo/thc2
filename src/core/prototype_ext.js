@@ -41,7 +41,7 @@ if (Prototype.Browser.IE) {
       }
     });
     Event.allEvents = [];
-    CurrentPage.initialize();
+    thc2.CurrentPage.initialize();
   }
 
   Event.oldObserve(window, "unload", Event.stopObservingEverything.bind(Event));
