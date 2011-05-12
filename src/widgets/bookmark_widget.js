@@ -11,14 +11,14 @@
  * @class
  * @extends Widget
  */
-var BookmarkWidget = Class.create(Widget,
+thc2.BookmarkWidget = Class.create(thc2.Widget,
 /** @scope BookmarkWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     Event.observe(this.element, "click", this.bookmark.bindAsEventListener(this));
   },
   
@@ -28,41 +28,43 @@ var BookmarkWidget = Class.create(Widget,
    * @param {Event} event The click event object.
    */
   bookmark: function(event) {
+
+    /**
+     * Creates a new bookmark, if supported by the browser. If not, it shows an
+     * alert with instructions on how to bookmark the current page, depending
+     * on the browser.
+     *
+     * @param {String} url The bookmark's URL.
+     * @param {String} title The bookmark's title.
+     */
+    function bookmarkThis(url, title) {
+      var ua = navigator.userAgent.toLowerCase();
+
+      var bookmarkCode = {
+        ie: function() { window.external.AddFavorite(url, title); },
+        konq: function() { alert('You need to press CTRL + B to bookmark our site.'.t()); },
+        opera: function() {  },
+        safari: function() { (ua.indexOf('mac') != -1) ? alert('You need to press Command/Cmd + D to bookmark our site.'.t()) : alert('You need to press CTRL + D to bookmark our site.'.t()); },
+        misc: function() { alert('In order to bookmark this site you need to do so manually through your browser.'.t()); }
+      };
+
+      var browser = (window.external && (!document.createTextNode || (typeof(window.external.AddFavorite) == 'unknown'))) ? ie :
+                    (ua.indexOf('konqueror') != -1) ? 'konq' :
+                    (window.opera) ? 'opera' :
+                    (window.home || (ua.indexOf('webkit') != -1 || !window.print || (ua.indexOf('mac') != -1))) ? 'safari' :
+                    'misc';
+      bookmarkCode[browser]();
+    }
+
     var url = location.href; 
     var title = document.title;
-    bookmark(url, title);
+    bookmarkThis(url, title);
     event.stop();
-  } 
+  }
 });
 
-CurrentPage.registerBehaviour("thc2-bookmark", BookmarkWidget);
+thc2.CurrentPage.registerBehaviour("thc2-bookmark", thc2.BookmarkWidget);
 
-/**
- * Creates a new bookmark, if supported by the browser. If not, it shows an
- * alert with instructions on how to bookmark the current page, depending
- * on the browser.
- *
- * @param {String} url The bookmark's URL.
- * @param {String} title The bookmark's title.
- */
-function bookmark(url, title) {
-  var ua = navigator.userAgent.toLowerCase();
-  
-  var bookmarkCode = {
-    ie: function() { window.external.AddFavorite(url, title); },
-    konq: function() { alert('You need to press CTRL + B to bookmark our site.'.t()); },
-    opera: function() {  },
-    safari: function() { (ua.indexOf('mac') != -1) ? alert('You need to press Command/Cmd + D to bookmark our site.'.t()) : alert('You need to press CTRL + D to bookmark our site.'.t()); },
-    misc: function() { alert('In order to bookmark this site you need to do so manually through your browser.'.t()); }
-  };
-  
-  var browser = (window.external && (!document.createTextNode || (typeof(window.external.AddFavorite) == 'unknown'))) ? ie :
-                (ua.indexOf('konqueror') != -1) ? 'konq' :
-                (window.opera) ? 'opera' :
-                (window.home || (ua.indexOf('webkit') != -1 || !window.print || (ua.indexOf('mac') != -1))) ? 'safari' :
-                'misc';
-  bookmarkCode[browser]();
-}
 
 Object.extend(Globalize.German, {
   'You need to press CTRL + B to bookmark our site.' : 'Sie müssen STRG + B drücken, um diese Seite zu Ihren Favoriten hinzuzufügen.',
