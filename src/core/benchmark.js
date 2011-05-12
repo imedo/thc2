@@ -23,7 +23,7 @@
  *
  * @class Benchmark
  */
-var Benchmark = Class.create(
+thc2.Benchmark = Class.create(
 /** @scope Benchmark.prototype */
 {
   /**

@@ -7,16 +7,11 @@
 */
 
 /**
- * Namespace.
- */
-var THC2 = new Object();
-
-/**
  * Class representing a HTML page.
  *
- * <p>Do not instantiate this class, use the {@link CurrentPage} global variable.</p>
+ * <p>Do not instantiate this class, use the {@link thc2.CurrentPage} global variable.</p>
  *
- * <p>The CurrentPage serves mainly two purposes:</p>
+ * <p>The thc2.CurrentPage serves mainly two purposes:</p>
  *
  * <ol>
  * <li>it is a registry for behaviours and connections and</li>
@@ -78,7 +73,7 @@ var THC2 = new Object();
  *       win = window.open(this.url, 'popup', "width=640,height=480");
  *     } 
  *   });
- *   CurrentPage.registerBehaviour("thc2-popup", PopupWidget);
+ *   thc2.CurrentPage.registerBehaviour("thc2-popup", PopupWidget);
  * </pre>
  *
  * <p>On the first sight, this seems like a lot of code for a trivial example like
@@ -106,8 +101,8 @@ var THC2 = new Object();
  * that displays the alert:</p>
  *
  * <pre>
- *   CurrentPage.connect('#alert', 'click', function(event) { alert('hello'); event.stop(); });
- *   CurrentPage.reconnect();
+ *   thc2.CurrentPage.connect('#alert', 'click', function(event) { alert('hello'); event.stop(); });
+ *   thc2.CurrentPage.reconnect();
  * </pre>
  *
  * <p>The first line registers the connection between the CSS selector <code>#alert</code>, i.e.
@@ -123,7 +118,7 @@ var THC2 = new Object();
  * history and so on.</p>
  * @class
  */
-THC2.Page = Class.create(
+thc2.Page = Class.create(
 /** @scope THC2.Page.prototype */
 {
   /**
@@ -140,8 +135,8 @@ THC2.Page = Class.create(
    * Associates a CSS class with a Widget subclass. Example:
    *
    * <pre>
-   *   CurrentPage.registerBehaviour("thc2-limited-textarea", LimitedTextareaWidget);
-   *   CurrentPage.applyBehaviours();
+   *   thc2.CurrentPage.registerBehaviour("thc2-limited-textarea", LimitedTextareaWidget);
+   *   thc2.CurrentPage.applyBehaviours();
    * </pre>
    *
    * After the two above calls, every text area with the CSS class
@@ -160,7 +155,7 @@ THC2.Page = Class.create(
    * See the {@link Page#registerBehaviour} method for details. Example:
    *
    * <pre>
-   *   CurrentPage.registerBehaviours({
+   *   thc2.CurrentPage.registerBehaviours({
    *     "thc2-modal-link": ModalLinkWidget,
    *     "thc2-modal-cancel": ModalCancelWidget
    *   });
@@ -195,7 +190,7 @@ THC2.Page = Class.create(
    *                This parameter is optional and defaults to <code>document.body</code>.
    */
   applyBehaviours: function(element) {
-    this.objects.push(Widget.ApplyBehaviours((element || document.body), this.behaviours));
+    this.objects.push(thc2.Widget.ApplyBehaviours((element || document.body), this.behaviours));
     this.objects = this.objects.flatten();
   },
   
@@ -273,7 +268,7 @@ THC2.Page = Class.create(
    * for example:
    *
    * <pre>
-   * CurrentPage.connectAll({
+   * thc2.CurrentPage.connectAll({
    *   '#group_local': {
    *     click: function(event) { Effect.toggle('group_options', 'blind'); }
    *   },
@@ -331,7 +326,7 @@ THC2.Page = Class.create(
  * Global variable representing the currently loaded page. Do not instantiate
  * the THC2.Page class; use this variable instead.
  */
-var CurrentPage = new THC2.Page();
+thc2.CurrentPage = new thc2.Page();
 
 /**
  * Returns a function that, when called, calls the method <code>funcname</code>
@@ -355,7 +350,7 @@ function $S(obj, funcname) {
  */
 function $O(obj) {
   if (Object.isString(obj)) {
-    obj = CurrentPage.findObjects($(obj))[0];
+    obj = thc2.CurrentPage.findObjects($(obj))[0];
   }
   return obj;
 }

@@ -12,7 +12,7 @@
  * @static
  * @class
  */
-var Singleton =
+thc2.Singleton =
 /** @scope Singleton */
 {
   /**
@@ -23,6 +23,11 @@ var Singleton =
    */
   create: function() {
     var klass = Class.create.apply(Class, arguments);
+    this.singletonize(klass);
+    return klass;
+  },
+
+  singletonize: function(klass) {
     Object.extend(klass, {
       self: function() {
         if (!klass.instance) {
@@ -31,7 +36,5 @@ var Singleton =
         return klass.instance;
       }
     });
-    
-    return klass;
   }
 };

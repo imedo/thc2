@@ -34,7 +34,7 @@
  * <code>profiler.js</code> in your HTML file and call</p>
  * 
  * <pre>
- *   Profiler.init();
+ *   thc2.Profiler.init();
  * </pre>
  * 
  * <p>after your javascript code is loaded and before any of the code is
@@ -117,7 +117,7 @@
  * @static
  * @class
  */
-var Profiler =
+thc2.Profiler =
 /** @scope Profiler */
 {
   objects: [],
@@ -131,8 +131,8 @@ var Profiler =
    */
   log: function(text) {
     var message = (new Date()) + ': ' + text;
-    Profiler.messages.push(message);
-    var win = Profiler.getControlWindow();
+    this.messages.push(message);
+    var win = this.getControlWindow();
     if (win) {
       win.document.getElementById('message').innerHTML = message;
     }
@@ -147,7 +147,7 @@ var Profiler =
         try {
           object[attr] = object[attr].profiledFunction(name + '.' + attr);
         } catch(e) {
-          Profiler.log("Can't profile " + name + '.' + attr + ': ' + e.message);
+          this.log("Can't profile " + name + '.' + attr + ': ' + e.message);
         }
       }
     }
@@ -161,22 +161,22 @@ var Profiler =
    * @param name The name of the root object.
    */
   attach: function(object, name) {
-    Profiler.log('attaching to ' + name);
+    this.log('attaching to ' + name);
     try {
-      Profiler.discover(object, name);
-      Profiler.discoverPrototypes(object, name);
+      this.discover(object, name);
+      this.discoverPrototypes(object, name);
     } catch(e) {
-      Profiler.log(e.message);
+      this.log(e.message);
     }
     
-    Profiler.log('discovered all objects');
+    this.log('discovered all objects');
 
     try {
-      Profiler.replace();
+      this.replace();
     } catch(e) {
-      Profiler.log(e.message);
+      this.log(e.message);
     }
-    Profiler.log('finished attaching to ' + name);
+    this.log('finished attaching to ' + name);
   },
   
   /**
@@ -187,17 +187,17 @@ var Profiler =
       object.__profiler_name = name;
     }
     
-    if (object && !object.__discovered && object != Profiler) {
+    if (object && !object.__discovered && object != this) {
       object.__discovered = true;
       if (object.__discovered) {
         try {
-          Profiler.objects.push(object);
+          this.objects.push(object);
           for (var attr in object) {
             try {
               if (attr != '__discovered') {
                 var prop = object[attr];
                 if (prop) {
-                  Profiler.discover(prop, name + '.' + attr);
+                  this.discover(prop, name + '.' + attr);
                 }
               }
             } catch(e) {}
@@ -207,7 +207,7 @@ var Profiler =
             for (var i = 0, l = object.length; i != l; ++i) {
               var obj = object[i];
               if (obj) {
-                Profiler.discover(obj, name + '[' + i + ']');
+                this.discover(obj, name + '[' + i + ']');
               }
             }
           }
@@ -222,22 +222,22 @@ var Profiler =
    * Discovers all prototype objects reachable from <code>object</code>.
    */
   discoverPrototypes: function(object, name) {
-    for (var i = 0, l = Profiler.objects.length; i != l; ++i) {
+    for (var i = 0, l = this.objects.length; i != l; ++i) {
       try {
-        var object = Profiler.objects[i];
+        var object = this.objects[i];
         if (object.prototype) {
-          Profiler.discover(object.prototype, object.__profiler_name + '.prototype');
+          this.discover(object.prototype, object.__profiler_name + '.prototype');
         }
       } catch(e) {}
     }
   },
   
   replace: function() {
-    var objects = Profiler.objects;
+    var objects = this.objects;
     for (var i = 0, l = objects.length; i != l; ++i) {
       var object = objects[i];
-      if (object && object != Profiler) {
-        Profiler.attachTo(object, object.__profiler_name);
+      if (object && object != this) {
+        this.attachTo(object, object.__profiler_name);
       }
     }
   },
@@ -246,7 +246,7 @@ var Profiler =
    * Starts the profiler for function <code>name</code>.
    */
   start: function(name) {
-    var d = Profiler.data;
+    var d = this.data;
     if (!d[name]) d[name] = {};
     var e = d[name];
     e.name = name;
@@ -261,7 +261,7 @@ var Profiler =
    * Stops the profiler for function <code>name</code>.
    */
   stop: function(name) {
-    var e = Profiler.data[name];
+    var e = this.data[name];
     e.depth -= 1;
     if (e.depth <= 0) {
       e.time = (e.time || 0) + ((new Date()) - e.startTime);
@@ -272,10 +272,10 @@ var Profiler =
    * Initializes the profiler, honouring the enabled settings.
    */
   init: function() {
-    window.profiler = Profiler;
-    Profiler.showControlWindow();
-    if (Profiler.isEnabled()) {
-      Profiler.doEnable();
+    window.profiler = this;
+    this.showControlWindow();
+    if (this.isEnabled()) {
+      this.doEnable();
     }
   },
   
@@ -309,38 +309,38 @@ var Profiler =
    * Enables the profiler, and stores the enabled setting.
    */
   enable: function() {
-    Profiler.createCookie('on');
+    this.createCookie('on');
   },
   
   /**
    * Attaches the profiler to the global window object.
    */
   doEnable: function() {
-    Profiler.attach(Global, 'Global');
+    this.attach(Global, 'Global');
   },
   
   /**
    * Disables the profiler, and stores the enabled setting.
    */
   disable: function() {
-    Profiler.createCookie('off');
+    this.createCookie('off');
   },
   
   /**
    * Returns <code>true</code> if the profiler is enabled, <code>false</code> otherwise.
    */
   isEnabled: function() {
-    return Profiler.readCookie() == 'on';
+    return this.readCookie() == 'on';
   },
   
   /**
    * Resets the profiler and profiler report.
    */
   reset: function() {
-    Profiler.objects = [];
-    Profiler.messages = [];
-    Profiler.data = {};
-    Profiler.clearReport();
+    this.objects = [];
+    this.messages = [];
+    this.data = {};
+    this.clearReport();
   },
   
   /**
@@ -403,14 +403,14 @@ var Profiler =
    * the control window offers this functionality.
    */
   report: function(column, reverse) {
-    var win = Profiler.getReportWindow();
+    var win = this.getReportWindow();
     if (win) {
       // calculate percentages
       var completeTime = 0;
       var count = 0;
       var entries = [];
-      for (var func in Profiler.data) {
-        var f = Profiler.data[func];
+      for (var func in this.data) {
+        var f = this.data[func];
         entries.push(f);
         if (f.time) {
           completeTime += f.time;
@@ -420,9 +420,9 @@ var Profiler =
       
       // sort
       if (column) {
-        Profiler.sortArray(entries, function(a, b) { return Profiler.compare(a[column], b[column]); });
+        this.sortArray(entries, function(a, b) { return this.compare(a[column], b[column]); });
         if (reverse) {
-          entries = Profiler.reverse(entries);
+          entries = this.reverse(entries);
         }
       }
       
@@ -458,8 +458,8 @@ var Profiler =
 
       html.push('<h1>Messages</h1>');
       html.push('<ul>');
-      for (var i = 0, l = Profiler.messages.length; i != l; ++i) {
-        html.push('<li>' + Profiler.messages[i] + '</li>');
+      for (var i = 0, l = this.messages.length; i != l; ++i) {
+        html.push('<li>' + this.messages[i] + '</li>');
       }
       html.push('</ul>');
 
@@ -473,7 +473,7 @@ var Profiler =
    * Clears the report window.
    */
   clearReport: function() {
-    var win = Profiler.getReportWindow();
+    var win = this.getReportWindow();
     if (win) {
       win.document.getElementById('report').innerHTML = '';
     }
@@ -483,23 +483,23 @@ var Profiler =
    * Opens and initializes the report window, or returns it, if it is already open.
    */
   getReportWindow: function() {
-    if (!Profiler.reportWindow || Profiler.reportWindow.closed) {
+    if (!this.reportWindow || this.reportWindow.closed) {
       var win = window.open('', 'report', 'width=640,height=480,scrollbars=yes,resizable=yes');
       if (win) {
         var html = '<html><head><title>Profile</title><style>.even { background-color: #ccc }</style></head><body><div id="report"></div></body></html>';
         win.document.write(html);
 
-        Profiler.reportWindow = win;
+        this.reportWindow = win;
       }
     }
-    return Profiler.reportWindow;
+    return this.reportWindow;
   },
   
   /**
    * Shows the control window.
    */
   showControlWindow: function() {
-    var win = Profiler.getControlWindow();
+    var win = this.getControlWindow();
     if (win) {
       var html = ['<ul>',
                   '<li><a href="#" onclick="window.opener.profiler.enable(); return false;">Enable Profiler</a></li>',
@@ -517,16 +517,16 @@ var Profiler =
    * Opens and initializes the control window, or returns it, if it is already open.
    */
   getControlWindow: function() {
-    if (!Profiler.controlWindow || Profiler.controlWindow.closed) {
+    if (!this.controlWindow || this.controlWindow.closed) {
       var win = window.open('', 'control', 'width=300,height=120,scrollbars=yes,resizable=yes');
       if (win) {
         var html = '<html><head><title>Profiler control</title></head><body><div id="controls"></div><div id="message"></div></body></html>';
         win.document.write(html);
 
-        Profiler.controlWindow = win;
+        this.controlWindow = win;
       }
     }
-    return Profiler.controlWindow;
+    return this.controlWindow;
   }
 };
 
@@ -538,12 +538,12 @@ Function.prototype.profiledFunction = function(name) {
   var func = this;
   var f = function() {
     try {
-      Profiler.start(name);
+      this.start(name);
       var result = func.apply(this, arguments);
-      Profiler.stop(name);
+      this.stop(name);
       return result;
     } catch(e) {
-      Profiler.stop(name);
+      this.stop(name);
       throw(e);
     }
   }

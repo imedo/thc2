@@ -11,7 +11,7 @@
  * @static
  * @class
  */
-var Globalize = {
+thc2.Globalize = {
   /**
    * The current language for translations.
    */
@@ -33,15 +33,15 @@ Object.extend(String.prototype,
    * @return {string} The translated string on success, or the original string on error.
    */
   t: function() {
-    if (Globalize.currentLanguage == "") {
-      Logger.error('Current Language is undefined');
+    if (thc2.Globalize.currentLanguage == "") {
+      thc2.Logger.error('Current Language is undefined');
       return this;
     } else {
-      var result = Globalize[Globalize.currentLanguage][this];
+      var result = thc2.Globalize[thc2.Globalize.currentLanguage][this];
       if (Object.isString(result)) {
         return result;
       } else {
-        Logger.warning('String "' + this + '" is not translated');
+        thc2.Logger.warning('String "' + this + '" is not translated');
         return this;
       }
     }

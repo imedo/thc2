@@ -19,7 +19,7 @@
  * @class
  * @extends Abstract.TimedObserver
  */
-TinyMCEObserver = Class.create(Abstract.TimedObserver,
+thc2.TinyMCEObserver = Class.create(Abstract.TimedObserver,
 /** @scope TinyMCE.Observer.prototype */
 {
   /**
@@ -27,7 +27,7 @@ TinyMCEObserver = Class.create(Abstract.TimedObserver,
    */
   getValue: function() {
     if (tinyMCE.selectedInstance)
-      return tinyMCE.selectedInstance.getHTML();
+      return tinyMCE.activeEditor.getContent();
     else
       return "";
   }

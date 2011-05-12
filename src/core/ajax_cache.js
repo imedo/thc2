@@ -18,7 +18,7 @@
  *
  * @class AjaxCache
  */
-var AjaxCache = Singleton.create(
+thc2.AjaxCache = Singleton.create(
 /** @scope AjaxCache.prototype */
 {
   /**

@@ -6,22 +6,32 @@
   For details, see the project home page: http://opensource.imedo.de/pages/show/thc2
 */
 
-var NullLogger = {
+thc2.NullLogger = {
   log: function(text) {}
 }
 
-var ConsoleLogger = {
+thc2.ConsoleLogger = {
   log: function(text) {
-    console.debug(text);
+    if (window.console.debug === undefined) {
+      window.console.log(text);
+    } else {
+      window.console.debug(text);
+    }
   }
 };
 
-var DocumentLogger = {
+thc2.DocumentLogger = {
   log: function(text) {
     var element = new Element('p').update(text);
     $('logger').insert(element);
   }
 };
+
+thc2.AlertLogger = {
+  log: function(text) {
+    alert(text);
+  }
+}
 
 /**
  * Namespace for logging functions. See the {@link Environment} namespace for log level
@@ -29,9 +39,9 @@ var DocumentLogger = {
  * @static
  * @class
  */
-var Logger = {
-  logger: window.console ? ConsoleLogger :
-          Environment.DebugLevel == 'info' ? DocumentLogger : NullLogger,
+thc2.Logger = {
+  logger: window.console ? thc2.ConsoleLogger :
+          thc2.Environment.DebugLevel == 'info' ? thc2.NullLogger : thc2.NullLogger,
   
   /**
    * Logs a message in the javascript console. If no javascript console is
@@ -40,7 +50,7 @@ var Logger = {
    * @param {string} text The message.
    */
   log: function(text) {
-    Logger.logger.log(text);
+    this.logger.log(text);
   },
   
   /**
@@ -50,8 +60,8 @@ var Logger = {
    * @param {string} text The message.
    */
   info: function(text) {
-    if (Environment.debugLevelIncludes('info')) {
-      Logger.log(text);
+    if (thc2.Environment.debugLevelIncludes('info')) {
+      this.log(text);
     }
   },
   
@@ -62,8 +72,8 @@ var Logger = {
    * @param {string} text The message.
    */
   warning: function(text) {
-    if (Environment.debugLevelIncludes('warning')) {
-      Logger.log(text);
+    if (thc2.Environment.debugLevelIncludes('warning')) {
+      this.log(text);
     }
   },
   
@@ -75,7 +85,7 @@ var Logger = {
    */
   error: function(text) {
     if (Environment.debugLevelIncludes('error')) {
-      Logger.log(text);
+      this.log(text);
     }
   }
 };
