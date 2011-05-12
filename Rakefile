@@ -30,17 +30,22 @@ task :build_htcs => :dist do
   end
 end
 
-desc "Builds the distribution."
-task :dist do
+desc "Create the distribution directory"
+directory THC2_DIST_DIR
+
+desc "Add lib files to thc2.js"
+file "thc2.js" => THC2_DIST_DIR do
   $:.unshift File.join(THC2_ROOT, 'lib')
   require 'protodoc'
-  
   Dir.chdir(THC2_SRC_DIR) do
     File.open(File.join(THC2_DIST_DIR, 'thc2.js'), 'w+') do |dist|
       dist << Protodoc::Preprocessor.new('thc2.js')
     end
   end
 end
+
+desc "Builds the distribution."
+task :dist => "thc2.js"
 
 desc "Create documentation."
 task :document => :dist do
