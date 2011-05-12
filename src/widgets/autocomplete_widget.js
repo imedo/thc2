@@ -26,18 +26,18 @@
  * @class
  * @extends Widget
  */
-var AutocompleteWidget = Class.create(Widget,
+thc2.AutocompleteWidget = Class.create(thc2.Widget,
 /** @scope AutocompleteWidget.prototype */
 {
   /**
    * Constructor.
    */
   initialize: function(element) {
-    Widget.prototype.initialize.apply(this, arguments);
+    thc2.Widget.prototype.initialize.apply(this, arguments);
     this.autocompleteBox = $('autocomplete');
     this.items = $('autocomplete-options').childElements().map(function(e){ return e.innerHTML; })
     this.completer = new Autocompleter.Local(this.element, this.autocompleteBox, this.items);
   }
 });
 
-CurrentPage.registerBehaviour("thc2-autocomplete", AutocompleteWidget);
+thc2.CurrentPage.registerBehaviour("thc2-autocomplete", thc2.AutocompleteWidget);
