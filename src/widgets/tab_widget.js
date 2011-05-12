@@ -319,4 +319,4 @@ thc2.Tab = Class.create(
   }
 });
 
-Tab.activeClassName = 'selected';
+thc2.Tab.activeClassName = 'selected';
