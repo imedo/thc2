@@ -15,7 +15,7 @@
  * @class
  * @extends Bubble
  */
-var AjaxBubble = Class.create(Bubble,
+thc2.AjaxBubble = Class.create(Bubble,
 /** @scope AjaxBubble.prototype */
 {
   /**
@@ -23,7 +23,7 @@ var AjaxBubble = Class.create(Bubble,
    */
   show: function() {
     this.fetch();
-    Bubble.prototype.show.apply(this, arguments);
+    thc2.Bubble.prototype.show.apply(this, arguments);
   },
   
   /**
@@ -31,7 +31,7 @@ var AjaxBubble = Class.create(Bubble,
    */
   appear: function() {
     this.fetch();
-    Bubble.prototype.appear.apply(this, arguments);
+    thc2.Bubble.prototype.appear.apply(this, arguments);
   },
   
   /**
@@ -41,7 +41,7 @@ var AjaxBubble = Class.create(Bubble,
    * @param {String} result The response body of the Ajax request.
    */
   requestCompleted: function(result) {
-    AjaxCache.self().store(this.url(), result);
+    thc2.AjaxCache.self().store(this.url(), result);
     this.updateBubble(result);
     this.updatePosition();
   },
@@ -58,7 +58,7 @@ var AjaxBubble = Class.create(Bubble,
    * Loads the bubble's contents via Ajax.
    */
   fetch: function() {
-    this.contents = AjaxCache.self().find(this.url());
+    this.contents = thc2.AjaxCache.self().find(this.url());
     if (this.contents) {
       this.requestCompleted(this.contents);
     } else {
