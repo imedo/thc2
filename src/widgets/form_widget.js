@@ -46,7 +46,7 @@
  * @class
  * @extends thc2.Widget
  */
-var thc2.FormWidget = Class.create(thc2.Widget,
+thc2.FormWidget = Class.create(thc2.Widget,
 /** @scope thc2.FormWidget.prototype */
 {
   /**

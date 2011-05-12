@@ -34,7 +34,7 @@
  * @class
  * @extends thc2.Widget
  */
-var thc2.RatingWidget = Class.create(thc2.Widget,
+thc2.RatingWidget = Class.create(thc2.Widget,
 /** @scope thc2.RatingWidget.prototype */
 {
   /**
@@ -151,7 +151,7 @@ var thc2.RatingWidget = Class.create(thc2.Widget,
  * when Javascript, and hence Ajax, is not available.
  * @class
  */
-var RatingStar = Class.create(
+thc2.RatingStar = Class.create(
 /** @scope RatingStar.prototype */
 {
   /**
@@ -246,7 +246,7 @@ var RatingStar = Class.create(
  * @class
  * @extends thc2.RatingWidget
  */
-var thc2.OneClickRatingWidget = Class.create(thc2.RatingWidget,
+thc2.OneClickRatingWidget = Class.create(thc2.RatingWidget,
 /** @scope thc2.OneClickRatingWidget.prototype */
 {
   /**
@@ -293,7 +293,7 @@ var thc2.OneClickRatingWidget = Class.create(thc2.RatingWidget,
  * @class
  * @extends thc2.RatingWidget
  */
-var thc2.InputRatingWidget = Class.create(thc2.RatingWidget,
+thc2.InputRatingWidget = Class.create(thc2.RatingWidget,
 /** @scope thc2.InputRatingWidget.prototype */
 {
   ContainerRegexp: /^store_in_(\S+)$/,
