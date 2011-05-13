@@ -19,7 +19,7 @@
  *
  * <p>The star image must consist of 5 stars below each other. For now, each star
  * must have the size of 20 x 20 pixels (To change this size, see the
- * {@link RatingStar#starheight} property).</p>
+ * {@link thc2.RatingStar#starheight} property).</p>
  * 
  * <p>From top to bottom, the stars represent:</p>
  *
@@ -49,7 +49,7 @@ thc2.RatingWidget = Class.create(thc2.Widget,
     var widget = this;
     var i = 0;
     this.stars = this.list.collect(function(item) {
-      return new RatingStar(item, widget, i++);
+      return new thc2.RatingStar(item, widget, i++);
     });
     
     this.stars.each(function(star){
@@ -152,7 +152,7 @@ thc2.RatingWidget = Class.create(thc2.Widget,
  * @class
  */
 thc2.RatingStar = Class.create(
-/** @scope RatingStar.prototype */
+/** @scope thc2.RatingStar.prototype */
 {
   /**
    * Default star height. Adjust this property to use differently sized stars.
