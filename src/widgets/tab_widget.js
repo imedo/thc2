@@ -56,8 +56,8 @@ thc2.TabWidget = Class.create(thc2.Widget,
   initTabs: function() {
     this.list = $A(this.element.getElementsByClassName('tab-list')[0].getElementsByTagName("li"));
     this.tabs = this.list.collect(function(item) {
-      var tab = new Tab(this, $(item));
-      if (item.hasClassName(Tab.activeClassName))
+      var tab = new thc2.Tab(this, $(item));
+      if (item.hasClassName(thc2.Tab.activeClassName))
         this.currentTab = tab;
       return tab;
     }.bind(this));
@@ -74,7 +74,7 @@ thc2.TabWidget = Class.create(thc2.Widget,
   
   /**
    * Switches from the current tab to a new tab.
-   * @param {Tab} newTab The tab to switch to.
+   * @param {thc2.Tab} newTab The tab to switch to.
    */
   switchTab: function(newTab) {
     this.beforeSwitch(this.currentTab, newTab);
@@ -89,8 +89,8 @@ thc2.TabWidget = Class.create(thc2.Widget,
   
   /**
    * Updates the internal currentTab property.
-   * @param {Tab} oldTab The old tab.
-   * @param {Tab} newTab The new tab.
+   * @param {thc2.Tab} oldTab The old tab.
+   * @param {thc2.Tab} newTab The new tab.
    */
   switchCurrent: function(oldTab, newTab) {
     oldTab.turnOff();
@@ -100,8 +100,8 @@ thc2.TabWidget = Class.create(thc2.Widget,
   
   /**
    * Callback method that is called before the tab is switched.
-   * @param {Tab} oldTab The old tab.
-   * @param {Tab} newTab The new tab.
+   * @param {thc2.Tab} oldTab The old tab.
+   * @param {thc2.Tab} newTab The new tab.
    */
   beforeSwitch: function(oldTab, newTab) {
   },
@@ -109,16 +109,16 @@ thc2.TabWidget = Class.create(thc2.Widget,
   /**
    * Perform the actual switching of the tabs. Reimplement to add
    * your own behaviour.
-   * @param {Tab} oldTab The old tab.
-   * @param {Tab} newTab The new tab.
+   * @param {thc2.Tab} oldTab The old tab.
+   * @param {thc2.Tab} newTab The new tab.
    */
   doSwitch: function(oldTab, newTab) {
   },
   
   /**
    * Callback method that is called after the tab is switched.
-   * @param {Tab} oldTab The old tab.
-   * @param {Tab} newTab The new tab.
+   * @param {thc2.Tab} oldTab The old tab.
+   * @param {thc2.Tab} newTab The new tab.
    */
   afterSwitch: function(oldTab, newTab) {
   }
@@ -289,7 +289,7 @@ thc2.CurrentPage.registerBehaviour("thc2-tab-widget", thc2.AjaxTabWidget);
  * @class
  */
 thc2.Tab = Class.create(
-/** @scope Tab.prototype */
+/** @scope thc2.Tab.prototype */
 {
   /**
    * Constructor.
@@ -308,14 +308,14 @@ thc2.Tab = Class.create(
    * Sets the tab to "on" state.
    */
   turnOn: function() {
-    this.button.addClassName(Tab.activeClassName);
+    this.button.addClassName(thc2.Tab.activeClassName);
   },
   
   /**
    * Sets the tab to "off" state.
    */
   turnOff: function() {
-    this.button.removeClassName(Tab.activeClassName);
+    this.button.removeClassName(thc2.Tab.activeClassName);
   }
 });
 
